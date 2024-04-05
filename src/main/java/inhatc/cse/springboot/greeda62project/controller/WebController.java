@@ -11,8 +11,8 @@ public class WebController {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    @GetMapping("/member")
+    public String member() {
+        return "member";
     }
 }
