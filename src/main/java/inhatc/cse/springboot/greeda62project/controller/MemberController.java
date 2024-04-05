@@ -25,7 +25,7 @@ public class MemberController {
     }
 
     @PostMapping("/member")
-    public MemberDTO createMember(@RequestBody MemberDTO memberDTO){
+    public MemberDTO createMember(MemberDTO memberDTO){
         String id = memberDTO.getId();
         String name = memberDTO.getName();
         String email = memberDTO.getEmail();
