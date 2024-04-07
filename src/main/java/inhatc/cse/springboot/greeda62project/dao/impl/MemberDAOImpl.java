@@ -20,4 +20,10 @@ public class MemberDAOImpl implements MemberDAO {
         memberRepository.save(memberEntity);
         return memberEntity;
     }
+
+    @Override
+    public MemberEntity getMember(String id) {
+        MemberEntity memberEntity = memberRepository.getReferenceById(id);
+        return memberEntity;
+    }
 }

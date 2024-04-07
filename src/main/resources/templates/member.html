@@ -55,9 +55,9 @@
         <div>
             <h2>로그인</h2>
             <form class="wrapper-box" role="form" ng-submit="login()">
-                <input type="email"
-                       ng-model="email"
-                       class="form-control form-control-email"
+                <input type="text"
+                       name="id"
+                       class="form-control form-control-id"
                        placeholder="아이디를 입력하세요"
                        required>
                 <br>
@@ -83,7 +83,7 @@
             <form action="/member" method="post" class="wrapper-box" role="form" ng-submit="register()">
                 <input type="text"
                        name="id"
-                       class="form-control form-control-username"
+                       class="form-control form-control-id"
                        placeholder="아이디를 입력하세요"
                        required >
                 <br>

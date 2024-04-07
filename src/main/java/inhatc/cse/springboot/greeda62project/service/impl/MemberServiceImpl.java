@@ -1,5 +1,6 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
+import inhatc.cse.springboot.greeda62project.dao.MemberDAO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 import inhatc.cse.springboot.greeda62project.handler.MemberDataHandler;
@@ -27,5 +28,13 @@ public class MemberServiceImpl implements MemberService {
         return memberDTO;
     }
 
+    @Override
+    public MemberDTO getMemberEntity(String id) {
+        MemberEntity memberEntity = memberDataHandler.getMemberEntity(id);
 
+        MemberDTO memberDTO = new MemberDTO(memberEntity.getId(), memberEntity.getName(),
+                memberEntity.getEmail(), memberEntity.getAddress());
+
+        return memberDTO;
+    }
 }
