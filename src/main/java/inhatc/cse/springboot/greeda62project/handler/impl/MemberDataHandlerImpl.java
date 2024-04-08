@@ -19,8 +19,8 @@ public class MemberDataHandlerImpl implements MemberDataHandler {
     }
 
     @Override
-    public MemberEntity saveMemberEntity(String id, String name, String email, String address) {
-        MemberEntity memberEntity = new MemberEntity(id, name, email, address);
+    public MemberEntity saveMemberEntity(String id, String password, String name, String email, String address) {
+        MemberEntity memberEntity = new MemberEntity(id, password, name, email, address);
         return memberDAO.saveMember(memberEntity);
     }
 
