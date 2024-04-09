@@ -34,16 +34,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO getMemberEntity(String id) {
-        MemberEntity memberEntity = memberDataHandler.getMemberEntity(id);
-
-        MemberDTO memberDTO = new MemberDTO(memberEntity.getId(), memberEntity.getPassword(), memberEntity.getName(),
-                memberEntity.getEmail(), memberEntity.getAddress());
-
-        return memberDTO;
-    }
-
-    @Override
     public MemberDTO login(MemberDTO memberDTO) {
         Optional <MemberEntity> byMemberid = memberRepository.findById(memberDTO.getId());
         if(byMemberid.isPresent()){

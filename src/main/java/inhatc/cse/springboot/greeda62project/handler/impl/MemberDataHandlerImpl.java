@@ -24,10 +24,4 @@ public class MemberDataHandlerImpl implements MemberDataHandler {
         return memberDAO.saveMember(memberEntity);
     }
 
-    @Override
-    public MemberEntity getMemberEntity(String id) {
-        return memberDAO.getMember(id);
-    }
-
-
 }

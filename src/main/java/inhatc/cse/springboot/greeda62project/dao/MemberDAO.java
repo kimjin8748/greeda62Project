@@ -6,5 +6,4 @@ public interface MemberDAO {
 
     MemberEntity saveMember(MemberEntity memberEntity);
 
-    MemberEntity getMember(String id);
 }

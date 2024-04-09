@@ -7,7 +7,5 @@ public interface MemberService {
 
     MemberDTO saveMember(String id, String password, String name, String email, String address);
 
-    MemberDTO getMemberEntity(String id);
-
     MemberDTO login(MemberDTO memberDTO);
 }

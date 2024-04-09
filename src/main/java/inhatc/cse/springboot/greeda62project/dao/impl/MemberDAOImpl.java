@@ -21,9 +21,4 @@ public class MemberDAOImpl implements MemberDAO {
         return memberEntity;
     }
 
-    @Override
-    public MemberEntity getMember(String id) {
-        MemberEntity memberEntity = memberRepository.getReferenceById(id);
-        return memberEntity;
-    }
 }
