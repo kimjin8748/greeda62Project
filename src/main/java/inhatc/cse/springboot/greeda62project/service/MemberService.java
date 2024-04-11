@@ -8,4 +8,6 @@ public interface MemberService {
     MemberDTO saveMember(String id, String password, String name, String email, String address);
 
     MemberDTO login(MemberDTO memberDTO);
+
+    boolean checkDuplicateId(String id);
 }

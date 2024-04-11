@@ -48,4 +48,8 @@ public class MemberServiceImpl implements MemberService {
             return null;
         }
     }
+
+    public boolean checkDuplicateId(String id) {
+        return memberRepository.existsById(id);
+    }
 }
