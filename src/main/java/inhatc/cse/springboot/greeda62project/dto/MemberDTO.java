@@ -39,4 +39,5 @@ public class MemberDTO {
         dto.setAddress(memberEntity.getAddress());
         return dto;
     }
+
 }
