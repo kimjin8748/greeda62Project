@@ -1,7 +1,6 @@
 package inhatc.cse.springboot.greeda62project.service;
 
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
-import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 
 public interface MemberService {
 
@@ -9,5 +8,5 @@ public interface MemberService {
 
     MemberDTO login(MemberDTO memberDTO);
 
-    boolean checkDuplicateId(String id);
+    boolean checkIdDuplicated(String id);
 }

@@ -1,6 +1,5 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
-import inhatc.cse.springboot.greeda62project.dao.MemberDAO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 import inhatc.cse.springboot.greeda62project.handler.MemberDataHandler;
@@ -49,7 +48,9 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    public boolean checkDuplicateId(String id) {
+    @Override
+    public boolean checkIdDuplicated(String id) {
         return memberRepository.existsById(id);
     }
+
 }
