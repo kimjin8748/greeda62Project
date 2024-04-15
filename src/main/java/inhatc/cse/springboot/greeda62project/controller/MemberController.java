@@ -1,20 +1,18 @@
 package inhatc.cse.springboot.greeda62project.controller;
 
-import inhatc.cse.springboot.greeda62project.dao.MemberDAO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
-import inhatc.cse.springboot.greeda62project.validator.MemberValidator;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.validation.BindingResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class MemberController {
 
-    private MemberValidator memberValidator;
     private MemberService memberService;
 
     @Autowired
@@ -53,26 +51,14 @@ public class MemberController {
         }
     }
 
-    @PostMapping("/member/login-check")
-    public ResponseEntity<String> createMember(@RequestBody MemberDTO memberDTO, BindingResult bindingResult) {
-        // DTO를 Validator에 전달하여 유효성 검사 수행
-        memberValidator.validate(memberDTO, bindingResult);
-
-        // 검증 결과 확인
-        if (bindingResult.hasErrors()) {
-            // 오류가 있는 경우
-            return ResponseEntity.badRequest().body(bindingResult.getAllErrors().get(0).getDefaultMessage());
-        } else {
-            return ResponseEntity.ok("회원 가입 성공");
-        }
+    @PostMapping("/check-id")
+    @ResponseBody // 비동기 요청에 대한 응답을 JSON 등의 형태로 반환하기 위해 사용
+    public Map<String, Boolean> checkId(@RequestParam("id") String id) {
+        Map<String, Boolean> response = new HashMap<>();
+        boolean isDuplicated = memberService.checkIdDuplicated(id); // ID 중복 검사 로직 구현
+        response.put("isDuplicated", isDuplicated);
+        return response;
     }
-//    @GetMapping("/member/{id}")
-//    public ResponseEntity<String> checkDuplicateId(@PathVariable String id){
-//        boolean isDuplicate = memberService.checkDuplicateId(id);
-//        if (isDuplicate) {
-//            return ResponseEntity.ok("중복된 아이디입니다.");
-//        } else {
-//            return ResponseEntity.ok("사용 가능한 아이디입니다.");
-//        }
-//    }
+
+
 }
