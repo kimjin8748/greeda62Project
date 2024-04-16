@@ -83,6 +83,7 @@
                 <a class="outer-link pull-left" href="/forgot">아이디 찾기</a>
                 <button type="submit" class="btn btn-submit btn-default pull-right">로그인</button>
             </form>
+            <div th:if="${loginError}" th:text="${loginError}"></div>
         </div>
     </div>
 

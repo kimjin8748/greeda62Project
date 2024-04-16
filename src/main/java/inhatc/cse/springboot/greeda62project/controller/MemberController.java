@@ -5,6 +5,7 @@ import inhatc.cse.springboot.greeda62project.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("id") String id, @RequestParam("password") String password, HttpSession session){
+    public String login(@RequestParam("id") String id, @RequestParam("password") String password, HttpSession session, Model model){
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setId(id);
         memberDTO.setPassword(password);
@@ -47,6 +48,7 @@ public class MemberController {
             session.setAttribute("id", loginResult.getId());
             return "index";
         } else {
+            model.addAttribute("loginError", "아이디나 비밀번호를 확인하세요");
             return "member";
         }
     }
