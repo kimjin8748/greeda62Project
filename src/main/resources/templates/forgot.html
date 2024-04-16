@@ -12,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/member_styles.css" rel="stylesheet" />
 </head>
 <body>
 <!-- Responsive navbar-->
@@ -58,6 +59,30 @@
         </div>
     </div>
 </nav>
+<div class="login-content login-content-signin" ng-hide="showSignIn">
+    <div>
+        <h2>아이디 찾기</h2>
+        <form action="" method="post" class="wrapper-box" role="form" ng-submit="login()">
+            <input type="text"
+                   name="name"
+                   class="form-control form-control-username"
+                   placeholder="이름을 입력하세요"
+                   required >
+            <br>
+            <input type="email"
+                   name="email"
+                   class="form-control form-control-email"
+                   placeholder="이메일을 입력하세요"
+                   required >
+            <!-- <div class="checkbox pull-left">
+              <label>
+                <input type="checkbox"> Remember me.
+              </label>
+            </div> -->
+            <button type="submit" class="btn btn-submit btn-default pull-right">아이디 찾기</button>
+        </form>
+    </div>
+</div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
