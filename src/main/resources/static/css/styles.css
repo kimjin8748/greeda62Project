@@ -3257,6 +3257,52 @@ textarea.form-control-lg {
   border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
   border-radius: var(--bs-dropdown-border-radius);
 }
+
+/* 검색창 컨테이너 스타일 */
+.search-container {
+  display: flex; /* Flexbox를 사용하여 내부 요소들을 좀 더 유연하게 배치 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+/* 검색창 입력 필드 스타일 */
+.search-input {
+  padding: 5px 10px; /* 기존 패딩을 줄여서 더 작은 입력 필드 생성 */
+  font-size: 14px; /* 폰트 사이즈 축소 */
+  border: 1px solid #ccc; /* 경계선 설정 */
+  border-radius: 15px; /* 모서리 둥글게 */
+  outline: none; /* 클릭 시 발생하는 외곽선 제거 */
+  width: 160px; /* 검색창 너비 지정 */
+}
+
+/* 검색 버튼 스타일 */
+.search-button {
+  margin-left: 5px; /* 검색창과의 간격 */
+  padding: 5px 10px; /* 기존 패딩보다 작게 조정 */
+  font-size: 14px; /* 폰트 사이즈 축소 */
+  border: none; /* 경계선 제거 */
+  border-radius: 15px; /* 모서리 둥글게 */
+  cursor: pointer; /* 마우스 오버 시 커서 변경 */
+  background-color: #007bff; /* 배경색 */
+  color: white; /* 글자색 */
+}
+
+/* 닫기 버튼 스타일 (선택적) */
+.icon-close {
+  margin-left: 5px; /* 검색창과의 간격 */
+  cursor: pointer; /* 마우스 오버 시 커서 변경 */
+  color: #ccc; /* 아이콘 색상 */
+  font-size: 14px; /* 아이콘 크기 조정 */
+}
+
+
+.search-input:not(:placeholder-shown) ~ .icon-close {
+  display: block; /* 입력 필드에 텍스트가 있을 때만 닫기 버튼 표시 */
+}
+
+.search-input:focus ~ .icon-close {
+  display: block; /* 입력 필드에 초점이 맞춰져 있을 때 닫기 버튼 표시 */
+}
+
 .dropdown-menu[data-bs-popper] {
   top: 100%;
   left: 0;

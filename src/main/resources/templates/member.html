@@ -6,12 +6,13 @@
     <title>그린다62</title>
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Include any necessary CSS files -->
-    <link rel="stylesheet" href="/css/member_styles.css">
+    <link href="/css/member_styles.css" rel="stylesheet"/>
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Include AngularJS library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
     <script src="/js/member_scripts.js"></script>
+    <script src="/js/scripts.js"></script>
 </head>
 <body>
 
@@ -43,6 +44,12 @@
                             </ul>
                         </li>
                     </ul>
+                    &nbsp;
+                    <div class="search-container">
+                        <input type="text" id="search-field" class="search-input" placeholder="검색...">
+                        <button class="search-button">검색</button>
+                        <div class="icon-close" onclick="clearSearchField()">✖</div>
+                    </div>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
