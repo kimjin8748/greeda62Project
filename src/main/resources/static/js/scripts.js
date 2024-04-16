@@ -10,3 +10,7 @@ function clearSearchField() {
     document.getElementById('search-field').value = '';
     document.getElementById('search-field').focus(); // 입력 필드에 다시 초점을 맞춥니다.
 }
+
+app.controller('MemberController', ['$scope', function($scope) {
+    $scope.showSignIn = !signUpFailed;
+}]);

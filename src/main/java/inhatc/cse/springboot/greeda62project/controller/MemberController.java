@@ -27,15 +27,26 @@ public class MemberController {
     }
 
     @PostMapping("/member")
-    public MemberDTO createMember(MemberDTO memberDTO){
+    public MemberDTO createMember(MemberDTO memberDTO, Model model){
         String id = memberDTO.getId();
         String password = memberDTO.getPassword();
         String name = memberDTO.getName();
         String email = memberDTO.getEmail();
         String address = memberDTO.getAddress();
 
-        return memberService.saveMember(id, password, name, email, address);
+        // 아이디 중복 검사
+        boolean isDuplicated = memberService.checkIdDuplicated(id);
+
+        // 중복된 경우, null 반환 or 적절한 예외 처리
+        if (isDuplicated) {
+            model.addAttribute("signUpError", "아이디가 이미 있습니다.");
+            model.addAttribute("signUpFailed", true);
+            return null;
+        } else {
+            return memberService.saveMember(id, password, name, email, address);
+        }
     }
+
 
     @PostMapping("/login")
     public String login(@RequestParam("id") String id, @RequestParam("password") String password, HttpSession session, Model model){
