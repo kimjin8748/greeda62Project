@@ -18,7 +18,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border: 1px solid #000">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="/">그린다62</a>
+        <a href="/" ><img src="/images/로고사진2.png"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -49,9 +49,18 @@
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
+            &nbsp;
+            <div class="search-container">
+                <input type="text" id="search-field" class="search-input" placeholder="검색...">
+                <button class="search-button">검색</button>
+                <div class="icon-close" onclick="clearSearchField()">✖</div>
+            </div>
         </div>
     </div>
 </nav>
-
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>
