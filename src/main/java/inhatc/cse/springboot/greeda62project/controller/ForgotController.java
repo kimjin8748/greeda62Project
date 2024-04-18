@@ -33,10 +33,12 @@ public class ForgotController {
 
         MemberDTO loginResult = memberService.forgot(memberDTO);
         if(loginResult != null) {
-            session.setAttribute("name", loginResult.getName());
-            return "main";
+            session.setAttribute("id", loginResult.getId());
+            model.addAttribute("memberId", loginResult.getId());
+            model.addAttribute("forgotsuccess", "찾으시는 아이디는 " + loginResult.getId() + "입니다.");
+            return "member";
         } else {
-            model.addAttribute("loginError", "아이디나 비밀번호를 확인하세요");
+            model.addAttribute("forgoterror", "가입된 아이디가 없습니다.");
             return "forgot";
         }
     }

@@ -74,11 +74,8 @@
                    class="form-control form-control-email"
                    placeholder="이메일을 입력하세요"
                    required >
-            <!-- <div class="checkbox pull-left">
-              <label>
-                <input type="checkbox"> Remember me.
-              </label>
-            </div> -->
+            <br>
+            <div th:if="${forgoterror}" th:text="${forgoterror}"></div>
             <button type="submit" class="btn btn-submit btn-default pull-right">아이디 찾기</button>
         </form>
     </div>

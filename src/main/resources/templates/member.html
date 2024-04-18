@@ -63,6 +63,7 @@
         <div>
             <h2>로그인</h2>
             <form action="/login" method="post" class="wrapper-box" role="form" ng-submit="login()">
+                <div th:if="${forgotsuccess}" th:text="${forgotsuccess}"></div>
                 <input type="text"
                        name="id"
                        class="form-control form-control-id"
