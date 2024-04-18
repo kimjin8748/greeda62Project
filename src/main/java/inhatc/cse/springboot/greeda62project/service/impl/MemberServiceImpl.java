@@ -53,4 +53,20 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.existsById(id);
     }
 
+    @Override
+    public MemberDTO forgot(MemberDTO memberDTO) {
+        Optional <MemberEntity> byMembername = memberRepository.findByName(memberDTO.getName());
+        if(byMembername.isPresent()){
+            MemberEntity memberEntity = byMembername.get(); // Optional에서 꺼냄
+            if(memberEntity.getEmail().equals(memberDTO.getEmail())){
+                MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
+                return dto;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
 }

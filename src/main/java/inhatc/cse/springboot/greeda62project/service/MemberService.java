@@ -9,4 +9,6 @@ public interface MemberService {
     MemberDTO login(MemberDTO memberDTO);
 
     boolean checkIdDuplicated(String id);
+
+    MemberDTO forgot(MemberDTO memberDTO);
 }
