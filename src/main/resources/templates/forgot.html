@@ -62,6 +62,7 @@
 <div class="login-content login-content-signin" ng-hide="showSignIn">
     <div>
         <h2>아이디 찾기</h2>
+        <div th:if="${forgoterror}" th:text="${forgoterror}"></div>
         <form action="/forgot" method="post" class="wrapper-box" role="form" ng-submit="login()">
             <input type="text"
                    name="name"
@@ -75,7 +76,6 @@
                    placeholder="이메일을 입력하세요"
                    required >
             <br>
-            <div th:if="${forgoterror}" th:text="${forgoterror}"></div>
             <button type="submit" class="btn btn-submit btn-default pull-right">아이디 찾기</button>
         </form>
     </div>
