@@ -75,11 +75,6 @@
                        class="form-control form-control-password"
                        placeholder="비밀번호를 입력하세요"
                        required >
-                <!-- <div class="checkbox pull-left">
-                  <label>
-                    <input type="checkbox"> Remember me.
-                  </label>
-                </div> -->
                 <a class="outer-link pull-left" href="/forgot">아이디 찾기</a>
                 <button type="submit" class="btn btn-submit btn-default pull-right">로그인</button>
             </form>
@@ -130,11 +125,6 @@
                        placeholder="주소를 입력하세요"
                        required >
                 <br>
-                <!-- <div class="checkbox pull-left">
-                  <label>
-                    <input type="checkbox"> Remember me.
-                  </label>
-                </div> -->
                 <button type="submit" class="btn btn-submit btn-default pull-right">회원가입</button>
             </form>
             <div th:if="${signUpError}" th:text="${signUpError}"></div>
