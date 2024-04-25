@@ -60,6 +60,7 @@
     </div>
 </nav>
 <div class="login-content login-content-signin" ng-hide="showSignIn">
+    <img src="/images/뒤로가기버튼.png" class="back-button" alt="뒤로 가기" style="cursor:pointer;" onclick="history.back();">
     <div>
         <h2>아이디 찾기</h2>
         <div th:if="${forgoterror}" th:text="${forgoterror}"></div>
