@@ -39,7 +39,7 @@ public class MemberController {
 
         // 중복된 경우, null 반환 or 적절한 예외 처리
         if (isDuplicated) {
-            model.addAttribute("signUpError", "아이디가 이미 있습니다.");
+            model.addAttribute("signUpError", "회원가입에 실패하였습니다(아이디를 다시 확인해주세요.)");
             model.addAttribute("signUpFailed", true);
             return null;
         } else {
