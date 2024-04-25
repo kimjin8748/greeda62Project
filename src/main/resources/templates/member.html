@@ -24,10 +24,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">모든상품</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">화분</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">다육이</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">다육이&화분Set</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/allproduct">모든상품</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/pot">화분</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/succulent">다육이</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/set">다육이&화분Set</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="#">고객문의</a></li>
@@ -63,7 +63,9 @@
         <div>
             <h2>로그인</h2>
             <form action="/login" method="post" class="wrapper-box" role="form" ng-submit="login()">
-                <div th:if="${forgotsuccess}" th:text="${forgotsuccess}"></div>
+                <div th:if="${forgotsuccess}" th:class="forgotsuccess-msg" th:text="${forgotsuccess}"></div>
+                <div th:if="${signUpError}" th:class="signuperror-msg" th:text="${signUpError}"></div>
+                <div th:if="${loginError}" th:class="loginerror-msg" th:text="${loginError}"></div>
                 <input type="text"
                        name="id"
                        class="form-control form-control-id"
@@ -78,7 +80,6 @@
                 <a class="outer-link pull-left" href="/forgot">아이디 찾기</a>
                 <button type="submit" class="btn btn-submit btn-default pull-right">로그인</button>
             </form>
-            <div th:if="${loginError}" th:text="${loginError}"></div>
         </div>
     </div>
 
@@ -127,7 +128,6 @@
                 <br>
                 <button type="submit" class="btn btn-submit btn-default pull-right">회원가입</button>
             </form>
-            <div th:if="${signUpError}" th:text="${signUpError}"></div>
         </div>
     </div>
 
