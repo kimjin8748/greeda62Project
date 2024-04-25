@@ -214,3 +214,23 @@ form.wrapper-box button:active {
   -webkit-transform: translateY(10px);
   transform: translateY(10px);
 }
+
+.signuperror-msg {
+  color: red;
+}
+
+.loginerror-msg {
+  color: red;
+}
+
+.forgotsuccess-msg {
+  color: #7ac142;
+}
+
+.back-button {
+  position: absolute;
+  top: 35px; /* 버튼의 상단 마진 조정 */
+  left: 35px; /* 버튼의 좌측 마진 조정 */
+  max-width: 100%;
+  height: auto;
+}
