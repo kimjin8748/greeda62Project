@@ -35,7 +35,7 @@ public class ForgotController {
         if(loginResult != null) {
             session.setAttribute("id", loginResult.getId());
             model.addAttribute("memberId", loginResult.getId());
-            model.addAttribute("forgotsuccess", "찾으시는 아이디는 " + loginResult.getId() + "입니다.");
+            model.addAttribute("forgotsuccess", "찾으시는 아이디는 " + loginResult.getId() + " 입니다.");
             return "member";
         } else {
             model.addAttribute("forgoterror", "가입된 아이디가 없습니다.");
