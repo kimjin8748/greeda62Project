@@ -1,4 +1,4 @@
-package inhatc.cse.springboot.greeda62project.controller.member;
+package inhatc.cse.springboot.greeda62project.controller;
 
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
@@ -23,7 +23,7 @@ public class MemberController {
 
     @GetMapping("/member")
     public String memberSignup() {
-        return "/member/member";
+        return "/member";
     }
 
     @PostMapping("/member")
@@ -64,7 +64,7 @@ public class MemberController {
             }
         } else {
             model.addAttribute("loginError", "아이디나 비밀번호를 확인하세요");
-            return "/member/member";
+            return "/member";
         }
     }
 

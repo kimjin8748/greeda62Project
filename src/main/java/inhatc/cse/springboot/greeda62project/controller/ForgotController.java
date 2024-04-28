@@ -1,4 +1,4 @@
-package inhatc.cse.springboot.greeda62project.controller.member;
+package inhatc.cse.springboot.greeda62project.controller;
 
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
@@ -22,7 +22,7 @@ public class ForgotController {
 
     @GetMapping("/forgot")
     public String find() {
-        return "/member/forgot";
+        return "/forgot";
     }
 
     @PostMapping("/forgot")
@@ -36,10 +36,10 @@ public class ForgotController {
             session.setAttribute("id", loginResult.getId());
             model.addAttribute("memberId", loginResult.getId());
             model.addAttribute("forgotsuccess", "찾으시는 아이디는 " + loginResult.getId() + " 입니다.");
-            return "/member/member";
+            return "/member";
         } else {
             model.addAttribute("forgoterror", "가입된 아이디가 없습니다.");
-            return "/member/forgot";
+            return "/forgot";
         }
     }
 }
