@@ -14,12 +14,3 @@ function clearSearchField() {
 app.controller('MemberController', ['$scope', function($scope) {
     $scope.showSignIn = !signUpFailed;
 }]);
-
-//jQuery 사용하여 실시간 비밀번호 확인
-function pwCheck(){
-    if($('#pw1').val() === $('#pw2').val()){
-        $('#pwConfirm').text('비밀번호 일치').css('color', 'green')
-    }else{
-        $('#pwConfirm').text('비밀번호 불일치').css('color', 'red')
-    }
-}
