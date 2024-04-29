@@ -234,3 +234,7 @@ form.wrapper-box button:active {
   max-width: 100%;
   height: auto;
 }
+
+.id-search {
+  margin-top: 150px;
+}
