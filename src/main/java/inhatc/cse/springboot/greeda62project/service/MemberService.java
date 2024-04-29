@@ -13,4 +13,6 @@ public interface MemberService {
     MemberDTO forgot(MemberDTO memberDTO);
 
     MemberDTO findMemberById(String id);
+
+    boolean updateMember(String id, String password, String name, String email, String address);
 }

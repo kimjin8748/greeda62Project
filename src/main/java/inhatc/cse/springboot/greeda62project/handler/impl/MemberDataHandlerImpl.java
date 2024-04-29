@@ -23,4 +23,10 @@ public class MemberDataHandlerImpl implements MemberDataHandler {
         return memberDAO.saveMember(memberEntity);
     }
 
+    @Override
+    public MemberEntity updateMemberEntity(String id, String password, String name, String email, String address) {
+        MemberEntity memberEntity = new MemberEntity(id, password, name, email, address);
+        return memberDAO.updateMember(memberEntity);
+    }
+
 }

@@ -6,4 +6,5 @@ public interface MemberDAO {
 
     MemberEntity saveMember(MemberEntity memberEntity);
 
+    MemberEntity updateMember(MemberEntity memberEntity);
 }

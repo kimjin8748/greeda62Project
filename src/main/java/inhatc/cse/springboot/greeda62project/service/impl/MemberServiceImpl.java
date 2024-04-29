@@ -81,4 +81,15 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    @Override
+    public boolean updateMember(String id, String password, String name, String email, String address) {
+        MemberEntity memberEntity = memberDataHandler.updateMemberEntity(id, password, name, email, address);
+        if (memberEntity != null) {
+            MemberDTO memberDTO = new MemberDTO(memberEntity.getId(), memberEntity.getPassword(), memberEntity.getName(),
+                    memberEntity.getEmail(), memberEntity.getAddress());
+            return true;
+        }
+        return false;
+    }
+
 }

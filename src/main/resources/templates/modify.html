@@ -35,7 +35,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">회원정보</a></li>
+                        <li><a class="dropdown-item" href="/modify">회원정보</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="#!">멤버쉽</a></li>
                         <li><a class="dropdown-item" href="#!">배송조회</a></li>
@@ -62,44 +62,47 @@
 <div class="login-content login-content-memberupdate" ng-hide="showSignIn">
     <div>
         <h2>회원정보 수정</h2>
+        <div th:if="${successMessage}" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" th:text="${errorMessage}"></div>
         <form action="/modify" method="post" class="wrapper-box" role="form" ng-submit="register()">
             <input type="text"
                    name="id"
                    id="id"
                    class="form-control form-control-id"
-                   value="kimjin8748"
+                   th:value="${member.id}"
                    required readonly>
             <br>
             <input type="password"
                    name="password"
                    class="form-control form-control-password"
                    id="pw1" oninput="pwCheck()"
-                   value="1234"
+                   th:value="${member.password}"
                    required >
             <br>
             <input type="password"
                    name="again_password"
                    class="form-control form-control-again-password"
                    id="pw2" oninput="pwCheck()"
-                   value="1234"
+                   th:value="${member.password}"
                    required >
+            <span id="pwConfirm"></span>
             <br>
             <input type="text"
                    name="name"
                    class="form-control form-control-username"
-                   value="김용진"
+                   th:value="${member.name}"
                    required >
             <br>
             <input type="email"
                    name="email"
                    class="form-control form-control-email"
-                   value="kimjin8748@gmail.com"
+                   th:value="${member.email}"
                    required >
             <br>
             <input type="text"
                    name="address"
                    class="form-control form-control-email"
-                   value="경기 광주시 오포읍 문형리 144-21"
+                   th:value="${member.address}"
                    required >
             <br>
             <button type="submit" class="btn btn-submit btn-default pull-right">수정하기</button>
@@ -108,7 +111,9 @@
 </div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Core theme JS-->
 <script src="/js/scripts.js"></script>
+<script src="/js/member_scripts.js"></script>
 </body>
 </html>

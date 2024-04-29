@@ -21,4 +21,10 @@ public class MemberDAOImpl implements MemberDAO {
         return memberEntity;
     }
 
+    @Override
+    public MemberEntity updateMember(MemberEntity memberEntity) {
+        memberRepository.save(memberEntity);
+        return memberEntity;
+    }
+
 }
