@@ -11,4 +11,6 @@ public interface MemberService {
     boolean checkIdDuplicated(String id);
 
     MemberDTO forgot(MemberDTO memberDTO);
+
+    MemberDTO findMemberById(String id);
 }

@@ -69,4 +69,16 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    //회원정보 수정 페이지로 이동을 위한 로직
+    @Override
+    public MemberDTO findMemberById(String id) {
+        Optional<MemberEntity> memberEntityOptional = memberRepository.findById(id);
+        if (memberEntityOptional.isPresent()) {
+            MemberEntity memberEntity = memberEntityOptional.get();
+            return MemberDTO.toMemberDTO(memberEntity);
+        } else {
+            return null; // 또는 예외 처리
+        }
+    }
+
 }
