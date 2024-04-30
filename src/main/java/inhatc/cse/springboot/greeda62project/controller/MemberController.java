@@ -68,6 +68,12 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // 세션 무효화
+        return "redirect:/"; // 로그인 페이지나 메인 페이지로 리다이렉트
+    }
+
     @PostMapping("/check-id")
     @ResponseBody // 비동기 요청에 대한 응답을 JSON 등의 형태로 반환하기 위해 사용
     public Map<String, Boolean> checkId(@RequestParam("id") String id) {
