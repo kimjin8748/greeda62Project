@@ -56,16 +56,13 @@ public class MemberController {
 
         MemberDTO loginResult = memberService.login(memberDTO);
         if(loginResult != null) {
-            if(loginResult.getId().equals("admin")) {
-                return "/admin/admin";
+            session.setAttribute("id", loginResult.getId());
+            return "main";
             } else {
-                session.setAttribute("id", loginResult.getId());
-                return "main";
-            }
-        } else {
             model.addAttribute("loginError", "아이디나 비밀번호를 확인하세요");
-            return "/member";
+            return "member";
         }
+
     }
 
     @GetMapping("/logout")
