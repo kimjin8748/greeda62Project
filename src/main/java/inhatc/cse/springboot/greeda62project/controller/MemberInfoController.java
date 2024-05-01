@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -40,28 +41,34 @@ public class MemberInfoController {
     }
 
     @PostMapping("/modify")
-    public String updateMember(@ModelAttribute MemberDTO memberDTO, HttpSession session, RedirectAttributes redirectAttributes) {
-        String id = memberDTO.getId();
-        String password = memberDTO.getPassword();
-        String name = memberDTO.getName();
-        String email = memberDTO.getEmail();
-        String address = memberDTO.getAddress();
-
+    public String updateMember(@ModelAttribute MemberDTO memberDTO,
+                               @RequestParam("action") String action, HttpSession session,
+                               RedirectAttributes redirectAttributes) {
         String sessionId = (String) session.getAttribute("id");
         if (sessionId == null || !sessionId.equals(memberDTO.getId())) {
-            // User is not logged in or trying to edit another user's information
+            // 사용자가 로그인하지 않았거나 다른 사용자의 정보를 수정하려고 시도하는 경우
             return "redirect:/member";
         }
 
-        boolean updateResult = memberService.updateMember(id, password, name, email, address);
-        if (updateResult) {
-            redirectAttributes.addFlashAttribute("successMessage", "회원 정보가 성공적으로 수정되었습니다.");
-            return "redirect:/modify";
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "회원 정보 수정에 실패하였습니다.");
-            return "redirect:/modify";
+        if ("update".equals(action)) {
+            // 회원 정보 수정 로직
+            boolean updateResult = memberService.updateMember(memberDTO.getId(), memberDTO.getPassword(), memberDTO.getName(), memberDTO.getEmail(), memberDTO.getAddress());
+            if (updateResult) {
+                redirectAttributes.addFlashAttribute("updateSuccess", "회원 정보가 성공적으로 수정되었습니다.");
+            } else {
+                redirectAttributes.addFlashAttribute("updateError", "회원 정보 수정에 실패하였습니다.");
+            }
+        } else if ("delete".equals(action)) {
+            // 회원 탈퇴 로직
+            boolean deleteResult = memberService.deleteMember(memberDTO.getId());
+            if (deleteResult) {
+                session.invalidate(); // 세션 무효화
+                redirectAttributes.addFlashAttribute("deleteSuccess", "회원 탈퇴가 성공적으로 처리되었습니다.");
+                return "redirect:/member";
+            } else {
+                redirectAttributes.addFlashAttribute("deleteError", "회원 탈퇴 처리에 실패하였습니다.");
+            }
         }
+        return "redirect:/modify";
     }
-
-
 }

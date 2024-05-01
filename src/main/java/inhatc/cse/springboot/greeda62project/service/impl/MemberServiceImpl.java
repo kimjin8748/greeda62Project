@@ -5,6 +5,7 @@ import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 import inhatc.cse.springboot.greeda62project.handler.MemberDataHandler;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,6 +91,19 @@ public class MemberServiceImpl implements MemberService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteMember(String id) {
+        Optional<MemberEntity> memberOptional = memberRepository.findById(id);
+        if (memberOptional.isPresent()) {
+            memberRepository.deleteById(id);
+            memberRepository.flush();
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

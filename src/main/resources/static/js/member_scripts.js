@@ -28,3 +28,8 @@ function pwCheck(){
         $('#pwConfirm').text('비밀번호 불일치').css('color', 'red')
     }
 }
+
+function submitForm(actionType) {
+    document.getElementById('actionField').value = actionType; // action 값을 설정
+    document.forms[0].submit(); // 폼 제출
+}

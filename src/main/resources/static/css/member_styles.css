@@ -227,6 +227,10 @@ form.wrapper-box button:active {
   color: #7ac142;
 }
 
+.deleteSuccess-msg {
+  color: #7ac142;
+}
+
 .back-button {
   position: absolute;
   top: 35px; /* 버튼의 상단 마진 조정 */

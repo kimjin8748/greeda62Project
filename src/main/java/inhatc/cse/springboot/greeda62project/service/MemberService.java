@@ -15,4 +15,6 @@ public interface MemberService {
     MemberDTO findMemberById(String id);
 
     boolean updateMember(String id, String password, String name, String email, String address);
+
+    boolean deleteMember(String id);
 }
