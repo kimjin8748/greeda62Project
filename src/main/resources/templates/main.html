@@ -32,7 +32,7 @@
                         <li class="nav-item"><a class="nav-link" th:if="${session.id == null}"href="/member">로그인</a></li>
                         <li class="nav-item"><a class="nav-link" th:if="${session.id != null}"href="/logout">로그아웃</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="/modify" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
+                            <a class="nav-link nav-link dropdown-toggle" id="navbarDropdown" href="/modify" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/modify">회원정보</a></li>
                                 <li><hr class="dropdown-divider" /></li>
@@ -281,7 +281,7 @@
             <div class="container"><p class="m-0 text-center text-white">Project &copy; greenda62 shopping mall 2024</p></div>
         </footer>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/js/scripts.js"></script>
     </body>
