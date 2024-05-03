@@ -12,15 +12,15 @@ import lombok.*;
 public class ProductDTO {
 
 
-    private int number;
+    private String serialNumber;
     private String productName;
     private String productSize;
     private String productPrice;
     private String productDescription;
 
-    public static ProductDTO toMemberDTO(ProductEntity productEntity) {
+    public static ProductDTO toProductDTO(ProductEntity productEntity) {
         ProductDTO dto = new ProductDTO();
-        dto.setNumber(productEntity.getNumber());
+        dto.setSerialNumber(productEntity.getSerialNumber());
         dto.setProductName(productEntity.getProductName());
         dto.setProductSize(productEntity.getProductSize());
         dto.setProductPrice(productEntity.getProductPrice());
