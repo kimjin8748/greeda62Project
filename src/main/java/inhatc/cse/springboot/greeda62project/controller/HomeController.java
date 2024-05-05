@@ -21,10 +21,7 @@ public class HomeController {
     @GetMapping("/")
     public String main(Model model){
         List<ProductDTO> products = productService.findAllProducts();
-        List<SucculentDTO> succulents = productService.findSucProducts();
-
         model.addAttribute("products", products);
-        model.addAttribute("succulents", succulents);
         return "main";
     }
 

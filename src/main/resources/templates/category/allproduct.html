@@ -64,17 +64,17 @@
 <section class="bg-body py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5" th:each="set : ${sets}">
+            <div class="col mb-5" th:each="product : ${products}">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <img class="card-img-top" th:src="@{'/images/set/' + ${set.serialNumber} + '.jpg'}" alt="..." />
+                    <img class="card-img-top" th:src="@{'/images/pot/' + ${product.potSerialNumber} + '.jpg'}" alt="..." />
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5 class="fw-bolder" th:text="${set.productName}"></h5>
+                            <h5 class="fw-bolder" th:text="${product.potProductName}"></h5>
                             <!-- Product price-->
-                            <span th:text="${#numbers.formatDecimal(set.productPrice, 0, 'COMMA', 2, 'POINT')} + '원'"></span>
+                            <span th:text="${#numbers.formatDecimal(product.potProductPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
                         </div>
                     </div>
                     <!-- Product actions-->
@@ -84,17 +84,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col mb-5" th:each="pot : ${pots}">
+            <div class="col mb-5" th:each="product : ${products}">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <img class="card-img-top" th:src="@{'/images/pot/' + ${pot.serialNumber} + '.jpg'}" alt="..." />
+                    <img class="card-img-top" th:src="@{'/images/suc/' + ${product.succulentSerialNumber} + '.jpg'}" alt="..." />
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5 class="fw-bolder" th:text="${pot.productName}"></h5>
+                            <h5 class="fw-bolder" th:text="${product.succulentProductName}"></h5>
                             <!-- Product price-->
-                            <span th:text="${#numbers.formatDecimal(pot.productPrice, 0, 'COMMA', 2, 'POINT')} + '원'"></span>
+                            <span th:text="${#numbers.formatDecimal(product.succulentProductPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
                         </div>
                     </div>
                     <!-- Product actions-->
@@ -104,17 +104,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col mb-5" th:each="succulent : ${succulents}">
+            <div class="col mb-5" th:each="product : ${products}">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <img class="card-img-top" th:src="@{'/images/suc/' + ${succulent.serialNumber} + '.jpg'}" alt="..." />
+                    <img class="card-img-top" th:src="@{'/images/set/' + ${product.setSerialNumber} + '.jpg'}" alt="..." />
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5 class="fw-bolder" th:text="${succulent.productName}"></h5>
+                            <h5 class="fw-bolder" th:text="${product.setProductName}"></h5>
                             <!-- Product price-->
-                            <span th:text="${#numbers.formatDecimal(succulent.productPrice, 0, 'COMMA', 2, 'POINT')} + '원'"></span>
+                            <span th:text="${#numbers.formatDecimal(product.setProductPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
                         </div>
                     </div>
                     <!-- Product actions-->
