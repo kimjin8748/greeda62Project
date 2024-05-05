@@ -24,6 +24,6 @@ public class PotEntity {
     private int productPrice;
     private String productDescription;
 
-    @OneToMany(mappedBy = "potEntity")
-    private List<ProductEntity> products = new ArrayList<>();
+    @OneToOne(mappedBy = "potEntity")
+    private ProductEntity products;
 }

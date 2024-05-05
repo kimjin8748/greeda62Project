@@ -13,22 +13,17 @@ import lombok.*;
 public class ProductEntity {
 
     @Id
-    private String serialNumber;
+    private String Number;
 
-    private String productName;
-    private String productSize;
-    private String productPrice;
-    private String productDescription;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "pot_id")
     private PotEntity potEntity;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "succulent_id")
     private SucculentEntity succulentEntity;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "set_id")
     private SetEntity setEntity;
 }

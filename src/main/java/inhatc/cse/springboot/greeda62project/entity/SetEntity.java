@@ -24,6 +24,6 @@ public class SetEntity {
     private int productPrice;
     private String productDescription;
 
-    @OneToMany(mappedBy = "setEntity")
-    private List<ProductEntity> products = new ArrayList<>();
+    @OneToOne(mappedBy = "setEntity")
+    private ProductEntity products;
 }

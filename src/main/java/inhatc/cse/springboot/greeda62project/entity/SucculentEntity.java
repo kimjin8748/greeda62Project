@@ -24,6 +24,6 @@ public class SucculentEntity {
     private int productPrice;
     private String productDescription;
 
-    @OneToMany(mappedBy = "succulentEntity")
-    private List<ProductEntity> products = new ArrayList<>();
+    @OneToOne(mappedBy = "succulentEntity")
+    private ProductEntity products;
 }
