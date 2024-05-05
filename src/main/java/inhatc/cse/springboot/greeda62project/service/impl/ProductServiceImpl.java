@@ -14,7 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,9 +30,44 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> findAllProducts() {
-        List<ProductEntity> products = productRepository.findAll();
-        return products.stream().map(ProductDTO::toProductDTO).collect(Collectors.toList());
+        List<ProductEntity> productEntities = productRepository.findAll();
+        List<ProductDTO> productDTOs = new ArrayList<>();
+
+        for (ProductEntity productEntity : productEntities) {
+            ProductDTO dto = new ProductDTO();
+
+            // PotEntity 정보 설정
+            Optional.ofNullable(productEntity.getPotEntity()).ifPresent(pot -> {
+                dto.setPotSerialNumber(pot.getSerialNumber());
+                dto.setPotProductName(pot.getProductName());
+                dto.setPotProductSize(pot.getProductSize());
+                dto.setPotProductPrice(pot.getProductPrice());
+                dto.setPotProductDescription(pot.getProductDescription());
+            });
+
+            // SucculentEntity 정보 설정
+            Optional.ofNullable(productEntity.getSucculentEntity()).ifPresent(succulent -> {
+                dto.setSucculentSerialNumber(succulent.getSerialNumber());
+                dto.setSucculentProductName(succulent.getProductName());
+                dto.setSucculentProductSize(succulent.getProductSize());
+                dto.setSucculentProductPrice(succulent.getProductPrice());
+                dto.setSucculentProductDescription(succulent.getProductDescription());
+            });
+
+            // SetEntity 정보 설정
+            Optional.ofNullable(productEntity.getSetEntity()).ifPresent(set -> {
+                dto.setSetSerialNumber(set.getSerialNumber());
+                dto.setSetProductName(set.getProductName());
+                dto.setSetProductSize(set.getProductSize());
+                dto.setSetProductPrice(set.getProductPrice());
+                dto.setSetProductDescription(set.getProductDescription());
+            });
+
+            productDTOs.add(dto);
+        }
+        return productDTOs;
     }
+
 
     @Override
     public List<PotDTO> findPotProducts() {
