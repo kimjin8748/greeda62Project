@@ -62,7 +62,7 @@
         <!-- Product section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
+                <div th:each="pot : ${pot}" class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/pot/{serialNumber}.jpg(serialNumber=${pot.serialNumber})}" alt="..." /></div>
                     <div class="col-md-6">
                         <div class="small mb-1" th:text="${pot.serialNumber}">SUC-001</div>
@@ -81,54 +81,46 @@
                         </div>
                     </div>
                 </div>
+                <div th:each="succulent : ${succulent}" class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/suc/{serialNumber}.jpg(serialNumber=${succulent.serialNumber})}" alt="..." /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1" th:text="${succulent.serialNumber}">SUC-001</div>
+                        <h1 class="display-5 fw-bolder" th:text="${succulent.productName}">다육이1</h1>
+                        <div class="fs-5 mb-5">
+                            <span class="text-decoration-line-through">8,000원</span>
+                            <span th:text="${succulent.productPrice} + '원'">5,000원</span>
+                        </div>
+                        <p class="lead" th:text="${succulent.productDescription}">빨간색의 다육이로 이름은 로비오 아기자기한 모양으로 조그마한 다육이를 원하시는 분께 추천드려요~~</p>
+                        <div class="d-flex">
+                            <input class="form-control text-center me-3" id="inputQuantity1" type="num" value="1" style="max-width: 3rem" />
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                <i class="bi-cart-fill me-1"></i>
+                                장바구니 담기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div th:each="sets : ${set}" class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/set/{serialNumber}.jpg(serialNumber=${set.serialNumber})}" alt="..." /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1" th:text="${set.serialNumber}">SUC-001</div>
+                        <h1 class="display-5 fw-bolder" th:text="${set.productName}">다육이1</h1>
+                        <div class="fs-5 mb-5">
+                            <span class="text-decoration-line-through">8,000원</span>
+                            <span th:text="${set.productPrice} + '원'">5,000원</span>
+                        </div>
+                        <p class="lead" th:text="${set.productDescription}">빨간색의 다육이로 이름은 로비오 아기자기한 모양으로 조그마한 다육이를 원하시는 분께 추천드려요~~</p>
+                        <div class="d-flex">
+                            <input class="form-control text-center me-3" id="inputQuantity2" type="num" value="1" style="max-width: 3rem" />
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                <i class="bi-cart-fill me-1"></i>
+                                장바구니 담기
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-<!--        <section class="py-5">-->
-<!--            <div class="container px-4 px-lg-5 my-5">-->
-<!--                <div class="row gx-4 gx-lg-5 align-items-center">-->
-<!--                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/suc/{serialNumber}(serialNumber=${succulent.serialNumber})}" alt="..." /></div>-->
-<!--                    <div class="col-md-6">-->
-<!--                        <div class="small mb-1" th:text="${succulent.serialNumber}">SUC-001</div>-->
-<!--                        <h1 class="display-5 fw-bolder" th:text="${succulent.productName}">다육이1</h1>-->
-<!--                        <div class="fs-5 mb-5">-->
-<!--                            <span class="text-decoration-line-through">8,000원</span>-->
-<!--                            <span th:text="${succulent.originalPrice} + '원'">5,000원</span>-->
-<!--                        </div>-->
-<!--                        <p class="lead" th:text="${succulent.description}">빨간색의 다육이로 이름은 로비오 아기자기한 모양으로 조그마한 다육이를 원하시는 분께 추천드려요~~</p>-->
-<!--                        <div class="d-flex">-->
-<!--                            <input class="form-control text-center me-3" id="inputQuantity1" type="num" value="1" style="max-width: 3rem" />-->
-<!--                            <button class="btn btn-outline-dark flex-shrink-0" type="button">-->
-<!--                                <i class="bi-cart-fill me-1"></i>-->
-<!--                                장바구니 담기-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
-<!--        <section class="py-5">-->
-<!--            <div class="container px-4 px-lg-5 my-5">-->
-<!--                <div class="row gx-4 gx-lg-5 align-items-center">-->
-<!--                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/suc/{serialNumber}(serialNumber=${#set.serialNumber})}" alt="..." /></div>-->
-<!--                    <div class="col-md-6">-->
-<!--                        <div class="small mb-1" th:text="${set.serialNumber}">SUC-001</div>-->
-<!--                        <h1 class="display-5 fw-bolder" th:text="${set.productName}">다육이1</h1>-->
-<!--                        <div class="fs-5 mb-5">-->
-<!--                            <span class="text-decoration-line-through">8,000원</span>-->
-<!--                            <span th:text="${set.originalPrice} + '원'">5,000원</span>-->
-<!--                        </div>-->
-<!--                        <p class="lead" th:text="${set.description}">빨간색의 다육이로 이름은 로비오 아기자기한 모양으로 조그마한 다육이를 원하시는 분께 추천드려요~~</p>-->
-<!--                        <div class="d-flex">-->
-<!--                            <input class="form-control text-center me-3" id="inputQuantity2" type="num" value="1" style="max-width: 3rem" />-->
-<!--                            <button class="btn btn-outline-dark flex-shrink-0" type="button">-->
-<!--                                <i class="bi-cart-fill me-1"></i>-->
-<!--                                장바구니 담기-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </section>-->
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
