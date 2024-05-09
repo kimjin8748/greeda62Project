@@ -66,7 +66,7 @@
         <div th:if="${updateSuccess}" th:text="${updateSuccess}"></div>
         <div th:if="${updateError}" th:text="${updateError}"></div>
         <div th:if="${deleteError}" th:text="${deleteError}"></div>
-        <form action="/modify" method="post" class="wrapper-box" role="form" ng-submit="register()">
+        <form id="modifyForm" action="/modify" method="post" class="wrapper-box" role="form" ng-submit="register()">
             <input type="hidden" name="action" id="actionField" value="update">
             <input type="text"
                    name="id"
@@ -108,8 +108,8 @@
                    th:value="${member.address}"
                    required >
             <br>
-            <button type="submit" value="update" onclick="submitForm('update')" class="btn btn-submit btn-default pull-right">수정하기</button>
-            <button type="submit" value="delete" onclick="submitForm('delete')" class="btn btn-submit btn-default pull-right">탈퇴하기</button>
+            <button type="button" value="update" onclick="submitForm('update')" class="btn btn-submit btn-default pull-right">수정하기</button>
+            <button type="button" value="delete" onclick="submitForm('delete')" class="btn btn-submit btn-default pull-right">탈퇴하기</button>
         </form>
     </div>
 </div>

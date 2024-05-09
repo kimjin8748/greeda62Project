@@ -29,7 +29,20 @@ function pwCheck(){
     }
 }
 
+//탈퇴를 확인하는 메시지창을 띄우는 로직 추가
 function submitForm(actionType) {
-    document.getElementById('actionField').value = actionType; // action 값을 설정
-    document.forms[0].submit(); // 폼 제출
+    // 회원 탈퇴인 경우
+    if (actionType === 'delete') {
+        // confirm 창을 통해 사용자에게 삭제 의사를 확인
+        var confirmDelete = confirm("정말로 회원 탈퇴를 하시겠습니까?");
+        if (confirmDelete) {
+            // 사용자가 '확인'을 누른 경우 폼 제출
+            document.getElementById('actionField').value = 'delete';
+            document.getElementById('modifyForm').submit();
+        }
+    } else if (actionType === 'update') {
+        // 회원 정보 수정인 경우 바로 폼 제출
+        document.getElementById('actionField').value = 'update';
+        document.getElementById('modifyForm').submit();
+    }
 }
