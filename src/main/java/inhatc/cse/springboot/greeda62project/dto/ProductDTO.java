@@ -1,7 +1,6 @@
 package inhatc.cse.springboot.greeda62project.dto;
 
-import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
-import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
+import inhatc.cse.springboot.greeda62project.entity.*;
 import lombok.*;
 
 @Data
