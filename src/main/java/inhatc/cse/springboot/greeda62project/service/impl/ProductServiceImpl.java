@@ -1,10 +1,7 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.*;
-import inhatc.cse.springboot.greeda62project.entity.PotEntity;
-import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
-import inhatc.cse.springboot.greeda62project.entity.SetEntity;
-import inhatc.cse.springboot.greeda62project.entity.SucculentEntity;
+import inhatc.cse.springboot.greeda62project.entity.*;
 import inhatc.cse.springboot.greeda62project.repository.PotRepository;
 import inhatc.cse.springboot.greeda62project.repository.ProductRepository;
 import inhatc.cse.springboot.greeda62project.repository.SetRepository;
@@ -85,5 +82,38 @@ public class ProductServiceImpl implements ProductService {
     public List<SetDTO> findSetProducts() {
         List<SetEntity> Sets = setRepository.findAll();
         return Sets.stream().map(SetDTO::toSetDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public PotDTO findPotById(String serialNumber) {
+        Optional<PotEntity> potEntityOptional = potRepository.findById(serialNumber);
+        if (potEntityOptional.isPresent()) {
+            PotEntity productEntity = potEntityOptional.get();
+            return PotDTO.toPotDTO(productEntity);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public SucculentDTO findSucculentById(String serialNumber) {
+        Optional<SucculentEntity> succulentEntityOptional = succulentRepository.findById(serialNumber);
+        if (succulentEntityOptional.isPresent()) {
+            SucculentEntity succulentEntity = succulentEntityOptional.get();
+            return SucculentDTO.toSucculentDTO(succulentEntity);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public SetDTO findSetById(String serialNumber) {
+        Optional<SetEntity> setEntityOptional = setRepository.findById(serialNumber);
+        if (setEntityOptional.isPresent()) {
+            SetEntity setEntity = setEntityOptional.get();
+            return SetDTO.toSetDTO(setEntity);
+        } else {
+            return null;
+        }
     }
 }
