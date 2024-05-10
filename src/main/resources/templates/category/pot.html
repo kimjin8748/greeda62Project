@@ -64,7 +64,7 @@
 <section class="bg-body py-5">
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-      <div class="col mb-5" th:each="pot : ${pots}">
+      <div class="col mb-5" th:each="pot : ${potList}">
         <div class="card h-100">
           <!-- Product image-->
           <img class="card-img-top" th:src="@{'/images/pot/' + ${pot.serialNumber} + '.jpg'}" alt="..." />
@@ -83,6 +83,28 @@
             <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${pot.serialNumber})}">상세정보 확인</a></div>
           </div>
         </div>
+      </div>
+    </div>
+    <!--페이지네이션-->
+    <div class="row">
+      <div class="col">
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+              <a class="page-link" th:href="@{/pot(pageNo=${currentPage - 1}, pageSize=${pageSize})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" th:classappend="${pageNum == currentPage} ? 'active' : ''">
+              <a class="page-link" th:href="@{/pot(pageNo=${pageNum}, pageSize=${pageSize})}" th:text="${pageNum + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''">
+              <a class="page-link" th:href="@{/pot(pageNo=${currentPage + 1}, pageSize=${pageSize})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
