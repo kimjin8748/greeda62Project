@@ -9,6 +9,9 @@ import inhatc.cse.springboot.greeda62project.repository.SucculentRepository;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -65,25 +68,6 @@ public class ProductServiceImpl implements ProductService {
         return productDTOs;
     }
 
-
-    @Override
-    public List<PotDTO> findPotProducts() {
-        List<PotEntity> pots = potRepository.findAll();
-        return pots.stream().map(PotDTO::toPotDTO).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<SucculentDTO> findSucProducts() {
-        List<SucculentEntity> Succulents = succulentRepository.findAll();
-        return Succulents.stream().map(SucculentDTO::toSucculentDTO).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<SetDTO> findSetProducts() {
-        List<SetEntity> Sets = setRepository.findAll();
-        return Sets.stream().map(SetDTO::toSetDTO).collect(Collectors.toList());
-    }
-
     @Override
     public PotDTO findPotById(String serialNumber) {
         Optional<PotEntity> potEntityOptional = potRepository.findById(serialNumber);
@@ -115,5 +99,23 @@ public class ProductServiceImpl implements ProductService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Page<PotEntity> findPotPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return potRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<SucculentEntity> findSucculentPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return succulentRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<SetEntity> findSetPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return setRepository.findAll(pageable);
     }
 }
