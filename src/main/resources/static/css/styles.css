@@ -10,6 +10,22 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+.shorts-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 177.78%;
+}
+
+.shorts-iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border: none;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
