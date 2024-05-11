@@ -10,6 +10,7 @@ import inhatc.cse.springboot.greeda62project.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,11 +30,11 @@ public class ProductServiceImpl implements ProductService {
     private final SetRepository setRepository;
 
     @Override
-    public List<ProductDTO> findAllProducts() {
-        List<ProductEntity> productEntities = productRepository.findAll();
+    public Page<ProductDTO> findAllProducts(Pageable pageable) {
+        Page<ProductEntity> productEntitiesPage = productRepository.findAll(pageable);
         List<ProductDTO> productDTOs = new ArrayList<>();
 
-        for (ProductEntity productEntity : productEntities) {
+        for (ProductEntity productEntity : productEntitiesPage) {
             ProductDTO dto = new ProductDTO();
 
             // PotEntity 정보 설정
@@ -65,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
             productDTOs.add(dto);
         }
-        return productDTOs;
+        return new PageImpl<>(productDTOs, pageable, productEntitiesPage.getTotalElements());
     }
 
     @Override

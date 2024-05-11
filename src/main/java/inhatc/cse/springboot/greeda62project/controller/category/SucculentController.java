@@ -22,7 +22,7 @@ public class SucculentController {
 
     @GetMapping("/succulent")
     public String succulent(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
-                            @RequestParam(value = "pageSize", defaultValue = "4") int pageSize,
+                            @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
                             Model model) {
         Page<SucculentEntity> page = productService.findSucculentPaginated(pageNo, pageSize);
         List<SucculentEntity> succulentList = page.getContent();
