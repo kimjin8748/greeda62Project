@@ -23,13 +23,8 @@ public class HomeController {
     private final ProductService productService;
 
     @GetMapping("/")
-    public String main(@PageableDefault(size = 4) Pageable pageable, Model model){
-        Page<ProductDTO> products = productService.findAllProducts(pageable);
-
-        model.addAttribute("currentPage", pageable.getPageNumber());
-        model.addAttribute("pageSize", pageable.getPageSize());
-        model.addAttribute("totalPages", products.getTotalPages());
-        model.addAttribute("totalItems", products.getTotalElements());
+    public String main(Model model){
+        List<ProductDTO> products = productService.findAllProducts();
         model.addAttribute("products", products);
         return "main";
     }

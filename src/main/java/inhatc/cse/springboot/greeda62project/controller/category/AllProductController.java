@@ -5,6 +5,7 @@ import inhatc.cse.springboot.greeda62project.entity.PotEntity;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -21,15 +22,10 @@ public class AllProductController {
     private final ProductService productService;
 
     @GetMapping("/allproduct")
-    public String allproduct(@PageableDefault(size = 4) Pageable pageable, Model model) {
-        Page<ProductDTO> products = productService.findAllProducts(pageable);
-
-        model.addAttribute("currentPage", pageable.getPageNumber());
-        model.addAttribute("pageSize", pageable.getPageSize());
-        model.addAttribute("totalPages", products.getTotalPages());
-        model.addAttribute("totalItems", products.getTotalElements());
+    public String allproduct(Model model) {
+        List<ProductDTO> products = productService.findAllProducts();
         model.addAttribute("products", products);
-
-        return "category/allproduct";
+        return "/category/allproduct";
     }
+
 }

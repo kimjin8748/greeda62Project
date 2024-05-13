@@ -30,11 +30,11 @@ public class ProductServiceImpl implements ProductService {
     private final SetRepository setRepository;
 
     @Override
-    public Page<ProductDTO> findAllProducts(Pageable pageable) {
-        Page<ProductEntity> productEntitiesPage = productRepository.findAll(pageable);
+    public List<ProductDTO> findAllProducts() {
+        List<ProductEntity> productEntities = productRepository.findAll();
         List<ProductDTO> productDTOs = new ArrayList<>();
 
-        for (ProductEntity productEntity : productEntitiesPage) {
+        for (ProductEntity productEntity : productEntities) {
             ProductDTO dto = new ProductDTO();
 
             // PotEntity 정보 설정
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
             productDTOs.add(dto);
         }
-        return new PageImpl<>(productDTOs, pageable, productEntitiesPage.getTotalElements());
+        return productDTOs;
     }
 
     @Override
@@ -119,4 +119,5 @@ public class ProductServiceImpl implements ProductService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return setRepository.findAll(pageable);
     }
+
 }

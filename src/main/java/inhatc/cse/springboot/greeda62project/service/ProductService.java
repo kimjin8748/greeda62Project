@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    Page<ProductDTO> findAllProducts(Pageable pageable);
+    List<ProductDTO> findAllProducts();
 
     PotDTO findPotById(String serialNumber);
 
