@@ -120,4 +120,9 @@ public class ProductServiceImpl implements ProductService {
         return setRepository.findAll(pageable);
     }
 
+    @Override
+    public List<ProductEntity> searchByKeyword(String keyword) {
+        return productRepository.findByKeyword(keyword);
+    }
+
 }
