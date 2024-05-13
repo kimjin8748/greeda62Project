@@ -122,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductEntity> searchByKeyword(String keyword) {
-        return productRepository.findByKeyword(keyword);
+        return productRepository.findByKeyword("%" + keyword + "%");
     }
 
 }
