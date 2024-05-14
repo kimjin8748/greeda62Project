@@ -13,11 +13,8 @@
     <link href="/css/faq_style.css" rel="stylesheet" />
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/member_styles.css" rel="stylesheet" />
-
 </head>
 <body>
-<!-- Responsive navbar-->
-<!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border: 1px solid #000">
     <div class="container px-4 px-lg-5">
         <a href="/admin" ><img src="/images/로고사진.png"></a>
@@ -42,19 +39,18 @@
                 </button>
             </form>
             &nbsp;
-            <div class="search-container">
+            <form action="/search" class="search-container">
                 <input type="text" id="search-field" class="search-input" placeholder="검색...">
                 <button class="search-button">검색</button>
                 <div class="icon-close" onclick="clearSearchField()">✖</div>
-            </div>
+            </form>
         </div>
     </div>
 </nav>
-
 <section class="notice">
     <div class="page-title">
         <div class="container">
-            <h3>회원 관리</h3>
+            <h3>상품 조회</h3>
         </div>
     </div>
 
@@ -73,33 +69,52 @@
         </div>
     </div>
 
-    <!-- board list area -->
-    <div id="board-list">
-        <div class="container">
-            <table class="board-table">
-                <thead>
-                <tr>
-                    <th scope="col" class="th-num">번호</th>
-                    <th scope="col" class="th-num">아이디</th>
-                    <th scope="col" class="th-title">주소</th>
-                    <th scope="col" class="th-date">이름</th>
-                    <th scope="col" class="th-date">이메일</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="member, stat : ${members}">
-                    <td th:text="${stat.count}"></td>
-                    <td th:text="${member.id}"></td>
-                    <td th:text="${member.address}"></td>
-                    <td th:text="${member.name}"></td>
-                    <td th:text="${member.email}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+<div id="board-list">
+    <div class="container">
+        <table class="board-table">
+            <thead>
+            <tr>
+                <th scope="col" class="th-num">상품번호</th>
+                <th scope="col" class="th-num">상품명</th>
+                <th scope="col" class="th-title">상품설명</th>
+                <th scope="col" class="th-date">상품가격</th>
+                <th scope="col" class="th-date">상품사이즈</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.potSerialNumber}"></td>
+                <td th:text="${product.potProductName}"></td>
+                <td th:text="${product.potProductDescription}"></td>
+                <td th:text="${product.potProductPrice}"></td>
+                <td th:text="${product.potProductSize}"></td>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.succulentSerialNumber}"></td>
+                <td th:text="${product.succulentProductName}"></td>
+                <td th:text="${product.succulentProductDescription}"></td>
+                <td th:text="${product.succulentProductPrice}"></td>
+                <td th:text="${product.succulentProductSize}"></td>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.setSerialNumber}"></td>
+                <td th:text="${product.setProductName}"></td>
+                <td th:text="${product.setProductDescription}"></td>
+                <td th:text="${product.setProductPrice}"></td>
+                <td th:text="${product.setProductSize}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-
+</div>
 </section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Project &copy; greenda62 shopping mall 2024</p></div>
+</footer>
+<!-- Bootstrap core JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>
