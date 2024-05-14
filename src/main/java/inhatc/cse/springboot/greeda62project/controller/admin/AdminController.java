@@ -15,24 +15,25 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("admin")
 public class AdminController {
 
     private final ProductService productService;
     private final MemberService memberService;
 
-    @GetMapping("/admin")
+    @GetMapping("/")
     public String admin(){
         return "/admin/admin";
     }
 
-    @GetMapping("/admin/memberCTR")
+    @GetMapping("/memberCTR")
     public String memberControl(Model model){
         List<MemberDTO> members = memberService.findAllMembers();
         model.addAttribute("members", members);
         return "/admin/memberCTR";
     }
 
-    @GetMapping("/admin/productcheck")
+    @GetMapping("/productcheck")
     public String listProducts(Model model) {
         List<ProductDTO> products = productService.findAllProducts();
         model.addAttribute("products", products);
