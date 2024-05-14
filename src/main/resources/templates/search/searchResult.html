@@ -50,81 +50,78 @@
         </button>
       </form>
       &nbsp;
-      <div class="search-container">
-        <input type="text" id="search-field" class="search-input" placeholder="검색...">
+      <form action="/search" class="search-container">
+        <input type="text" id="search-field" class="search-input" name="keyword" placeholder="검색...">
         <button class="search-button">검색</button>
         <div class="icon-close" onclick="clearSearchField()">✖</div>
-      </div>
+      </form>
     </div>
   </div>
 </nav>
 <!-- Header-->
 <!-- Section-->
 <section class="bg-body py-5">
-  <div class="container px-4 px-lg-5 mt-5" th:unless="${products.isEmpty()}">
+  <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-      <div class="col mb-5" th:each="product : ${products}">
+      <div class="col mb-5" th:each="pot : ${pots}">
         <div class="card h-100">
           <!-- Product image-->
-          <img class="card-img-top" th:src="@{'/images/pot/' + ${product.potSerialNumber} + '.jpg'}" alt="..." />
+          <img class="card-img-top" th:src="@{'/images/pot/' + ${pot.serialNumber} + '.jpg'}" alt="..." />
           <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
               <!-- Product name-->
-              <h5 class="fw-bolder" th:text="${product.potProductName}"></h5>
+              <h5 class="fw-bolder" th:text="${pot.productName}"></h5>
               <!-- Product price-->
-              <span th:text="${#numbers.formatDecimal(product.potProductPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
+              <span th:text="${#numbers.formatDecimal(pot.productPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
             </div>
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${product.potSerialNumber})}">상세정보 확인</a></div>
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${pot.serialNumber})}">상세정보 확인</a></div>
           </div>
         </div>
       </div>
-      <div class="col mb-5" th:each="product : ${products}">
+      <div class="col mb-5" th:each="succulent : ${succulents}">
         <div class="card h-100">
           <!-- Product image-->
-          <img class="card-img-top" th:src="@{'/images/suc/' + ${product.succulentSerialNumber} + '.jpg'}" alt="..." />
+          <img class="card-img-top" th:src="@{'/images/suc/' + ${succulent.serialNumber} + '.jpg'}" alt="..." />
           <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
               <!-- Product name-->
-              <h5 class="fw-bolder" th:text="${product.succulentProductName}"></h5>
+              <h5 class="fw-bolder" th:text="${succulent.productName}"></h5>
               <!-- Product price-->
-              <span th:text="${#numbers.formatDecimal(product.succulentProductPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
+              <span th:text="${#numbers.formatDecimal(succulent.productPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
             </div>
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${product.succulentSerialNumber})}">상세정보 확인</a></div>
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${succulent.serialNumber})}">상세정보 확인</a></div>
           </div>
         </div>
       </div>
-      <div class="col mb-5" th:each="product : ${products}">
+      <div class="col mb-5" th:each="set : ${sets}">
         <div class="card h-100">
           <!-- Product image-->
-          <img class="card-img-top" th:src="@{'/images/set/' + ${product.setSerialNumber} + '.jpg'}" alt="..." />
+          <img class="card-img-top" th:src="@{'/images/set/' + ${set.serialNumber} + '.jpg'}" alt="..." />
           <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
               <!-- Product name-->
-              <h5 class="fw-bolder" th:text="${product.setProductName}"></h5>
+              <h5 class="fw-bolder" th:text="${set.productName}"></h5>
               <!-- Product price-->
-              <span th:text="${#numbers.formatDecimal(product.setProductPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
+              <span th:text="${#numbers.formatDecimal(set.productPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
             </div>
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${product.setSerialNumber})}">상세정보 확인</a></div>
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${set.serialNumber})}">상세정보 확인</a></div>
           </div>
         </div>
-      </div>
-      <div th:if="${products.isEmpty()}">
-        <p>검색 결과가 없습니다.</p>
       </div>
     </div>
     <!--페이지네이션-->

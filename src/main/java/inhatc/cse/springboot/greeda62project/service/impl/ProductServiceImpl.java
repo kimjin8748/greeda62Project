@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -121,8 +122,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductEntity> searchByKeyword(String keyword) {
-        return productRepository.findByKeyword("%" + keyword + "%");
+    public List<PotEntity> searchByPotKeyword(String keyword) {
+        return potRepository.findByPotKeyword("%" + keyword + "%");
+    }
+
+    @Override
+    public List<SucculentEntity> searchBySucculentKeyword(String keyword) {
+        return succulentRepository.findBySucculentKeyword("%" + keyword + "%");
+    }
+
+    @Override
+    public List<SetEntity> searchBySetKeyword(String keyword) {
+        return setRepository.findByPotKeyword("%" + keyword + "%");
     }
 
 }

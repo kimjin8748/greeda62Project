@@ -1,8 +1,13 @@
 package inhatc.cse.springboot.greeda62project.controller;
 
+import inhatc.cse.springboot.greeda62project.dto.PotDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
+import inhatc.cse.springboot.greeda62project.dto.SetDTO;
 import inhatc.cse.springboot.greeda62project.dto.SucculentDTO;
+import inhatc.cse.springboot.greeda62project.entity.PotEntity;
 import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
+import inhatc.cse.springboot.greeda62project.entity.SetEntity;
+import inhatc.cse.springboot.greeda62project.entity.SucculentEntity;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,18 +38,28 @@ public class HomeController {
 
     @GetMapping("/search")
     public String searchProducts(@RequestParam(required = false) String keyword, Model model) {
-        List<ProductEntity> products;
+        List<PotEntity> pots;
+        List<SucculentEntity> succulents;
+        List<SetEntity> sets;
         if (keyword != null && !keyword.isEmpty()) {
-            products = productService.searchByKeyword(keyword);
+            pots = productService.searchByPotKeyword(keyword);
+            succulents = productService.searchBySucculentKeyword(keyword);
+            sets = productService.searchBySetKeyword(keyword);
         } else {
             // keyword가 없는 경우의 처리 로직
-            products = new ArrayList<>();
+            pots = new ArrayList<>();
+            succulents = new ArrayList<>();
+            sets = new ArrayList<>();
         }
 
         // ProductEntity 리스트를 ProductDTO 리스트로 변환
-        List<ProductDTO> productDTOs = products.stream().map(ConvertToProductDTO::convertToDTO).collect(Collectors.toList());
+        List<PotDTO> potDTOs = pots.stream().map(PotDTO::toPotDTO).collect(Collectors.toList());
+        List<SucculentDTO> succulentDTOs = succulents.stream().map(SucculentDTO::toSucculentDTO).collect(Collectors.toList());
+        List<SetDTO> setDTOs = sets.stream().map(SetDTO::toSetDTO).collect(Collectors.toList());
 
-        model.addAttribute("products", productDTOs);
+        model.addAttribute("pots", potDTOs);
+        model.addAttribute("succulents", succulentDTOs);
+        model.addAttribute("sets", setDTOs);
         return "search/searchResult"; // 검색 결과를 보여줄 페이지의 이름
     }
 }

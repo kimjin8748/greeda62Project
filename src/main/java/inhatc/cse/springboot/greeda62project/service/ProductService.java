@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ProductService {
 
@@ -26,5 +27,9 @@ public interface ProductService {
 
     Page<SetEntity> findSetPaginated(int pageNo, int pageSize);
 
-    List<ProductEntity> searchByKeyword(String keyword);
+    List<PotEntity> searchByPotKeyword(String keyword);
+
+    List<SucculentEntity> searchBySucculentKeyword(String keyword);
+
+    List<SetEntity> searchBySetKeyword(String keyword);
 }
