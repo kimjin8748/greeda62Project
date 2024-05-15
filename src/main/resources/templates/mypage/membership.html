@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -10,21 +10,19 @@
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="/css/faq_style.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
-    <link href="/css/member_styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- Responsive navbar-->
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border: 1px solid #000">
     <div class="container px-4 px-lg-5">
-        <a href="/" ><img src="/images/로고사진.png"></a>
+        <a href="/static" ><img src="/images/로고사진.png"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/static">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/allproduct">모든상품</a></li>
                 <li class="nav-item"><a class="nav-link" href="/pot">화분</a></li>
                 <li class="nav-item"><a class="nav-link" href="/succulent">다육이</a></li>
@@ -35,12 +33,12 @@
                 <li class="nav-item"><a class="nav-link" th:if="${session.id == null}"href="/member">로그인</a></li>
                 <li class="nav-item"><a class="nav-link" th:if="${session.id != null}"href="/logout">로그아웃</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
+                    <a class="nav-link nav-link dropdown-toggle" id="navbarDropdown" href="/modify" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/modify">회원정보</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="/membership">멤버쉽</a></li>
-                        <li><a class="dropdown-item" href="/delivery">배송조회</a></li>
+                        <li><a class="dropdown-item" href="#!">배송조회</a></li>
                         <li><a class="dropdown-item" href="#!">반품/교환/취소</a></li>
                     </ul>
                 </li>
@@ -61,24 +59,26 @@
         </div>
     </div>
 </nav>
-<section class="table">
-    <h2>게시물을 작성하세요.</h2>
-
-    <!-- board list area -->
-
-    <form class="container" action="/faq/new" method="post">
-        <div class="mb-3">
-            <label class="form-Label">제목</label>
-            <input type="text" class="form-control" name="title">
+<section class="container my-5">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>멤버십 혜택</h2>
+            <p>멤버십에 가입하시면 다음과 같은 혜택을 누릴 수 있습니다:</p>
+            <ul>
+                <li>할인 혜택</li>
+                <li>특별 이벤트 참여</li>
+                <li>빠른 배송 서비스</li>
+                <!-- 원하는 혜택들을 추가하세요 -->
+            </ul>
         </div>
-        <div class="mb-3">
-            <label class="form-label">내용</label>
-            <textarea class="form-control" rows="3" name="content"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
 
+        <div class="col-lg-6">
+            <img src="/images/membership-benefits.jpg" alt="멤버십 혜택" class="img-fluid">
+        </div>
+    </div>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>

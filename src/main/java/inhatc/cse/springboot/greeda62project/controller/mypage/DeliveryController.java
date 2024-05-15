@@ -12,6 +12,6 @@ public class DeliveryController {
         if (id == null) {
             return "redirect:/member";
         }
-        return "delivery";
+        return "mypage/delivery";
     }
 }

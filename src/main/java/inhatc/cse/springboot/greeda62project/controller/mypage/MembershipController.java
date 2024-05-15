@@ -13,6 +13,6 @@ public class MembershipController {
         if (id == null) {
             return "redirect:/member";
         }
-        return "membership";
+        return "mypage/membership";
     }
 }

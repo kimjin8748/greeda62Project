@@ -4,7 +4,6 @@ import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,7 @@ public class MemberController {
 
     @GetMapping("/member")
     public String memberSignup() {
-        return "/member";
+        return "member/member";
     }
 
     @PostMapping("/member")
@@ -57,7 +56,7 @@ public class MemberController {
             return "redirect:/";
             } else {
             model.addAttribute("loginError", "아이디나 비밀번호를 확인하세요");
-            return "member";
+            return "member/member";
         }
 
     }

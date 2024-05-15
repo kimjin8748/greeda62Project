@@ -1,11 +1,9 @@
 package inhatc.cse.springboot.greeda62project.controller.mypage;
 
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
-import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +28,7 @@ public class MemberInfoController {
         MemberDTO memberDTO = memberService.findMemberById(id);
         if (memberDTO != null) {
             model.addAttribute("member", memberDTO);
-            return "/modify";
+            return "mypage/modify";
         } else {
             // Member not found, handle accordingly
             return "redirect:/";
