@@ -6,7 +6,9 @@ import inhatc.cse.springboot.greeda62project.handler.MemberDataHandler;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +16,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    MemberDataHandler memberDataHandler;
-    MemberRepository memberRepository;
-
-    @Autowired
-    public MemberServiceImpl(MemberDataHandler memberDataHandler, MemberRepository memberRepository) {
-        this.memberDataHandler = memberDataHandler;
-        this.memberRepository = memberRepository;
-    }
+    private final MemberDataHandler memberDataHandler;
+    private final MemberRepository memberRepository;
 
     //회원가입을 위한 로직
     @Override
@@ -119,6 +116,18 @@ public class MemberServiceImpl implements MemberService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    //회원 한명을 찾는 로직
+    @Override
+    public MemberDTO findUser(String id) {
+        Optional<MemberEntity> memberById = memberRepository.findById(id);
+        if(memberById.isPresent()){
+            MemberEntity memberEntity = memberById.get();
+            return MemberDTO.toMemberDTO(memberEntity);
+        } else {
+            return null;
         }
     }
 

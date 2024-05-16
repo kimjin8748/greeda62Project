@@ -60,7 +60,7 @@ public class HomeController {
         model.addAttribute("pots", potDTOs);
         model.addAttribute("succulents", succulentDTOs);
         model.addAttribute("sets", setDTOs);
-        model.addAttribute("isEmpty", pots.isEmpty() || succulents.isEmpty() || sets.isEmpty());
+        model.addAttribute("isEmpty", pots.isEmpty() && succulents.isEmpty() && sets.isEmpty());
 
         return "search/searchResult"; // 검색 결과를 보여줄 페이지의 이름
     }

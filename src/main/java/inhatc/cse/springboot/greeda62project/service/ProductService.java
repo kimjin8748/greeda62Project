@@ -32,4 +32,6 @@ public interface ProductService {
     List<SucculentEntity> searchBySucculentKeyword(String keyword);
 
     List<SetEntity> searchBySetKeyword(String keyword);
+
+    ProductDTO productView(String productId);
 }

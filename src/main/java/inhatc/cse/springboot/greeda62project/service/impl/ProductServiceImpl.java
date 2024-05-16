@@ -136,4 +136,50 @@ public class ProductServiceImpl implements ProductService {
         return setRepository.findByPotKeyword("%" + keyword + "%");
     }
 
+    public ProductDTO productView(String productId){
+
+        ProductEntity productEntity = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product Number:" + productId));
+
+        if (productEntity.getPotEntity() != null) {
+            return convertToDTO(productEntity.getPotEntity());
+        } else if (productEntity.getSucculentEntity() != null) {
+            return convertToDTO(productEntity.getSucculentEntity());
+        } else if (productEntity.getSetEntity() != null) {
+            return convertToDTO(productEntity.getSetEntity());
+        } else {
+            throw new IllegalArgumentException("상품이 없습니다. :" + productId);
+        }
+    }
+
+    private ProductDTO convertToDTO(Object productEntity){
+        ProductDTO productDTO = new ProductDTO();
+
+        if (productEntity instanceof PotEntity) {
+            PotEntity pot = (PotEntity) productEntity;
+            productDTO.setPotSerialNumber(pot.getSerialNumber());
+            productDTO.setPotProductName(pot.getProductName());
+            productDTO.setPotProductSize(pot.getProductSize());
+            productDTO.setPotProductPrice(pot.getProductPrice());
+            productDTO.setPotProductDescription(pot.getProductDescription());
+        } else if (productEntity instanceof SucculentEntity) {
+            SucculentEntity succulent = (SucculentEntity) productEntity;
+            productDTO.setSucculentSerialNumber(succulent.getSerialNumber());
+            productDTO.setSucculentProductName(succulent.getProductName());
+            productDTO.setSucculentProductSize(succulent.getProductSize());
+            productDTO.setSucculentProductPrice(succulent.getProductPrice());
+            productDTO.setSucculentProductDescription(succulent.getProductDescription());
+        } else if (productEntity instanceof SetEntity) {
+            SetEntity set = (SetEntity) productEntity;
+            productDTO.setSetSerialNumber(set.getSerialNumber());
+            productDTO.setSetProductName(set.getProductName());
+            productDTO.setSetProductSize(set.getProductSize());
+            productDTO.setSetProductPrice(set.getProductPrice());
+            productDTO.setSetProductDescription(set.getProductDescription());
+        }
+
+        return productDTO;
+    }
+
+
 }
