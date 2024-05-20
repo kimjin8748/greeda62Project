@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PotRepository extends JpaRepository <PotEntity, String> {
-    Optional<PotEntity> findById(String serialNumber);
 
     //JPQL로 연관되어 있는 다른 엔티티에 접근하여 검색하는 기능
     @Query("SELECT p FROM PotEntity p WHERE " +

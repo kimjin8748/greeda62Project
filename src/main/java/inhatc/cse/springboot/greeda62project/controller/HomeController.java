@@ -12,6 +12,7 @@ import inhatc.cse.springboot.greeda62project.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -30,9 +31,18 @@ public class HomeController {
     private final ProductService productService;
 
     @GetMapping("/")
-    public String main(Model model){
-        List<ProductDTO> products = productService.findAllProducts();
+    public String main(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+                       @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
+                       Model model){
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<ProductDTO> page = productService.findAllProducts(pageable);
+        List<ProductDTO> products = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("products", products);
+
         return "main";
     }
 

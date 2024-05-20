@@ -20,13 +20,9 @@ public class ProductDetail {
 
     @GetMapping("/productdetail")
     public String showProductDetail(@RequestParam("id") String serialNumber, Model model) {
-        PotDTO pot = productService.findPotById(serialNumber);
-        SucculentDTO succulent = productService.findSucculentById(serialNumber);
-        SetDTO set = productService.findSetById(serialNumber);
+        ProductDTO productDTO = productService.findById(serialNumber);
 
-        model.addAttribute("pot", pot);
-        model.addAttribute("succulent", succulent);
-        model.addAttribute("set", set);
+        model.addAttribute("products", productDTO);
         return "product/productdetail"; // 상품 상세 정보를 보여줄 뷰의 이름
     }
 

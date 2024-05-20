@@ -27,11 +27,11 @@ public class CartItemEntity {
     private int count; // 상품 개수
 
     public static CartItemEntity createCartItem(CartEntity cartEntity, ProductEntity productEntity, int amount) {
-        CartItemEntity cartItem = new CartItemEntity();
-        cartItem.setCartEntity(cartEntity);
-        cartItem.setProductEntity(productEntity);
-        cartItem.setCount(amount);
-        return cartItem;
+        return CartItemEntity.builder()
+                .cartEntity(cartEntity)
+                .productEntity(productEntity)
+                .count(amount)
+                .build();
     }
 
     // 이미 담겨있는 물건 또 담을 경우 수량 증가

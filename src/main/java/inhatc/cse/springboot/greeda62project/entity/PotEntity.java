@@ -11,19 +11,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
-@Table(name = "pot")
-public class PotEntity {
-
-    @Id
-    private String serialNumber;
-
-    private String productName;
-    private String productSize;
-    private int productPrice;
-    private String productDescription;
-
-    @OneToOne(mappedBy = "potEntity")
-    private ProductEntity products;
+@DiscriminatorValue("POT")
+@Table(name = "product")
+public class PotEntity extends ProductEntity {
+    // PotEntity에 특화된 필드가 있다면 추가
 }

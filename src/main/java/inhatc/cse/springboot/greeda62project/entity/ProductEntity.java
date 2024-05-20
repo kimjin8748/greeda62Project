@@ -4,26 +4,19 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "product_type")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "product")
-public class ProductEntity {
+public abstract class ProductEntity {
 
     @Id
-    private String Number;
+    private String serialNumber;
 
-    @OneToOne
-    @JoinColumn(name = "pot_id")
-    private PotEntity potEntity;
-
-    @OneToOne
-    @JoinColumn(name = "succulent_id")
-    private SucculentEntity succulentEntity;
-
-    @OneToOne
-    @JoinColumn(name = "set_id")
-    private SetEntity setEntity;
+    private String productName;
+    private String productSize;
+    private int productPrice;
+    private String productDescription;
 }

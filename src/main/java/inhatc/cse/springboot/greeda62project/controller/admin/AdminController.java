@@ -33,10 +33,10 @@ public class AdminController {
         return "/admin/memberCTR";
     }
 
-    @GetMapping("/productcheck")
-    public String listProducts(Model model) {
-        List<ProductDTO> products = productService.findAllProducts();
-        model.addAttribute("products", products);
-        return "admin/product_check"; // 상품 목록을 보여주는 View 이름
-    }
+//    @GetMapping("/productcheck")
+//    public String listProducts(Model model) {
+//        List<ProductDTO> products = productService.findAllProducts();
+//        model.addAttribute("products", products);
+//        return "admin/product_check"; // 상품 목록을 보여주는 View 이름
+//    }
 }

@@ -68,7 +68,7 @@
             <div class="col mb-5" th:each="set : ${setList}">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <img class="card-img-top" th:src="@{'/images/set/' + ${set.serialNumber} + '.jpg'}" alt="..." />
+                    <img class="card-img-top" th:src="@{'/images/' + ${set.serialNumber} + '.jpg'}" alt="..." />
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">

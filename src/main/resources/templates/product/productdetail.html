@@ -63,22 +63,22 @@
         <!-- Product section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
-                <div th:each="pot : ${pot}" class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/pot/{serialNumber}.jpg(serialNumber=${pot.serialNumber})}" alt="..." /></div>
+                <div th:each="product : ${products}" class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/{serialNumber}.jpg(serialNumber=${product.serialNumber})}" alt="..." /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1" th:text="${pot.serialNumber}"></div>
-                        <h1 class="display-5 fw-bolder" th:text="${pot.productName}"></h1>
+                        <div class="small mb-1" th:text="${product.serialNumber}"></div>
+                        <h1 class="display-5 fw-bolder" th:text="${product.productName}"></h1>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through">8,000원</span>
-                            <span th:text="${pot.productPrice} + '원'"></span>
+                            <span th:text="${product.productPrice} + '원'"></span>
                         </div>
-                        <span th:text="'규격 : ' + ${pot.productSize}"></span>
-                        <p class="lead" th:text="${pot.productDescription}"></p>
-                        <form class="d-flex" th:action="@{/cart/{id}/{productId}(id=${session.id}, productId=${pot.serialNumber})}" method="post">
+                        <span th:text="'규격 : ' + ${product.productSize}"></span>
+                        <p class="lead" th:text="${product.productDescription}"></p>
+                        <form class="d-flex" th:action="@{/cart/{id}/{productId}(id=${session.id}, productId=${product.serialNumber})}" method="post">
                             <div class="d-flex">
-                                <input type="hidden" name="serialNumber" th:value="${pot.serialNumber}" />
-                                <input type="hidden" name="productName" th:value="${pot.productName}" />
-                                <input type="hidden" name="productPrice" th:value="${pot.productPrice}" />
+                                <input type="hidden" name="serialNumber" th:value="${product.serialNumber}" />
+                                <input type="hidden" name="productName" th:value="${product.productName}" />
+                                <input type="hidden" name="productPrice" th:value="${product.productPrice}" />
                                 <input class="form-control text-center me-3" id="inputQuantity" name="amount" type="number" value="1" style="max-width: 3rem" />
                                 <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                                     <i class="bi-cart-fill me-1"></i>
@@ -86,46 +86,6 @@
                                 </button>
                             </div>
                         </form>
-                    </div>
-                </div>
-                <div th:each="succulent : ${succulent}" class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/suc/{serialNumber}.jpg(serialNumber=${succulent.serialNumber})}" alt="..." /></div>
-                    <div class="col-md-6">
-                        <div class="small mb-1" th:text="${succulent.serialNumber}"></div>
-                        <h1 class="display-5 fw-bolder" th:text="${succulent.productName}"></h1>
-                        <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">8,000원</span>
-                            <span th:text="${succulent.productPrice} + '원'"></span>
-                        </div>
-                        <span th:text="'규격 : ' + ${succulent.productSize}"></span>
-                        <p class="lead" th:text="${succulent.productDescription}"></p>
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity1" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                장바구니 담기
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div th:each="sets : ${set}" class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/set/{serialNumber}.jpg(serialNumber=${set.serialNumber})}" alt="..." /></div>
-                    <div class="col-md-6">
-                        <div class="small mb-1" th:text="${set.serialNumber}"></div>
-                        <h1 class="display-5 fw-bolder" th:text="${set.productName}"></h1>
-                        <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">8,000원</span>
-                            <span th:text="${set.productPrice} + '원'"></span>
-                        </div>
-                        <span th:text="'규격 : ' + ${set.productSize}"></span>
-                        <p class="lead" th:text="${set.productDescription}"></p>
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity2" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                장바구니 담기
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>

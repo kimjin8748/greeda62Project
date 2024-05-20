@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SetRepository extends JpaRepository <SetEntity, String> {
-    Optional<SetEntity> findById(String serialNumber);
 
     @Query("SELECT se FROM SetEntity se WHERE " +
             "se.productName LIKE %:keyword% OR " +

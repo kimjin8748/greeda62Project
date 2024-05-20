@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SucculentRepository extends JpaRepository <SucculentEntity, String> {
-    Optional<SucculentEntity> findById(String serialNumber);
 
     @Query("SELECT su FROM SucculentEntity su WHERE " +
             "su.productName LIKE %:keyword% OR " +

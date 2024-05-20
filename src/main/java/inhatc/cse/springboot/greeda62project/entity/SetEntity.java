@@ -1,29 +1,17 @@
 package inhatc.cse.springboot.greeda62project.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
-@Table(name = "sets")
-public class SetEntity {
-
-    @Id
-    private String serialNumber;
-
-    private String productName;
-    private String productSize;
-    private int productPrice;
-    private String productDescription;
-
-    @OneToOne(mappedBy = "setEntity")
-    private ProductEntity products;
+@DiscriminatorValue("SET")
+@Table(name = "product")
+public class SetEntity extends ProductEntity {
+    // SetEntity에 특화된 필드가 있다면 여기에 추가
 }

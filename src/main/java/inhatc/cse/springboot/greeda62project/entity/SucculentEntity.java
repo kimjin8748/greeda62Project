@@ -11,19 +11,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
-@Table(name = "succulent")
-public class SucculentEntity {
-
-    @Id
-    private String serialNumber;
-
-    private String productName;
-    private String productSize;
-    private int productPrice;
-    private String productDescription;
-
-    @OneToOne(mappedBy = "succulentEntity")
-    private ProductEntity products;
+@DiscriminatorValue("SUC")
+@Table(name = "product")
+public class SucculentEntity extends ProductEntity {
+    // SucculentEntity에 특화된 필드가 있다면 추가
 }

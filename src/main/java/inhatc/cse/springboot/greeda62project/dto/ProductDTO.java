@@ -12,27 +12,20 @@ public class ProductDTO {
 
 
     private String serialNumber;
+    private String productType;
     private String productName;
     private String productSize;
     private int productPrice;
     private String productDescription;
 
-    private String PotSerialNumber;
-    private String PotProductName;
-    private String PotProductSize;
-    private int PotProductPrice;
-    private String PotProductDescription;
-
-    private String SucculentSerialNumber;
-    private String SucculentProductName;
-    private String SucculentProductSize;
-    private int SucculentProductPrice;
-    private String SucculentProductDescription;
-
-    private String SetSerialNumber;
-    private String SetProductName;
-    private String SetProductSize;
-    private int SetProductPrice;
-    private String SetProductDescription;
+    public static ProductDTO toProductDTO(ProductEntity productEntity) {
+        ProductDTO dto = new ProductDTO();
+        dto.setSerialNumber(productEntity.getSerialNumber());
+        dto.setProductName(productEntity.getProductName());
+        dto.setProductSize(productEntity.getProductSize());
+        dto.setProductPrice(productEntity.getProductPrice());
+        dto.setProductDescription(productEntity.getProductDescription());
+        return dto;
+    }
 
 }

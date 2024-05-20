@@ -22,9 +22,18 @@ public class AllProductController {
     private final ProductService productService;
 
     @GetMapping("/allproduct")
-    public String allproduct(Model model) {
-        List<ProductDTO> products = productService.findAllProducts();
+    public String allProductForm(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+                                 @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
+                                 Model model) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<ProductDTO> page = productService.findAllProducts(pageable);
+        List<ProductDTO> products = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("products", products);
+
         return "/category/allproduct";
     }
 

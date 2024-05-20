@@ -13,19 +13,9 @@ import java.util.Set;
 
 public interface ProductService {
 
-    List<ProductDTO> findAllProducts();
+    Page<ProductDTO> findAllProducts(Pageable pageable);
 
-    PotDTO findPotById(String serialNumber);
-
-    SucculentDTO findSucculentById(String serialNumber);
-
-    SetDTO findSetById(String serialNumber);
-
-    Page<PotEntity> findPotPaginated(int pageNo, int pageSize);
-
-    Page<SucculentEntity> findSucculentPaginated(int pageNo, int pageSize);
-
-    Page<SetEntity> findSetPaginated(int pageNo, int pageSize);
+    Page<ProductEntity> findProductByCategoryPaginated(Class<?> categoryClass, int pageNo, int pageSize);
 
     List<PotEntity> searchByPotKeyword(String keyword);
 
@@ -33,5 +23,8 @@ public interface ProductService {
 
     List<SetEntity> searchBySetKeyword(String keyword);
 
-    ProductDTO productView(String productId);
+    ProductDTO findById(String serialNumber);
+
+//    ProductDTO productView(String productId);
+
 }
