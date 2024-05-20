@@ -31,8 +31,8 @@
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item"><a class="nav-link" href="/faq">고객문의</a></li>
-        <li class="nav-item"><a class="nav-link" th:if="${session.id == null}"href="/member">로그인</a></li>
-        <li class="nav-item"><a class="nav-link" th:if="${session.id != null}"href="/logout">로그아웃</a></li>
+        <li class="nav-item"><a class="nav-link" th:if="${session.id == null}" href="/member">로그인</a></li>
+        <li class="nav-item"><a class="nav-link" th:if="${session.id != null}" href="/logout">로그아웃</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -64,63 +64,23 @@
 <section class="bg-body py-5">
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-      <div class="col mb-5" th:each="pot : ${pots}">
+      <div class="col mb-5" th:each="product : ${products}">
         <div class="card h-100">
           <!-- Product image-->
-          <img class="card-img-top" th:src="@{'/images/pot/' + ${pot.serialNumber} + '.jpg'}" alt="..." />
+          <img class="card-img-top" th:src="@{'/images/' + ${product.serialNumber} + '.jpg'}" alt="..." />
           <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
               <!-- Product name-->
-              <h5 class="fw-bolder" th:text="${pot.productName}"></h5>
+              <h5 class="fw-bolder" th:text="${product.productName}"></h5>
               <!-- Product price-->
-              <span th:text="${#numbers.formatDecimal(pot.productPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
+              <span th:text="${#numbers.formatDecimal(product.productPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
             </div>
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${pot.serialNumber})}">상세정보 확인</a></div>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-5" th:each="succulent : ${succulents}">
-        <div class="card h-100">
-          <!-- Product image-->
-          <img class="card-img-top" th:src="@{'/images/suc/' + ${succulent.serialNumber} + '.jpg'}" alt="..." />
-          <!-- Product details-->
-          <div class="card-body p-4">
-            <div class="text-center">
-              <!-- Product name-->
-              <h5 class="fw-bolder" th:text="${succulent.productName}"></h5>
-              <!-- Product price-->
-              <span th:text="${#numbers.formatDecimal(succulent.productPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
-            </div>
-          </div>
-          <!-- Product actions-->
-          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${succulent.serialNumber})}">상세정보 확인</a></div>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-5" th:each="set : ${sets}">
-        <div class="card h-100">
-          <!-- Product image-->
-          <img class="card-img-top" th:src="@{'/images/set/' + ${set.serialNumber} + '.jpg'}" alt="..." />
-          <!-- Product details-->
-          <div class="card-body p-4">
-            <div class="text-center">
-              <!-- Product name-->
-              <h5 class="fw-bolder" th:text="${set.productName}"></h5>
-              <!-- Product price-->
-              <span th:text="${#numbers.formatDecimal(set.productPrice, 0, 'COMMA', 0, 'POINT')} + '원'"></span>
-            </div>
-          </div>
-          <!-- Product actions-->
-          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${set.serialNumber})}">상세정보 확인</a></div>
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${product.serialNumber})}">상세정보 확인</a></div>
           </div>
         </div>
       </div>

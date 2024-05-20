@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,20 +32,31 @@ public class CartController {
         if (id == null) {
             return "redirect:/member";
         }
-        List<CartItemDTO> cartItems = cartService.getCartItems(id);
+        List<CartItemDTO> cartItems = getCartItemsFromSession(session);
         model.addAttribute("cartItems", cartItems);
         return "cart/cart";
     }
 
+    private List<CartItemDTO> getCartItemsFromSession(HttpSession session) {
+        @SuppressWarnings("unchecked")
+        List<CartItemDTO> cartItems = (List<CartItemDTO>) session.getAttribute("cartItems");
+        if (cartItems == null) {
+            cartItems = new ArrayList<>();
+            session.setAttribute("cartItems", cartItems);
+        }
+        return cartItems;
+    }
+
+
     // 장바구니에 물건 넣기 컨트롤러
-//    @PostMapping("/cart/{id}/{productId}")
-//    public String addCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId, int amount) {
-//
-//        MemberDTO memberDTO = memberService.findUser(id);
-//        ProductDTO productDTO = productService.productView(productId);
-//
-//        cartService.addCart(memberDTO, productDTO, amount);
-//
-//        return "redirect:cart/cart";
-//    }
+    @PostMapping("/cart/{id}/{productId}")
+    public String addCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId, int amount) {
+
+        MemberDTO memberDTO = memberService.findUser(id);
+        ProductDTO productDTO = productService.productView(productId);
+
+        cartService.addCart(memberDTO, productDTO, amount);
+
+        return "cart/cart";
+    }
 }

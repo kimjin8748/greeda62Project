@@ -48,29 +48,19 @@ public class HomeController {
 
     @GetMapping("/search")
     public String searchProducts(@RequestParam(required = false) String keyword, Model model) {
-        List<PotEntity> pots;
-        List<SucculentEntity> succulents;
-        List<SetEntity> sets;
+        List<ProductEntity> products;
         if (keyword != null && !keyword.isEmpty()) {
-            pots = productService.searchByPotKeyword(keyword);
-            succulents = productService.searchBySucculentKeyword(keyword);
-            sets = productService.searchBySetKeyword(keyword);
+            products = productService.searchByKeyword(keyword);
         } else {
             // keyword가 없는 경우의 처리 로직
-            pots = new ArrayList<>();
-            succulents = new ArrayList<>();
-            sets = new ArrayList<>();
+            products = new ArrayList<>();
         }
 
         // ProductEntity 리스트를 ProductDTO 리스트로 변환
-        List<PotDTO> potDTOs = pots.stream().map(PotDTO::toPotDTO).collect(Collectors.toList());
-        List<SucculentDTO> succulentDTOs = succulents.stream().map(SucculentDTO::toSucculentDTO).collect(Collectors.toList());
-        List<SetDTO> setDTOs = sets.stream().map(SetDTO::toSetDTO).collect(Collectors.toList());
+        List<ProductDTO> productDTOSs = products.stream().map(ProductDTO::toProductDTO).collect(Collectors.toList());
 
-        model.addAttribute("pots", potDTOs);
-        model.addAttribute("succulents", succulentDTOs);
-        model.addAttribute("sets", setDTOs);
-        model.addAttribute("isEmpty", pots.isEmpty() && succulents.isEmpty() && sets.isEmpty());
+        model.addAttribute("products", productDTOSs);
+        model.addAttribute("isEmpty", products.isEmpty());
 
         return "search/searchResult"; // 검색 결과를 보여줄 페이지의 이름
     }

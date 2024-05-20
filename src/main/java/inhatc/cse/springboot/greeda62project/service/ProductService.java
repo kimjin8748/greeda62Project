@@ -17,14 +17,10 @@ public interface ProductService {
 
     Page<ProductEntity> findProductByCategoryPaginated(Class<?> categoryClass, int pageNo, int pageSize);
 
-    List<PotEntity> searchByPotKeyword(String keyword);
-
-    List<SucculentEntity> searchBySucculentKeyword(String keyword);
-
-    List<SetEntity> searchBySetKeyword(String keyword);
+    List<ProductEntity> searchByKeyword(String keyword);
 
     ProductDTO findById(String serialNumber);
 
-//    ProductDTO productView(String productId);
+    ProductDTO productView(String productId);
 
 }

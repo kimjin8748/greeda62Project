@@ -11,6 +11,7 @@ import inhatc.cse.springboot.greeda62project.repository.CartRepository;
 import inhatc.cse.springboot.greeda62project.repository.ProductRepository;
 import inhatc.cse.springboot.greeda62project.service.CartService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CartServiceImpl implements CartService {
 
     private final ProductRepository productRepository;
@@ -55,14 +57,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartItemDTO> getCartItems(String memberId) {
-        // 세션에서 장바구니 항목을 가져옵니다.
-        List<CartItemDTO> cartItems = (List<CartItemDTO>) session.getAttribute("cartItems");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems);
-        }
-        return cartItems;
+    public List<CartItemEntity> getCartItems(int cartId) {
+        return cartItemRepository.findByCartEntityId(cartId);
     }
 
 

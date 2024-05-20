@@ -23,7 +23,7 @@ public class MemberController {
     }
 
     @PostMapping("/member")
-    public MemberDTO createMember(MemberDTO memberDTO, Model model){
+    public String createMember(MemberDTO memberDTO, Model model){
         String id = memberDTO.getId();
         String password = memberDTO.getPassword();
         String name = memberDTO.getName();
@@ -37,9 +37,10 @@ public class MemberController {
         if (isDuplicated) {
             model.addAttribute("signUpError", "회원가입에 실패하였습니다(아이디를 다시 확인해주세요.)");
             model.addAttribute("signUpFailed", true);
-            return null;
+            return "member/member";
         } else {
-            return memberService.saveMember(id, password, name, email, address);
+            memberService.saveMember(id, password, name, email, address);
+            return "member/member";
         }
     }
 

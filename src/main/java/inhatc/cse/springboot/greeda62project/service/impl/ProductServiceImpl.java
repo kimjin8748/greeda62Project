@@ -63,46 +63,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<PotEntity> searchByPotKeyword(String keyword) {
-        return potRepository.findByPotKeyword("%" + keyword + "%");
+    public List<ProductEntity> searchByKeyword(String keyword) {
+        return productRepository.findByKeyword("%" + keyword + "%");
     }
 
     @Override
-    public List<SucculentEntity> searchBySucculentKeyword(String keyword) {
-        return succulentRepository.findBySucculentKeyword("%" + keyword + "%");
-    }
+    public ProductDTO productView(String productId){
 
-    @Override
-    public List<SetEntity> searchBySetKeyword(String keyword) {
-        return setRepository.findByPotKeyword("%" + keyword + "%");
-    }
+        ProductEntity productEntity = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product Number:" + productId));
 
-    public PotEntity findPotBySerialNumber(String serialNumber) {
-        return potRepository.findById(serialNumber).orElseThrow(() -> new IllegalArgumentException("Pot not found"));
+        if (productEntity != null) {
+            return ProductDTO.toProductDTO(productEntity);
+        }  else {
+            throw new IllegalArgumentException("상품이 없습니다. :" + productId);
+        }
     }
-
-    public SucculentEntity findSucculentBySerialNumber(String serialNumber) {
-        return succulentRepository.findById(serialNumber).orElseThrow(() -> new IllegalArgumentException("Succulent not found"));
-    }
-
-    public SetEntity findSetBySerialNumber(String serialNumber) {
-        return setRepository.findById(serialNumber).orElseThrow(() -> new IllegalArgumentException("Set not found"));
-    }
-
-//    public ProductDTO productView(String productId){
-//
-//        ProductEntity productEntity = productRepository.findByPotEntity_serialNumber(productId)
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid product Number:" + productId));
-//
-//        if (productEntity.getPotEntity() != null) {
-//            return convertToDTO(productEntity.getPotEntity());
-//        } else if (productEntity.getSucculentEntity() != null) {
-//            return convertToDTO(productEntity.getSucculentEntity());
-//        } else if (productEntity.getSetEntity() != null) {
-//            return convertToDTO(productEntity.getSetEntity());
-//        } else {
-//            throw new IllegalArgumentException("상품이 없습니다. :" + productId);
-//        }
-//    }
 
 }

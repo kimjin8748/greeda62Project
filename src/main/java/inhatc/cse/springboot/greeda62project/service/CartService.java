@@ -3,6 +3,8 @@ package inhatc.cse.springboot.greeda62project.service;
 import inhatc.cse.springboot.greeda62project.dto.CartItemDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
+import inhatc.cse.springboot.greeda62project.entity.CartEntity;
+import inhatc.cse.springboot.greeda62project.entity.CartItemEntity;
 
 import java.util.List;
 
@@ -10,5 +12,7 @@ public interface CartService {
 
     void addCart(MemberDTO memberDTO, ProductDTO productDTO, int amount);
 
-    List<CartItemDTO> getCartItems(String id);
+    List<CartItemEntity> getCartItems(int cartId);
+
+//    CartEntity findById(int id);
 }
