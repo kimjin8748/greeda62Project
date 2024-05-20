@@ -74,10 +74,13 @@
                         </div>
                         <span th:text="'규격 : ' + ${pot.productSize}"></span>
                         <p class="lead" th:text="${pot.productDescription}"></p>
-                        <form class="d-flex" th:action="@{/cart/{id}/{itemId}(id=${user.id}, itemId=${item.id})}" method="post">
+                        <form class="d-flex" th:action="@{/cart/{id}/{productId}(id=${session.id}, productId=${pot.serialNumber})}" method="post">
                             <div class="d-flex">
-                                <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                                <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                                <input type="hidden" name="serialNumber" th:value="${pot.serialNumber}" />
+                                <input type="hidden" name="productName" th:value="${pot.productName}" />
+                                <input type="hidden" name="productPrice" th:value="${pot.productPrice}" />
+                                <input class="form-control text-center me-3" id="inputQuantity" name="amount" type="number" value="1" style="max-width: 3rem" />
+                                <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                                     <i class="bi-cart-fill me-1"></i>
                                     장바구니 담기
                                 </button>

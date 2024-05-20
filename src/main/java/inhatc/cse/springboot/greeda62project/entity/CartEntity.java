@@ -21,20 +21,20 @@ public class CartEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
     private MemberEntity memberEntity; // 구매자
 
     private int count; // 카트에 담긴 총 상품 개수
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cartEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItemEntity> cartItems = new ArrayList<>();
 
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate; // 날짜
 
     @PrePersist
-    public void createDate(){
+    public void onCreate(){
         this.createDate = LocalDate.now();
     }
 
@@ -43,5 +43,15 @@ public class CartEntity {
         cart.setCount(0);
         cart.setMemberEntity(memberEntity);
         return cart;
+    }
+
+    public void addCartItem(CartItemEntity cartItem) {
+        this.cartItems.add(cartItem);
+        cartItem.setCartEntity(this);
+    }
+
+    public void removeCartItem(CartItemEntity cartItem) {
+        this.cartItems.remove(cartItem);
+        cartItem.setCartEntity(null);
     }
 }

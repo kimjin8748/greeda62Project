@@ -138,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductDTO productView(String productId){
 
-        ProductEntity productEntity = productRepository.findById(productId)
+        ProductEntity productEntity = productRepository.findByPotEntity_serialNumber(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Number:" + productId));
 
         if (productEntity.getPotEntity() != null) {
