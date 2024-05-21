@@ -51,4 +51,14 @@ public class AdminController {
 
         return "admin/product_check"; // 상품 목록을 보여주는 View 이름
     }
+    @GetMapping("/admin/productinsert")
+    public String productinsert(){
+        return "/admin/product_insert";
+    }
+
+    @GetMapping("/admin/productupdate")
+    public String productupdate(){
+        return "/admin/product_update";
+    }
+
 }
