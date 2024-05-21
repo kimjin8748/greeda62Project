@@ -57,8 +57,15 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartItemEntity> getCartItems(int cartId) {
-        return cartItemRepository.findByCartEntityId(cartId);
+    public List<CartItemEntity> getCartItemsByUserId(String memberId) {
+        Optional<CartEntity> cartEntityOptional = cartRepository.findByMemberEntity_Id(memberId);
+        if (cartEntityOptional.isPresent()) {
+            int cartId = cartEntityOptional.get().getId();
+            return cartItemRepository.findByCartEntityId(cartId);
+        } else {
+            // 장바구니가 없을 경우 빈 리스트 반환
+            return List.of();
+        }
     }
 
 

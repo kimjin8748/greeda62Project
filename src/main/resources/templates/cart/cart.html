@@ -67,15 +67,15 @@
                                         <h1 class="fw-bold mb-0 text-black">장바구니</h1>
                                         <h6 class="mb-0 text-muted">전체선택( 0/3 )</h6>
                                     </div>
-                                    <hr class="my-4">
 
                                     <div th:each="item, iterStat : ${cartItems}" class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <hr class="my-4">
                                         <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img th:src="@{/images/{img}(img=${item.product.serialNumber})}" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                            <img th:src="@{/images/{img}.jpg(img=${item.productEntity.serialNumber})}" class="img-fluid rounded-3" alt="...">
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-3">
                                             <h6 class="text-muted">화분</h6>
-                                            <h6 class="text-black mb-0" th:text="${item.product.productName}">다육이1</h6>
+                                            <h6 class="text-black mb-0" th:text="${item.productEntity.productName}">다육이1</h6>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
@@ -83,7 +83,7 @@
                                                 <i class="fas fa-minus"></i>
                                             </button>
 
-                                            <input th:id="'form' + ${iterStat.count}" min="0" name="amount" th:value="${item.amount}" type="number"
+                                            <input th:id="'form' + ${iterStat.count}" min="0" name="amount" th:value="${item.count}" type="number"
                                                    class="form-control form-control-sm" />
 
                                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
@@ -92,71 +92,7 @@
                                             </button>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h6 class="mb-0" th:text="${item.product.productPrice} + '원'">5,000원</h6>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                                        </div>
-                                    </div>
-
-                                    <hr class="my-4">
-
-                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                        <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img src="/images/POT-001.jpg" class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <h6 class="text-muted">화분</h6>
-                                            <h6 class="text-black mb-0">화분1</h6>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-
-                                            <input id="form2" min="0" name="quantity" value="1" type="number"
-                                                   class="form-control form-control-sm" />
-
-                                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h6 class="mb-0">5,000원</h6>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                                        </div>
-                                    </div>
-
-                                    <hr class="my-4">
-
-                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                        <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img src="/images/SET-001.jpg" class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <h6 class="text-muted">다육이&화분Set</h6>
-                                            <h6 class="text-black mb-0">세트1</h6>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-
-                                            <input id="form3" min="0" name="quantity" value="1" type="number"
-                                                   class="form-control form-control-sm" />
-
-                                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h6 class="mb-0">8,000원</h6>
+                                            <h6 class="mb-0" th:text="${item.productEntity.productPrice} + '원'">5,000원</h6>
                                         </div>
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                             <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>

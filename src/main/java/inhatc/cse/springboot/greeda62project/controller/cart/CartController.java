@@ -3,6 +3,7 @@ package inhatc.cse.springboot.greeda62project.controller.cart;
 import inhatc.cse.springboot.greeda62project.dto.CartItemDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
+import inhatc.cse.springboot.greeda62project.entity.CartItemEntity;
 import inhatc.cse.springboot.greeda62project.service.CartService;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
@@ -32,7 +33,8 @@ public class CartController {
         if (id == null) {
             return "redirect:/member";
         }
-        List<CartItemDTO> cartItems = getCartItemsFromSession(session);
+
+        List<CartItemEntity> cartItems = cartService.getCartItemsByUserId(id);
         model.addAttribute("cartItems", cartItems);
         return "cart/cart";
     }

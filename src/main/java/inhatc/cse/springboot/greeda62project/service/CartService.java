@@ -12,7 +12,7 @@ public interface CartService {
 
     void addCart(MemberDTO memberDTO, ProductDTO productDTO, int amount);
 
-    List<CartItemEntity> getCartItems(int cartId);
+    List<CartItemEntity> getCartItemsByUserId(String memberId);
 
 //    CartEntity findById(int id);
 }
