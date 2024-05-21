@@ -80,7 +80,17 @@
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
+            <form class="text-center" th:action="@{/cart/{id}/{productId}(id=${session.id}, productId=${pot.serialNumber})}" method="post">
+              <div class="text-center">
+                <input type="hidden" name="serialNumber" th:value="${pot.serialNumber}" />
+                <input type="hidden" name="productName" th:value="${pot.productName}" />
+                <input type="hidden" name="productPrice" th:value="${pot.productPrice}" />
+                <input type="hidden" class="form-control text-center me-3" id="inputQuantity" name="amount" value="1" style="max-width: 3rem" />
+                <button class="btn btn-outline-dark mt-auto" type="submit">
+                  장바구니 담기
+                </button>
+              </div>
+            </form>
             <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/productdetail(id=${pot.serialNumber})}">상세정보 확인</a></div>
           </div>
         </div>
