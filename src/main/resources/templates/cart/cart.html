@@ -42,7 +42,6 @@
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     장바구니
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
             &nbsp;
@@ -65,17 +64,22 @@
                                 <div class="p-5">
                                     <div class="d-flex justify-content-between align-items-center mb-5">
                                         <h1 class="fw-bold mb-0 text-black">장바구니</h1>
-                                        <h6 class="mb-0 text-muted">전체선택( 0/3 )</h6>
                                     </div>
+                                    <h6 class="mb-0 text-muted">전체선택( 0/3 )</h6>
 
                                     <div th:each="item, iterStat : ${cartItems}" class="row mb-4 d-flex justify-content-between align-items-center">
                                         <hr class="my-4">
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <input type="checkbox" class="product-checkbox" th:data-price="${item.productEntity.productPrice}" th:id="'checkbox' + ${iterStat.count}" onchange="calculateTotal()">
+                                        </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <img th:src="@{/images/{img}.jpg(img=${item.productEntity.serialNumber})}" class="img-fluid rounded-3" alt="...">
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-3">
-                                            <h6 class="text-muted">화분</h6>
-                                            <h6 class="text-black mb-0" th:text="${item.productEntity.productName}">다육이1</h6>
+                                            <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('POT')}">화분</h6>
+                                            <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('SUC')}">다육이</h6>
+                                            <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('SET')}">세트</h6>
+                                            <h6 class="text-black mb-0" th:text="${item.productEntity.productName}"></h6>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
@@ -84,7 +88,7 @@
                                             </button>
 
                                             <input th:id="'form' + ${iterStat.count}" min="0" name="amount" th:value="${item.count}" type="number"
-                                                   class="form-control form-control-sm" />
+                                                   class="form-control form-control-sm product-quantity" onchange="calculateTotal()"/>
 
                                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
@@ -92,10 +96,7 @@
                                             </button>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h6 class="mb-0" th:text="${item.productEntity.productPrice} + '원'">5,000원</h6>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                            <h6 class="mb-0" th:text="${item.productEntity.productPrice} + '원'"></h6>
                                         </div>
                                     </div>
 
@@ -114,7 +115,7 @@
 
                                     <div class="d-flex justify-content-between mb-4">
                                         <h5 class="text-uppercase">총 상품 가격</h5>
-                                        <h5>18,000원</h5>
+                                        <h5 id="total-price">18,000원</h5>
                                     </div>
 
                                     <h5 class="text-uppercase mb-3">Shipping</h5>

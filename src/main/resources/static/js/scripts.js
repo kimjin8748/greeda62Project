@@ -14,3 +14,17 @@ function clearSearchField() {
 app.controller('MemberController', ['$scope', function($scope) {
     $scope.showSignIn = !signUpFailed;
 }]);
+
+function calculateTotal() {
+    let totalPrice = 0; // 총 가격 초기화
+    document.querySelectorAll('.product-checkbox').forEach((checkbox) => {
+        if (checkbox.checked) { // 체크박스가 체크되어 있는 경우
+            const row = checkbox.closest('.row'); // 해당 체크박스가 속한 row 요소 찾기
+            const quantityInput = row.querySelector('.product-quantity'); // 해당 row에서 수량 입력 필드 찾기
+            const price = parseInt(checkbox.dataset.price); // 상품 가격 가져오기
+            const quantity = parseInt(quantityInput.value); // 상품 수량 가져오기
+            totalPrice += price * quantity; // 총 가격 업데이트
+        }
+    });
+    document.getElementById('total-price').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
+}
