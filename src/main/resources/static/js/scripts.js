@@ -11,9 +11,17 @@ function clearSearchField() {
     document.getElementById('search-field').focus(); // 입력 필드에 다시 초점을 맞춥니다.
 }
 
-app.controller('MemberController', ['$scope', function($scope) {
+app.controller('MemberController', ['$scope', function ($scope) {
     $scope.showSignIn = !signUpFailed;
 }]);
+
+function toggleSelectAll(source) {
+    const checkboxes = document.querySelectorAll('.product-checkbox');
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = source.checked; // 모든 체크박스의 상태를 전체 선택 체크박스와 동일하게 설정
+    });
+    calculateTotal(); // 전체 가격 다시 계산
+}
 
 function calculateTotal() {
     let totalPrice = 0; // 총 가격 초기화
@@ -21,8 +29,8 @@ function calculateTotal() {
         if (checkbox.checked) { // 체크박스가 체크되어 있는 경우
             const row = checkbox.closest('.row'); // 해당 체크박스가 속한 row 요소 찾기
             const quantityInput = row.querySelector('.product-quantity'); // 해당 row에서 수량 입력 필드 찾기
-            const price = parseInt(checkbox.dataset.price); // 상품 가격 가져오기
-            const quantity = parseInt(quantityInput.value); // 상품 수량 가져오기
+            const price = parseInt(checkbox.dataset.price) || 0; // 상품 가격 가져오기, NaN 방지
+            const quantity = parseInt(quantityInput.value) || 0; // 상품 수량 가져오기, NaN 방지
             totalPrice += price * quantity; // 총 가격 업데이트
         }
     });

@@ -10891,3 +10891,7 @@ textarea.form-control-lg {
 body, h1, h2, h3, h4, h5, h6, p, span {
   font-family: 'Gowun Dodum' , sans-serif !important;
 }
+
+.product-checkbox {
+  zoom: 1.5;
+}
