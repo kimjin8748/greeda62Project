@@ -125,5 +125,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/js/scripts.js"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            // 모델에서 isAdmin 속성을 가져와서 JavaScript 변수에 할당
+            var isAdmin = [[${isAdmin}]];
+
+            // isAdmin 값에 따라 조건부로 알림 표시
+            if (isAdmin === false) {
+                alert('관리자만 접근할 수 있습니다.');
+            }
+            /*]]>*/
+        </script>
     </body>
 </html>

@@ -18,10 +18,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -34,6 +37,10 @@ public class HomeController {
     public String main(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                        @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
                        Model model){
+
+        Boolean isAdmin = (Boolean) model.asMap().getOrDefault("isAdmin", Boolean.FALSE);
+        model.addAttribute("isAdmin", isAdmin);
+
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<ProductDTO> page = productService.findAllProducts(pageable);
         List<ProductDTO> products = page.getContent();

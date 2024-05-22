@@ -65,7 +65,10 @@
                                     <div class="d-flex justify-content-between align-items-center mb-5">
                                         <h1 class="fw-bold mb-0 text-black">장바구니</h1>
                                     </div>
-                                    <h6 class="mb-0 text-muted">전체선택( 0/3 )</h6>
+                                    <h6 class="mb-0 text-muted">
+                                        <input type="checkbox" class="product-checkbox" id="select-all-checkbox" onchange="toggleSelectAll(this)">
+                                        전체선택
+                                    </h6>
 
                                     <div th:each="item, iterStat : ${cartItems}" class="row mb-4 d-flex justify-content-between align-items-center">
                                         <hr class="my-4">
