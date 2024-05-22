@@ -59,6 +59,6 @@ public class CartController {
 
         cartService.addCart(memberDTO, productDTO, amount);
 
-        return "cart/cart";
+        return "redirect:/cart";
     }
 }

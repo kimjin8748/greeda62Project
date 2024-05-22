@@ -27,4 +27,5 @@ function calculateTotal() {
         }
     });
     document.getElementById('total-price').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
+    document.getElementById('total-price1').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
 }
