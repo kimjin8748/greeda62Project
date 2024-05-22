@@ -62,20 +62,19 @@
     </div>
 </nav>
 <section class="table">
-    <h2>게시물을 작성하세요.</h2>
-
+    <h3 class="container">게시물을 작성하세요.</h3>
     <!-- board list area -->
-
     <form class="container" action="/faq/new" method="post">
         <div class="mb-3">
             <label class="form-Label">제목</label>
-            <input type="text" class="form-control" name="title">
+            <input type="text" class="form-control" name="b_title">
         </div>
         <div class="mb-3">
             <label class="form-label">내용</label>
             <textarea class="form-control" rows="3" name="b_text"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">글쓰기</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/faq'">목록보기</button>
     </form>
 
 </section>

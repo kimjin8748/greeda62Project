@@ -1,9 +1,10 @@
 package inhatc.cse.springboot.greeda62project.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -13,10 +14,20 @@ import lombok.*;
 @Builder
 @Table(name = "board")
 public class BoardEntity {
+
     @Id
-    private String board_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int board_id;
+
     private String b_text;
     private String b_title;
-    private String b_date;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate b_date;
+
+    @PrePersist
+    public void prePersist() {
+        this.b_date = (this.b_date == null) ? LocalDate.now() : this.b_date;
+    }
 
 }

@@ -79,7 +79,6 @@
                         <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
                         <button type="submit" class="btn btn-dark">검색</button>
                     </div>
-                    <button type="submit" class="btn btn-dark"> <a style="text-decoration-line: none; color: white" href="/faq/new">글쓰기 </a> </button>
                 </form>
             </div>
         </div>
@@ -97,28 +96,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>3</td>
+                <tr th:each="board : ${board}">
+                    <td th:text="${board.board_id}">3</td>
                     <th>
-                        <a href="">다육이 잎에 스크레치가 조금 있어요</a>
+                        <a href="" th:text="${board.b_title}">다육이 잎에 스크레치가 조금 있어요</a>
                         <p>테스트</p>
                     </th>
-                    <td>2017.07.13</td>
-                </tr>
-
-                <tr>
-                    <td>2</td>
-                    <th><a href="">다육이 이름표가 없어요</a></th>
-                    <td>2017.06.15</td>
-                </tr>
-
-                <tr>
-                    <td>1</td>
-                    <th><a href="">비밀 문의글 입니다.</a></th>
-                    <td>2017.06.15</td>
+                    <td th:text="${board.b_date}">2017.07.13</td>
                 </tr>
                 </tbody>
-            </table>
+            </table><br>
+            <button type="submit" class="btn btn-dark"> <a style="text-decoration-line: none; color: white" href="/faq/new">글쓰기 </a> </button>
         </div>
     </div>
 
