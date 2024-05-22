@@ -49,7 +49,6 @@
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     장바구니
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
             &nbsp;
@@ -90,14 +89,14 @@
             <table class="board-table">
                 <thead>
                 <tr>
-                    <th scope="col" class="th-num">번호</th>
+                    <th scope="col" class="th-num">회원ID</th>
                     <th scope="col" class="th-title">제목</th>
                     <th scope="col" class="th-date">등록일</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="board : ${board}">
-                    <td th:text="${board.board_id}">3</td>
+                <tr th:each="board : ${boards}">
+                    <td th:text="${board.maskedMemberId}">3</td>
                     <th>
                         <a href="" th:text="${board.b_title}">다육이 잎에 스크레치가 조금 있어요</a>
                         <p>테스트</p>

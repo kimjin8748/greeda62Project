@@ -2,13 +2,10 @@ package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
-import inhatc.cse.springboot.greeda62project.handler.MemberDataHandler;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +16,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberDataHandler memberDataHandler;
     private final MemberRepository memberRepository;
 
     //회원가입을 위한 로직
     @Override
     public MemberDTO saveMember(String id, String password, String name, String email, String address) {
-        MemberEntity memberEntity = memberDataHandler.saveMemberEntity(id, password, name, email, address);
+        MemberEntity memberEntity = MemberEntity.builder()
+                .id(id)
+                .password(password)
+                .name(name)
+                .email(email)
+                .address(address)
+                .build();
+
+        memberEntity = memberRepository.save(memberEntity); // memberRepository를 사용
 
         MemberDTO memberDTO = new MemberDTO(memberEntity.getId(), memberEntity.getPassword(), memberEntity.getName(),
                 memberEntity.getEmail(), memberEntity.getAddress());
@@ -92,14 +96,20 @@ public class MemberServiceImpl implements MemberService {
         return members.stream().map(MemberDTO::toMemberDTO).collect(Collectors.toList());
     }
 
-
     //DB의 회원정보를 수정하는 로직
     @Override
     public boolean updateMember(String id, String password, String name, String email, String address) {
-        MemberEntity memberEntity = memberDataHandler.updateMemberEntity(id, password, name, email, address);
-        if (memberEntity != null) {
-            MemberDTO memberDTO = new MemberDTO(memberEntity.getId(), memberEntity.getPassword(), memberEntity.getName(),
-                    memberEntity.getEmail(), memberEntity.getAddress());
+        // 해당 ID의 MemberEntity를 찾음
+        Optional<MemberEntity> optionalMember = memberRepository.findById(id);
+        if (optionalMember.isPresent()) {
+            MemberEntity memberEntity = optionalMember.get();
+            // 엔티티의 필드 값 업데이트
+            memberEntity.setPassword(password);
+            memberEntity.setName(name);
+            memberEntity.setEmail(email);
+            memberEntity.setAddress(address);
+            // 리포지토리를 통해 엔티티 저장
+            memberRepository.save(memberEntity);
             return true;
         }
         return false;

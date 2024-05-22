@@ -25,6 +25,10 @@ public class BoardEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate b_date;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
+
     @PrePersist
     public void prePersist() {
         this.b_date = (this.b_date == null) ? LocalDate.now() : this.b_date;

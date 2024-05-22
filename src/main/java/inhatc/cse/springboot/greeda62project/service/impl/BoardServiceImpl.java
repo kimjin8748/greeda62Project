@@ -5,6 +5,7 @@ import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 import inhatc.cse.springboot.greeda62project.repository.BoardRepository;
+import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
+    private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
 
     @Override
-    public BoardDTO saveBoard(int board_id, String b_text, String b_title, LocalDate b_date) {
+    public BoardDTO saveBoard(int board_id, String b_text, String b_title, LocalDate b_date, String memberId) {
+        MemberEntity member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member ID: " + memberId));
         BoardEntity boardEntity = BoardEntity.builder()
                 .board_id(board_id)
                 .b_text(b_text)
                 .b_title(b_title)
                 .b_date(b_date)
+                .member(member)
                 .build();
 
         boardEntity = boardRepository.save(boardEntity);
@@ -35,7 +40,8 @@ public class BoardServiceImpl implements BoardService {
                 boardEntity.getBoard_id(),
                 boardEntity.getB_text(),
                 boardEntity.getB_title(),
-                boardEntity.getB_date()
+                boardEntity.getB_date(),
+                boardEntity.getMember()
         );
 
         return boardDTO;
@@ -44,7 +50,9 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDTO> findAllBoard() {
         List<BoardEntity> boardEntities = boardRepository.findAll();
-        return boardEntities.stream().map(BoardDTO::toBoardDTO).collect(Collectors.toList());
+        List<BoardDTO> boardDTOs = boardEntities.stream().map(BoardDTO::toBoardDTO).collect(Collectors.toList());
+        boardDTOs.forEach(BoardDTO::setMaskedMemberId);
+        return boardDTOs;
     }
 //    @Override
 //    public boolean updateBoard(String board_id, String b_text, String b_title, String b_date) {
