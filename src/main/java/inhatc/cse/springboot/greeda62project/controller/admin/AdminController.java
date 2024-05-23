@@ -95,8 +95,11 @@ public class AdminController {
     }
 
 
-    @GetMapping("/admin/productUpdate")
-    public String productUpdate(){
+    @GetMapping("/admin/productUpdate/{id}")
+    public String productUpdate(@PathVariable("id") String serialNumber, Model model){
+        ProductDTO productDTO = productService.findById(serialNumber);
+        System.out.println("=============================" + productDTO.getProductType());
+        model.addAttribute("product", productDTO);
         return "admin/product_update";
     }
 

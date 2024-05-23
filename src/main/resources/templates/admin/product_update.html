@@ -37,48 +37,38 @@
 <!--<section class="notice">-->
 
     <div>
-        <form action="#!" method="post" enctype="multipart/form-data">
+        <form action="/admin/productUpdate" method="post" enctype="multipart/form-data">
             <table class="table table-bordered" style="width: 600px;">
                 <h3>상품수정 및 삭제</h3>
                 <br>
                 <tr>
                     <td style="width: 150px; background-color: pink;">상품번호</td>
-                    <td><input type="text" name="serialNumber" class="form-control" style="width: 200px;" required="required"> </td>
-                </tr>
-                <tr>
-                    <td style="width: 150px; background-color: pink;">카테고리</td>
-                    <td>
-                        <select style="width: 200px;" name="category" class="form-control" required="required">
-                            <option value="다육이">다육이</option>
-                            <option value="화분">화분</option>
-                            <option value="다육이&화분 SET">다육이&화분 SET</option>
-                        </select>
-                    </td>
+                    <td><input type="text" name="serialNumber" class="form-control" style="width: 200px;" required="required" th:value="${product.serialNumber}"> </td>
                 </tr>
                 <tr>
                     <td style="width: 150px; background-color: pink;">상품명</td>
-                    <td><input type="text" name="productName" class="form-control" style="width: 200px;" required="required"> </td>
+                    <td><input type="text" name="productName" class="form-control" style="width: 200px;" required="required" th:value="${product.productName}"> </td>
                 </tr>
-                <tr>
-                    <td style="width: 150px; background-color: pink;">상품이미지</td>
-                    <td><input type="file" name="productPhoto" class="form-control" style="width: 300px;" required="required"> </td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td style="width: 150px; background-color: pink;">상품이미지</td>-->
+<!--                    <td><input type="file" name="productPhoto" class="form-control" style="width: 300px;" required="required"> </td>-->
+<!--                </tr>-->
                 <tr>
                     <td style="width: 150px; background-color: pink;">상품설명</td>
-                    <td><input type="text" name="productDescription" class="form-control" style="width: 200px;" required="required"> </td>
+                    <td><input type="text" name="productDescription" class="form-control" style="width: 200px;" required="required" th:value="${product.productDescription}"> </td>
                 </tr>
                 <tr>
                     <td style="width: 150px; background-color: pink;">상품사이즈</td>
-                    <td><input type="text" name="productSize" class="form-control" style="width: 200px;" required="required"> </td>
+                    <td><input type="text" name="productSize" class="form-control" style="width: 200px;" required="required" th:value="${product.productSize}"> </td>
                 </tr>
                 <tr>
                     <td style="width: 150px; background-color: pink;">상품가격</td>
-                    <td><input type="text" name="productPrice" class="form-control" style="width: 200px;" required="required"> </td>
+                    <td><input type="text" name="productPrice" class="form-control" style="width: 200px;" required="required" th:value="${product.productPrice}"> </td>
                 </tr>
 
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="submit" class="btn btn-info" id="btnadd" style="width: 100px;">상품등록</button>
+                        <button type="submit" class="btn btn-info" id="btnadd" style="width: 100px;">상품수정</button>
                         <button type="button" class="btn btn-info" style="width: 100px;" onclick="location.href='/admin/productcheck'">상품삭제</button>
                         <button type="button" class="btn btn-info" style="width: 100px;" onclick="location.href='/admin'">돌아가기</button>
 

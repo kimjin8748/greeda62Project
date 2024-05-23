@@ -1,5 +1,6 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
+import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
@@ -93,7 +94,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public List<MemberDTO> findAllMembers() {
         List<MemberEntity> members = memberRepository.findAll();
-        return members.stream().map(MemberDTO::toMemberDTO).collect(Collectors.toList());
+        List<MemberDTO> memberDTOS = members.stream().map(MemberDTO::toMemberDTO).collect(Collectors.toList());
+        memberDTOS.forEach(MemberDTO::setMaskedMemberId);
+        return memberDTOS;
     }
 
     //DB의 회원정보를 수정하는 로직

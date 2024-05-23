@@ -70,7 +70,9 @@
             </thead>
             <tbody>
             <tr th:each="product : ${products}">
-                <td th:text="${product.serialNumber}"></td>
+                <td>
+                    <a th:href="@{/admin/productUpdate/{id}(id=${product.serialNumber})}" th:text="${product.serialNumber}"></a>
+                </td>
                 <td th:text="${product.productName}"></td>
                 <td th:text="${product.productDescription}"></td>
                 <td th:text="${product.productPrice}"></td>
