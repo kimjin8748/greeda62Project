@@ -75,7 +75,7 @@
                 <tbody>
                 <tr th:each="member, stat : ${members}">
                     <td th:text="${stat.count}"></td>
-                    <td th:text="${member.id}"></td>
+                    <td th:text="${member.maskedMemberId}"></td>
                     <td th:text="${member.address}"></td>
                     <td th:text="${member.name}"></td>
                     <td th:text="${member.email}"></td>
