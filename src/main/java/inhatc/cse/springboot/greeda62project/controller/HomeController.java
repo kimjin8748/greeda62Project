@@ -9,6 +9,8 @@ import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.entity.SetEntity;
 import inhatc.cse.springboot.greeda62project.entity.SucculentEntity;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,10 +38,13 @@ public class HomeController {
     @GetMapping("/")
     public String main(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                        @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
-                       Model model){
+                       Model model, HttpSession session) {
 
-        Boolean isAdmin = (Boolean) model.asMap().getOrDefault("isAdmin", Boolean.FALSE);
-        model.addAttribute("isAdmin", isAdmin);
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        if (isAdmin != null && !isAdmin) {
+            model.addAttribute("adminAccessDenied", true);
+            session.removeAttribute("isAdmin"); // 플래시 속성 제거
+        }
 
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<ProductDTO> page = productService.findAllProducts(pageable);
