@@ -23,9 +23,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/admin">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/productcheck">상품조회</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/productinsert">상품등록</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/productupdate">상품수정</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/productCheck">상품조회</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/productInsert">상품등록</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/productUpdate">상품수정</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/memberCTR">회원관리</a></li>
             </ul>
@@ -84,15 +84,15 @@
                 <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
-                            <a class="page-link" th:href="@{/admin/productcheck(pageNo=${currentPage - 1}, pageSize=${pageSize})}" aria-label="Previous">
+                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${currentPage - 1}, pageSize=${pageSize})}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" th:classappend="${pageNum == currentPage} ? 'active' : ''">
-                            <a class="page-link" th:href="@{/admin/productcheck(pageNo=${pageNum}, pageSize=${pageSize})}" th:text="${pageNum + 1}">1</a>
+                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${pageNum}, pageSize=${pageSize})}" th:text="${pageNum + 1}">1</a>
                         </li>
                         <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''">
-                            <a class="page-link" th:href="@{/admin/productcheck(pageNo=${currentPage + 1}, pageSize=${pageSize})}" aria-label="Next">
+                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${currentPage + 1}, pageSize=${pageSize})}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

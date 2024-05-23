@@ -11,9 +11,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
 @DiscriminatorValue("POT")
 @Table(name = "product")
 public class PotEntity extends ProductEntity {
+    public PotEntity(String serialNumber, String productType, String productName, String productSize, int productPrice, String productDescription) {
+        super(serialNumber, productName, productSize, productPrice, productDescription);
+    }
     // PotEntity에 특화된 필드가 있다면 추가
 }

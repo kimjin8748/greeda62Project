@@ -23,9 +23,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/admin">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/productcheck">상품조회</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/productinsert">상품등록</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/productupdate">상품수정</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/productCheck">상품조회</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/productInsert">상품등록</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/productUpdate">상품수정</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/memberCTR">회원관리</a></li>
             </ul>
@@ -35,9 +35,12 @@
     </div>
 </nav>
 <div>
-    <form action="#!" method="post" enctype="multipart/form-data">
+    <form action="/admin/productInsert" method="post" enctype="multipart/form-data">
         <table class="table table-bordered" style="width: 600px;">
             <h3>상품등록</h3>
+            <div th:if="${numberFailed}" class="alert alert-danger" role="alert">
+                <p th:text="${numberError}"></p>
+            </div>
             <br>
             <tr>
                 <td style="width: 150px; background-color: pink;">상품번호</td>
@@ -46,7 +49,7 @@
             <tr>
                 <td style="width: 150px; background-color: pink;">카테고리</td>
                 <td>
-                    <select style="width: 200px;" name="category" class="form-control" required="required">
+                    <select style="width: 200px;" name="productType" class="form-control" required="required">
                         <option value="다육이">다육이</option>
                         <option value="화분">화분</option>
                         <option value="다육이&화분 SET">다육이&화분 SET</option>
@@ -78,7 +81,6 @@
                 <td colspan="2" align="center">
                     <button type="submit" class="btn btn-info" id="btnadd" style="width: 100px;">상품등록</button>
                     <button type="button" class="btn btn-info" style="width: 100px;" onclick="location.href='/admin/productcheck'">상품조회</button>
-
                 </td>
             </tr>
         </table>

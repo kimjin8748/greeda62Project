@@ -26,22 +26,13 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    private final PotRepository potRepository;
-    private final SucculentRepository succulentRepository;
-    private final SetRepository setRepository;
 
     @Override
     public Page<ProductDTO> findAllProducts(Pageable pageable) {
         Page<ProductEntity> productEntities = productRepository.findAll(pageable);
-        List<ProductDTO> productDTOs = productEntities.stream().map(productEntity -> {
-            ProductDTO dto = new ProductDTO();
-            dto.setSerialNumber(productEntity.getSerialNumber());
-            dto.setProductName(productEntity.getProductName());
-            dto.setProductSize(productEntity.getProductSize());
-            dto.setProductPrice(productEntity.getProductPrice());
-            dto.setProductDescription(productEntity.getProductDescription());
-            return dto;
-        }).collect(Collectors.toList());
+        List<ProductDTO> productDTOs = productEntities.stream()
+                .map(ProductDTO::toProductDTO)
+                .collect(Collectors.toList());
 
         return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
     }
@@ -68,16 +59,91 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO productView(String productId){
+    public ProductDTO productView(String productId) {
 
         ProductEntity productEntity = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Number:" + productId));
 
         if (productEntity != null) {
             return ProductDTO.toProductDTO(productEntity);
-        }  else {
+        } else {
             throw new IllegalArgumentException("상품이 없습니다. :" + productId);
         }
     }
 
+    @Override
+    public boolean checkIdDuplicated(String serialNumber) {
+        return productRepository.existsById(serialNumber);
+    }
+
+    @Override
+    public ProductDTO saveProduct(ProductDTO productDTO) {
+        ProductEntity productEntity = null;
+
+        // 카테고리 값을 상품 타입으로 변환
+        String productType = convertCategoryToProductType(productDTO.getProductType());
+
+        if (productDTO.getSerialNumber() == null || productDTO.getSerialNumber().isEmpty()) {
+            throw new IllegalArgumentException("serialNumber cannot be null or empty.");
+        }
+        // 상품 타입에 따라 다른 엔티티로 변환
+        if ("POT".equals(productType)) {
+            productEntity = new PotEntity(
+                    productDTO.getSerialNumber(),
+                    productDTO.getProductType(),
+                    productDTO.getProductName(),
+                    productDTO.getProductSize(),
+                    productDTO.getProductPrice(),
+                    productDTO.getProductDescription()
+            );
+        } else if ("SUC".equals(productType)) {
+            productEntity = new SucculentEntity(
+                    productDTO.getSerialNumber(),
+                    productDTO.getProductType(),
+                    productDTO.getProductName(),
+                    productDTO.getProductSize(),
+                    productDTO.getProductPrice(),
+                    productDTO.getProductDescription()
+            );
+        } else if ("SET".equals(productType)) {
+            productEntity = new SetEntity(
+                    productDTO.getSerialNumber(),
+                    productDTO.getProductType(),
+                    productDTO.getProductName(),
+                    productDTO.getProductSize(),
+                    productDTO.getProductPrice(),
+                    productDTO.getProductDescription()
+            );
+        }
+
+        productEntity = productRepository.save(productEntity);
+
+        return new ProductDTO(
+                productEntity.getSerialNumber(),
+                productEntity.getProductName(),
+                productEntity.getProductSize(),
+                productEntity.getProductPrice(),
+                productEntity.getProductDescription()
+        );
+    }
+
+    // 카테고리 값을 상품 타입으로 변환하는 메서드
+    private String convertCategoryToProductType(String category) {
+        if (category == null) {
+            throw new IllegalArgumentException("Category is null");
+        }
+        switch (category) {
+            case "다육이":
+                return "SUC";
+            case "화분":
+                return "POT";
+            case "다육이&화분 SET":
+                return "SET";
+            default:
+                throw new IllegalArgumentException("Invalid category: " + category);
+        }
+    }
+
 }
+
+

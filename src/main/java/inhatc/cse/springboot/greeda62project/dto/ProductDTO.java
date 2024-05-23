@@ -18,6 +18,14 @@ public class ProductDTO {
     private int productPrice;
     private String productDescription;
 
+    public ProductDTO(String serialNumber, String productName, String productSize, int productPrice, String productDescription) {
+        this.serialNumber = serialNumber;
+        this.productName = productName;
+        this.productSize = productSize;
+        this.productPrice = productPrice;
+        this.productDescription = productDescription;
+    }
+
     public static ProductDTO toProductDTO(ProductEntity productEntity) {
         ProductDTO dto = new ProductDTO();
         dto.setSerialNumber(productEntity.getSerialNumber());

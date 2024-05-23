@@ -23,4 +23,7 @@ public interface ProductService {
 
     ProductDTO productView(String productId);
 
+    boolean checkIdDuplicated(String serialNumber);
+
+    ProductDTO saveProduct(ProductDTO productDTO);
 }
