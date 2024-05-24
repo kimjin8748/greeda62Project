@@ -95,7 +95,6 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberDTO> findAllMembers() {
         List<MemberEntity> members = memberRepository.findAll();
         List<MemberDTO> memberDTOS = members.stream().map(MemberDTO::toMemberDTO).collect(Collectors.toList());
-        memberDTOS.forEach(MemberDTO::setMaskedMemberId);
         return memberDTOS;
     }
 
@@ -142,6 +141,11 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<MemberEntity> findByMember(String keyword) {
+        return memberRepository.findByMemberId("%" + keyword + "%");
     }
 
 }

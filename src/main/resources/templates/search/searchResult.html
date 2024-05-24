@@ -53,7 +53,7 @@
       </form>
       &nbsp;
       <form action="/search" class="search-container">
-        <input type="text" id="search-field" class="search-input" name="keyword" placeholder="검색...">
+        <input type="text" id="search-field" class="search-input" name="keyword" th:value="${keyword}" placeholder="검색...">
         <button class="search-button">검색</button>
         <div class="icon-close" onclick="clearSearchField()">✖</div>
       </form>

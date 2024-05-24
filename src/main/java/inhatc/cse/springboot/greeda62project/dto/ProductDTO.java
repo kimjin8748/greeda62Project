@@ -2,6 +2,7 @@ package inhatc.cse.springboot.greeda62project.dto;
 
 import inhatc.cse.springboot.greeda62project.entity.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +18,8 @@ public class ProductDTO {
     private String productSize;
     private int productPrice;
     private String productDescription;
+    private MultipartFile productPhoto;
+    private String photoFileName;
 
     public ProductDTO(String serialNumber, String productName, String productSize, int productPrice, String productDescription) {
         this.serialNumber = serialNumber;

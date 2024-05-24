@@ -25,12 +25,9 @@
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/admin">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/productCheck">상품조회</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/productInsert">상품등록</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/productUpdate">상품수정</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/memberCTR">회원관리</a></li>
             </ul>
-
-            &nbsp;
         </div>
     </div>
 </nav>
@@ -41,14 +38,27 @@
         </div>
     </div>
 
+    <div th:if="${updateSuccess}">
+        <h3 align="center" th:text="${updateSuccess}" th:class="updateSuccess-msg"></h3>
+    </div>
+    <div th:if="${updateError}">
+        <h3 align="center" th:text="${updateError}" th:class="updateError-msg"></h3>
+    </div>
+
+    <div th:if="${deleteSuccess}">
+        <h3 align="center" th:text="${deleteSuccess}" th:class="deleteSuccess-msg"></h3>
+    </div>
+    <div th:if="${deleteError}">
+        <h3 align="center" th:text="${deleteError}" th:class="deleteError-msg"></h3>
+    </div>
     <!-- board seach area -->
     <div id="board-search">
         <div class="container">
             <div class="search-window">
-                <form action="">
+                <form action="/searchProduct">
                     <div class="search-wrap">
-                        <label for="search" class="blind">회원 검색</label>
-                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+                        <label for="search" class="blind">상품 검색</label>
+                        <input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="">
                         <button type="submit" class="btn btn-dark">검색</button>
                     </div>
                 </form>

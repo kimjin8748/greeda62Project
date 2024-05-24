@@ -26,4 +26,10 @@ public interface ProductService {
     boolean checkIdDuplicated(String serialNumber);
 
     ProductDTO saveProduct(ProductDTO productDTO);
+
+    boolean updateProduct(ProductDTO productDTO);
+
+    boolean deleteProduct(ProductDTO productDTO);
+
+    List<ProductEntity> searchByProduct(String keyword);
 }

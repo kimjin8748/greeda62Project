@@ -223,11 +223,23 @@ form.wrapper-box button:active {
   color: red;
 }
 
+.updateError-msg {
+  color: red;
+}
+
+.deleteError-msg {
+  color: red;
+}
+
 .forgotsuccess-msg {
   color: #7ac142;
 }
 
 .deleteSuccess-msg {
+  color: #7ac142;
+}
+
+.updateSuccess-msg {
   color: #7ac142;
 }
 

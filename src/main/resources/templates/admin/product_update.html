@@ -25,7 +25,6 @@
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/admin">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/productCheck">상품조회</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/productInsert">상품등록</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/productUpdate">상품수정</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/memberCTR">회원관리</a></li>
             </ul>
@@ -37,13 +36,13 @@
 <!--<section class="notice">-->
 
     <div>
-        <form action="/admin/productUpdate" method="post" enctype="multipart/form-data">
+        <form action="/admin/productUpdate" id="productForm" method="post" enctype="multipart/form-data">
             <table class="table table-bordered" style="width: 600px;">
                 <h3>상품수정 및 삭제</h3>
                 <br>
                 <tr>
                     <td style="width: 150px; background-color: pink;">상품번호</td>
-                    <td><input type="text" name="serialNumber" class="form-control" style="width: 200px;" required="required" th:value="${product.serialNumber}"> </td>
+                    <td><input type="text" name="serialNumber" class="form-control" style="width: 200px;" required="required" th:value="${product.serialNumber}" readonly> </td>
                 </tr>
                 <tr>
                     <td style="width: 150px; background-color: pink;">상품명</td>
@@ -68,9 +67,9 @@
 
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="submit" class="btn btn-info" id="btnadd" style="width: 100px;">상품수정</button>
-                        <button type="button" class="btn btn-info" style="width: 100px;" onclick="location.href='/admin/productcheck'">상품삭제</button>
-                        <button type="button" class="btn btn-info" style="width: 100px;" onclick="location.href='/admin'">돌아가기</button>
+                        <button type="submit" class="btn btn-info" name="action" value="update" onclick="submitForm2('update')" style="width: 100px;">상품수정</button>
+                        <button type="submit" class="btn btn-info" name="action" value="delete" onclick="submitForm2('delete')" style="width: 100px;">상품삭제</button>
+                        <button type="button" class="btn btn-info" style="width: 100px;" onclick="location.href='/admin/productCheck'">돌아가기</button>
 
                     </td>
                 </tr>

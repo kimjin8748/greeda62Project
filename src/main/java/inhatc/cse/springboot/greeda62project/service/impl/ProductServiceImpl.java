@@ -2,23 +2,18 @@ package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.*;
 import inhatc.cse.springboot.greeda62project.entity.*;
-import inhatc.cse.springboot.greeda62project.repository.PotRepository;
 import inhatc.cse.springboot.greeda62project.repository.ProductRepository;
-import inhatc.cse.springboot.greeda62project.repository.SetRepository;
-import inhatc.cse.springboot.greeda62project.repository.SucculentRepository;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -125,6 +120,52 @@ public class ProductServiceImpl implements ProductService {
                 productEntity.getProductPrice(),
                 productEntity.getProductDescription()
         );
+    }
+
+    //상품 업데이트 메소드
+    @Override
+    @Transactional
+    public boolean updateProduct(ProductDTO productDTO) {
+        try {
+            // DTO에서 ID를 이용하여 데이터베이스에서 상품 엔티티를 찾습니다.
+            ProductEntity productEntity = productRepository.findById(productDTO.getSerialNumber())
+                    .orElseThrow(() -> new IllegalArgumentException("해당 상품이 존재하지 않습니다. 상품번호 = " + productDTO.getSerialNumber()));
+
+            // 상품 엔티티의 데이터를 업데이트합니다.
+            productEntity.setProductName(productDTO.getProductName());
+            productEntity.setProductPrice(productDTO.getProductPrice());
+            productEntity.setProductDescription(productDTO.getProductDescription());
+            productEntity.setProductSize(productDTO.getProductSize());
+
+            // 변경 감지(dirty checking) 기능으로 인해 트랜잭션이 종료될 때
+            // 변경된 데이터가 데이터베이스에 자동으로 반영됩니다 (save 호출 필요 없음).
+
+            return true;
+        } catch (Exception e) {
+            // 예외가 발생하면 false를 반환합니다.
+            return false;
+        }
+    }
+
+    //상품 삭제 메소드
+    @Override
+    public boolean deleteProduct(ProductDTO productDTO) {
+        try {
+            ProductEntity productEntity = productRepository.findById(productDTO.getSerialNumber())
+                    .orElseThrow(() -> new IllegalArgumentException("상품이 없습니다. 상품번호 = " + productDTO.getSerialNumber()));
+
+            productRepository.delete(productEntity);
+
+            return true;
+        } catch (Exception e) {
+            // 예외가 발생하면 false를 반환합니다.
+            return false;
+        }
+    }
+
+    @Override
+    public List<ProductEntity> searchByProduct(String keyword) {
+        return productRepository.findBySerialNumber("%" + keyword + "%");
     }
 
     // 카테고리 값을 상품 타입으로 변환하는 메서드

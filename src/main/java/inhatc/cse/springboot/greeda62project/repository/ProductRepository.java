@@ -21,4 +21,11 @@ public interface ProductRepository extends JpaRepository <ProductEntity, String>
             "p.productName LIKE %:keyword% OR " +
             "p.productDescription LIKE %:keyword%")
     List<ProductEntity> findByKeyword(@Param("keyword") String keyword);
+
+    @Query("SELECT p FROM ProductEntity p WHERE " +
+            "p.serialNumber LIKE %:keyword% OR " +
+            "p.productName LIKE %:keyword% OR " +
+            "p.productDescription LIKE %:keyword% OR " +
+            "p.productSize LIKE %:keyword% ")
+    List<ProductEntity> findBySerialNumber(@Param("keyword") String keyword);
 }

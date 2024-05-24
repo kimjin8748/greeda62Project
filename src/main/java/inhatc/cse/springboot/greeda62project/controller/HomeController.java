@@ -73,6 +73,7 @@ public class HomeController {
 
         model.addAttribute("products", productDTOSs);
         model.addAttribute("isEmpty", products.isEmpty());
+        model.addAttribute("keyword", keyword);
 
         return "search/searchResult"; // 검색 결과를 보여줄 페이지의 이름
     }

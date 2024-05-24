@@ -16,8 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- Responsive navbar-->
-<!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border: 1px solid #000">
     <div class="container px-4 px-lg-5">
         <a href="/admin" ><img src="/images/로고사진.png"></a>
@@ -30,27 +28,37 @@
                 <li class="nav-item"><a class="nav-link" href="#">게시판관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/memberCTR">회원관리</a></li>
             </ul>
-
-            &nbsp;
         </div>
     </div>
 </nav>
-
 <section class="notice">
     <div class="page-title">
         <div class="container">
-            <h3>회원 관리</h3>
+            <h3>상품 조회</h3>
         </div>
     </div>
 
+    <div th:if="${updateSuccess}">
+        <h3 align="center" th:text="${updateSuccess}" th:class="updateSuccess-msg"></h3>
+    </div>
+    <div th:if="${updateError}">
+        <h3 align="center" th:text="${updateError}" th:class="updateError-msg"></h3>
+    </div>
+
+    <div th:if="${deleteSuccess}">
+        <h3 align="center" th:text="${deleteSuccess}" th:class="deleteSuccess-msg"></h3>
+    </div>
+    <div th:if="${deleteError}">
+        <h3 align="center" th:text="${deleteError}" th:class="deleteError-msg"></h3>
+    </div>
     <!-- board seach area -->
     <div id="board-search">
         <div class="container">
             <div class="search-window">
-                <form action="/searchMember">
+                <form action="/searchProduct">
                     <div class="search-wrap">
-                        <label for="search" class="blind">회원 검색</label>
-                        <input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="">
+                        <label for="search" class="blind">상품 검색</label>
+                        <input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." th:value="${keyword}">
                         <button type="submit" class="btn btn-dark">검색</button>
                     </div>
                 </form>
@@ -58,33 +66,44 @@
         </div>
     </div>
 
-    <!-- board list area -->
-    <div id="board-list">
-        <div class="container">
-            <table class="board-table">
-                <thead>
-                <tr>
-                    <th scope="col" class="th-num">번호</th>
-                    <th scope="col" class="th-num">아이디</th>
-                    <th scope="col" class="th-title">주소</th>
-                    <th scope="col" class="th-date">이름</th>
-                    <th scope="col" class="th-date">이메일</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="member, stat : ${members}">
-                    <td th:text="${stat.count}"></td>
-                    <td th:text="${member.id}"></td>
-                    <td th:text="${member.address}"></td>
-                    <td th:text="${member.name}"></td>
-                    <td th:text="${member.email}"></td>
-                </tr>
-                </tbody>
-            </table>
+<div id="board-list">
+    <div class="container">
+        <table class="board-table">
+            <thead>
+            <tr>
+                <th scope="col" class="th-num">상품번호</th>
+                <th scope="col" class="th-num">상품명</th>
+                <th scope="col" class="th-title">상품설명</th>
+                <th scope="col" class="th-date">상품가격</th>
+                <th scope="col" class="th-date">상품사이즈</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td>
+                    <a th:href="@{/admin/productUpdate/{id}(id=${product.serialNumber})}" th:text="${product.serialNumber}"></a>
+                </td>
+                <td th:text="${product.productName}"></td>
+                <td th:text="${product.productDescription}"></td>
+                <td th:text="${product.productPrice}"></td>
+                <td th:text="${product.productSize}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${isEmpty}">
+            <h3>상품이 없습니다...</h3>
         </div>
+        <br>
     </div>
-
+</div>
 </section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Project &copy; greenda62 shopping mall 2024</p></div>
+</footer>
+<!-- Bootstrap core JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
 </body>
 </html>

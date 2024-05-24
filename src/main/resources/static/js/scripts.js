@@ -37,3 +37,20 @@ function calculateTotal() {
     document.getElementById('total-price').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
     document.getElementById('total-price1').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
 }
+
+function submitForm2(actionType) {
+    // 회원 탈퇴인 경우
+    if (actionType === 'delete') {
+        // confirm 창을 통해 사용자에게 삭제 의사를 확인
+        var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");
+        if (confirmDelete) {
+            // 사용자가 '확인'을 누른 경우 폼 제출
+            document.getElementById('actionField').value = 'delete';
+            document.getElementById('productForm').submit();
+        }
+    } else if (actionType === 'update') {
+        // 회원 정보 수정인 경우 바로 폼 제출
+        document.getElementById('actionField').value = 'update';
+        document.getElementById('productForm').submit();
+    }
+}
