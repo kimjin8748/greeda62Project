@@ -8,8 +8,11 @@ import inhatc.cse.springboot.greeda62project.entity.CartItemEntity;
 import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.repository.CartItemRepository;
 import inhatc.cse.springboot.greeda62project.repository.CartRepository;
+import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.repository.ProductRepository;
 import inhatc.cse.springboot.greeda62project.service.CartService;
+import inhatc.cse.springboot.greeda62project.service.MemberService;
+import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +30,6 @@ public class CartServiceImpl implements CartService {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
-    private final HttpSession session;
 
     @Override
     public void addCart(MemberDTO memberDTO, ProductDTO productDTO, int amount) {
@@ -67,6 +69,40 @@ public class CartServiceImpl implements CartService {
             return List.of();
         }
     }
+
+    @Transactional
+    @Override
+    public void removeCartItem(String memberId, String productId) {
+        System.out.println("Service: removeCartItem called with memberId=" + memberId + " and productId=" + productId);
+        Optional<CartEntity> cartOptional = cartRepository.findByMemberEntity_Id(memberId);
+        if (cartOptional.isPresent()) {
+            CartEntity cart = cartOptional.get();
+
+            // 여기서는 ID가 String이라고 가정하고 있습니다. 실제로는 Long 또는 Integer일 수 있습니다.
+            // ProductEntity를 찾는 부분을 cart가 존재할 때만 수행합니다.
+            Optional<ProductEntity> productOptional = productRepository.findById(productId);
+            if (productOptional.isPresent()) {
+                ProductEntity productEntity = productOptional.get();
+
+                // 장바구니 항목에서 해당 상품을 삭제합니다.
+                boolean removed = cart.getCartItems().removeIf(item ->
+                        item.getProductEntity().getSerialNumber().equals(productId));
+
+                // 실제로 항목이 삭제되었다면 변경된 상태를 저장합니다.
+                if (removed) {
+                    System.out.println("Service: Product removed from cart");
+                    cartRepository.save(cart);
+                } else {
+                    System.out.println("Service: Product not found in cart");
+                }
+            } else {
+                System.out.println("Service: Product not found with productId=" + productId);
+            }
+        } else {
+            System.out.println("Service: Cart not found with memberId=" + memberId);
+        }
+    }
+
 
 
 }

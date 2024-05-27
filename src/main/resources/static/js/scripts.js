@@ -54,3 +54,49 @@ function submitForm2(actionType) {
         document.getElementById('productForm').submit();
     }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    const cartContainer = document.querySelector('.cart-container');
+    console.log('cartContainer:', cartContainer);
+
+    if (!cartContainer) {
+        console.error('Cart container not found!');
+        return;
+    }
+
+    cartContainer.addEventListener('click', function(event) {
+        console.log('Clicked element:', event.target);
+        if (event.target.classList.contains('delete-cart-item')) {
+            const parentDiv = event.target.closest('.cart-item');
+            if (!parentDiv) {
+                console.error('Parent div (cart-item) not found!');
+                return;
+            }
+            const id = parentDiv.getAttribute('data-member-id');
+            const productId = parentDiv.getAttribute('data-product-id');
+
+            console.log('memberId:', id, 'productId:', productId); // 로그 추가
+            deleteCartItem(id, productId);
+        }
+    });
+});
+
+function deleteCartItem(id, productId) {
+    if (confirm('이 상품을 장바구니에서 삭제하시겠습니까?')) {
+        fetch(`/cart/${id}/${productId}`, {
+            method: 'DELETE',
+        }).then(response => {
+            if (response.ok) {
+                console.log('Product deleted successfully');
+                window.location.reload(); // 페이지를 새로고침하여 변경 사항을 반영
+            } else {
+                response.text().then(text => {
+                    console.error('Failed to delete product:', text);
+                    alert('상품 삭제에 실패했습니다. 오류 메시지: ' + text);
+                });
+            }
+        }).catch(error => {
+            console.error('Network error:', error);
+            alert('네트워크 오류가 발생했습니다.');
+        });
+    }
+}

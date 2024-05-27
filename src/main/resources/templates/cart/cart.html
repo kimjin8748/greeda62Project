@@ -101,6 +101,16 @@
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <h6 class="mb-0" th:text="${item.productEntity.productPrice} + '원'"></h6>
                                         </div>
+                                        <div class="cart-container">
+                                            <div class="cart-item" th:data-member-id="${session.id}" th:data-product-id="${item.productEntity.serialNumber}">
+                                                <!-- 장바구니 아이템 정보 표시 -->
+                                                <button class="delete-cart-item btn btn-danger">삭제</button>
+                                            </div>
+                                            <!-- 다른 cart-item 요소들 -->
+                                        </div>
+                                    </div>
+
+
                                     </div>
 
                                     <hr class="my-4">

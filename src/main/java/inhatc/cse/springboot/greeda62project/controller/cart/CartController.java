@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,4 +62,13 @@ public class CartController {
 
         return "redirect:/cart";
     }
+
+    @DeleteMapping("/cart/{id}/{productId}")
+    public String removeCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId) {
+        System.out.println("Controller: removeCartItem called with id=" + id + " and productId=" + productId);
+        cartService.removeCartItem(id, productId);
+
+        return "redirect:/cart";
+    }
+
 }
