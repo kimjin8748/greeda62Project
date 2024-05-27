@@ -9,6 +9,7 @@ import inhatc.cse.springboot.greeda62project.service.MemberService;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -64,11 +65,17 @@ public class CartController {
     }
 
     @DeleteMapping("/cart/{id}/{productId}")
-    public String removeCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId) {
+    public ResponseEntity<?> removeCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId) {
         System.out.println("Controller: removeCartItem called with id=" + id + " and productId=" + productId);
-        cartService.removeCartItem(id, productId);
+        boolean isRemoved = cartService.removeCartItem(id, productId);
 
-        return "redirect:/cart";
+        if(isRemoved) {
+            // 성공적으로 항목이 삭제되었을 경우, 200 OK 응답을 반환
+            return ResponseEntity.ok().body("Product with ID " + productId + " removed from cart");
+        } else {
+            // 항목 삭제에 실패했을 경우, 예를 들어 항목이 존재하지 않는 경우, 404 Not Found 또는 적절한 상태 코드를 반환
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

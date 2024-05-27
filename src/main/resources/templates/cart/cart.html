@@ -78,13 +78,13 @@
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <img th:src="@{/images/{img}.jpg(img=${item.productEntity.serialNumber})}" class="img-fluid rounded-3" alt="...">
                                         </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('POT')}">화분</h6>
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('SUC')}">다육이</h6>
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('SET')}">세트</h6>
                                             <h6 class="text-black mb-0" th:text="${item.productEntity.productName}"></h6>
                                         </div>
-                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                        <div class="col-md-2 col-lg-2 col-xl-2 d-flex">
                                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
                                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
                                                 <i class="fas fa-minus"></i>
@@ -101,16 +101,12 @@
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <h6 class="mb-0" th:text="${item.productEntity.productPrice} + '원'"></h6>
                                         </div>
-                                        <div class="cart-container">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
                                             <div class="cart-item" th:data-member-id="${session.id}" th:data-product-id="${item.productEntity.serialNumber}">
                                                 <!-- 장바구니 아이템 정보 표시 -->
                                                 <button class="delete-cart-item btn btn-danger">삭제</button>
                                             </div>
-                                            <!-- 다른 cart-item 요소들 -->
                                         </div>
-                                    </div>
-
-
                                     </div>
 
                                     <hr class="my-4">
@@ -171,6 +167,33 @@
     </div>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
-<script src="/js/scripts.js"></script>
+<script src="/js/scripts.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log('DOM fully loaded and parsed');
+        document.querySelectorAll('.delete-cart-item').forEach(button => {
+            button.addEventListener('click', function() {
+                console.log('Delete button clicked');
+                const memberId = this.closest('.cart-item').getAttribute('data-member-id');
+                const productId = this.closest('.cart-item').getAttribute('data-product-id');
+                console.log(`Member ID: ${memberId}, Product ID: ${productId}`);
+
+                fetch(`/cart/${memberId}/${productId}`, {
+                    method: 'DELETE',
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Product successfully deleted');
+                            window.location.reload();
+                        } else {
+                            console.log('Failed to delete product');
+                            alert('Error: 상품을 삭제하지 못했습니다.');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+</script>
 </body>
 </html>

@@ -72,7 +72,7 @@ public class CartServiceImpl implements CartService {
 
     @Transactional
     @Override
-    public void removeCartItem(String memberId, String productId) {
+    public boolean removeCartItem(String memberId, String productId) {
         System.out.println("Service: removeCartItem called with memberId=" + memberId + " and productId=" + productId);
         Optional<CartEntity> cartOptional = cartRepository.findByMemberEntity_Id(memberId);
         if (cartOptional.isPresent()) {
@@ -92,6 +92,7 @@ public class CartServiceImpl implements CartService {
                 if (removed) {
                     System.out.println("Service: Product removed from cart");
                     cartRepository.save(cart);
+                    return true;
                 } else {
                     System.out.println("Service: Product not found in cart");
                 }
@@ -101,6 +102,7 @@ public class CartServiceImpl implements CartService {
         } else {
             System.out.println("Service: Cart not found with memberId=" + memberId);
         }
+        return false;
     }
 
 
