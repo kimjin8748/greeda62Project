@@ -54,8 +54,11 @@ public class CartController {
 
     // 장바구니에 물건 넣기 컨트롤러
     @PostMapping("/cart/{id}/{productId}")
-    public String addCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId, int amount) {
-
+    public String addCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId, int amount, HttpSession session) {
+        String memberId = (String) session.getAttribute("id");
+        if (memberId == null) {
+            return "redirect:/member";
+        }
         MemberDTO memberDTO = memberService.findUser(id);
         ProductDTO productDTO = productService.productView(productId);
 

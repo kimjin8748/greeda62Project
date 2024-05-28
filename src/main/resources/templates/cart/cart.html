@@ -154,8 +154,8 @@
                                         <h5 id="total-price1">0원</h5>
                                     </div>
 
-                                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
-                                             data-mdb-ripple-color="dark">구매하기 (0)</button>
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
+                                             data-mdb-ripple-color="dark" onclick="requestPay()">구매하기</button>
 
                                 </div>
                             </div>
@@ -166,6 +166,12 @@
         </div>
     </div>
 </section>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<!-- 포트원 결제 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 <script src="/js/scripts.js" defer></script>
 <script>
@@ -194,6 +200,38 @@
             });
         });
     });
+</script>
+<script>
+    // 구매자 정보
+    // 아임포트 라이브러리 초기화 (본인의 가맹점 식별코드로 대체)
+    IMP.init("imp30825140");
+
+    function requestPay() {
+        // 결제 요청
+        IMP.request_pay({
+            pg: 'kakaopay.TC0ONETIME', // 테스트용 PG사 코드
+            pay_method: 'card', // 결제 방식
+            merchant_uid: "order_no_" + new Date().getTime(), // 주문번호 (고유한 값으로 생성)
+            name: '상품명', // 상품명
+            amount: 1000, // 결제 금액
+            buyer_email: 'buyer@example.com', // 구매자 이메일
+            buyer_name: '홍길동', // 구매자 이름
+            buyer_tel: '010-1234-5678', // 구매자 전화번호
+            buyer_addr: '서울특별시 강남구 삼성동', // 구매자 주소
+            buyer_postcode: '123-456' // 구매자 우편번호
+        }, function (rsp) {
+            if (rsp.success) {
+                // 결제 성공 시 로직
+                alert('결제가 완료되었습니다. 결제 ID: ' + rsp.imp_uid);
+                console.log(rsp);
+            } else {
+                // 결제 실패 시 로직
+                alert('결제에 실패하였습니다. 에러내용: ' + rsp.error_msg);
+                console.log(rsp);
+            }
+        });
+    }
+
 </script>
 </body>
 </html>
