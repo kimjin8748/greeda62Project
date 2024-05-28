@@ -1,9 +1,11 @@
 package inhatc.cse.springboot.greeda62project.controller.admin;
 
+import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
+import inhatc.cse.springboot.greeda62project.service.BoardService;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
@@ -35,6 +37,7 @@ public class AdminController {
 
     private final ProductService productService;
     private final MemberService memberService;
+    private final BoardService boardService;
 
     @Autowired
     private Environment env;
@@ -200,5 +203,23 @@ public class AdminController {
         return "admin/searchMember"; // 검색 결과를 보여줄 페이지의 이름
     }
 
+    @GetMapping("/admin/boardCheck")
+    public String faq(Model model) {
+        List<BoardDTO> boardList = boardService.findAllBoard();
+        model.addAttribute("boards", boardList);
+        return "admin/adminFaq";
+    }
+    @GetMapping("/admin/edit/{title}")
+    public String faqEdit(@PathVariable("title") String boardTitle, Model model) {
+        BoardDTO boardDTO = boardService.findByBoardTitle(boardTitle);
+        model.addAttribute("boards", boardDTO);
+        return "admin/adminFaqEdit";
+    }
+
+    @PostMapping("/admin/addComment")
+    public String addAdminComment(@RequestParam int boardId, @RequestParam String adminComment) {
+        boardService.addAdminComment(boardId, adminComment);
+        return "redirect:/admin/boardCheck";
+    }
 
 }

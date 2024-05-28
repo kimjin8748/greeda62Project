@@ -68,6 +68,23 @@
         </div>
     </div>
 
+    <div th:if="${updateSuccess}">
+        <h3 align="center" th:text="${updateSuccess}" th:class="updateSuccess-msg"></h3>
+    </div>
+    <div th:if="${updateError}">
+        <h3 align="center" th:text="${updateError}" th:class="updateError-msg"></h3>
+    </div>
+
+    <div th:if="${deleteSuccess}">
+        <h3 align="center" th:text="${deleteSuccess}" th:class="deleteSuccess-msg"></h3>
+    </div>
+    <div th:if="${deleteError}">
+        <h3 align="center" th:text="${deleteError}" th:class="deleteError-msg"></h3>
+    </div>
+    <div th:if="${authError}">
+        <h3 align="center" th:text="${authError}" th:class="authError-msg"></h3>
+    </div>
+
     <!-- board seach area -->
     <div id="board-search">
         <div class="container">
@@ -96,12 +113,12 @@
                 </thead>
                 <tbody>
                 <tr th:each="board : ${boards}">
-                    <td th:text="${board.maskedMemberId}">3</td>
+                    <td th:text="${board.maskedMemberId}"></td>
                     <th>
-                        <a href="" th:text="${board.b_title}">다육이 잎에 스크레치가 조금 있어요</a>
+                        <a th:href="@{/faq/edit/{title}(title=${board.boardTitle})}" th:text="${board.boardTitle}"></a>
                         <p>테스트</p>
                     </th>
-                    <td th:text="${board.b_date}">2017.07.13</td>
+                    <td th:text="${board.boardDate}"></td>
                 </tr>
                 </tbody>
             </table><br>
@@ -111,5 +128,6 @@
 
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>

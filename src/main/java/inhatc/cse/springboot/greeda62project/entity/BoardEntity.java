@@ -19,19 +19,21 @@ public class BoardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int board_id;
 
-    private String b_text;
-    private String b_title;
+    private String boardText;
+    private String boardTitle;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate b_date;
+    private LocalDate boardDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 
+    private String adminComment;
+
     @PrePersist
     public void prePersist() {
-        this.b_date = (this.b_date == null) ? LocalDate.now() : this.b_date;
+        this.boardDate = (this.boardDate == null) ? LocalDate.now() : this.boardDate;
     }
 
 }

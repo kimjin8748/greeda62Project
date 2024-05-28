@@ -2,11 +2,14 @@ package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
+import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
+import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.repository.BoardRepository;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.BoardService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +26,25 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
 
     @Override
-    public BoardDTO saveBoard(int board_id, String b_text, String b_title, LocalDate b_date, String memberId) {
+    public BoardDTO findByBoardTitle(String boardTitle) {
+        Optional<BoardEntity> boardEntity = boardRepository.findByBoardTitle(boardTitle);
+        if (boardEntity.isPresent()) {
+            BoardEntity entity = boardEntity.get();
+            return BoardDTO.toBoardDTO(entity);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public BoardDTO saveBoard(int board_id, String boardText, String boardTitle, LocalDate boardDate, String memberId) {
         MemberEntity member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member ID: " + memberId));
         BoardEntity boardEntity = BoardEntity.builder()
                 .board_id(board_id)
-                .b_text(b_text)
-                .b_title(b_title)
-                .b_date(b_date)
+                .boardText(boardText)
+                .boardTitle(boardTitle)
+                .boardDate(boardDate)
                 .member(member)
                 .build();
 
@@ -38,9 +52,9 @@ public class BoardServiceImpl implements BoardService {
 
         BoardDTO boardDTO = new BoardDTO(
                 boardEntity.getBoard_id(),
-                boardEntity.getB_text(),
-                boardEntity.getB_title(),
-                boardEntity.getB_date(),
+                boardEntity.getBoardText(),
+                boardEntity.getBoardTitle(),
+                boardEntity.getBoardDate(),
                 boardEntity.getMember()
         );
 
@@ -54,30 +68,46 @@ public class BoardServiceImpl implements BoardService {
         boardDTOs.forEach(BoardDTO::setMaskedMemberId);
         return boardDTOs;
     }
-//    @Override
-//    public boolean updateBoard(String board_id, String b_text, String b_title, String b_date) {
-//        BoardEntity boardEntity = boardRepository.updateBoardEntity(board_id, b_text, b_title, b_date);
-//        if (boardEntity != null) {
-//            BoardDTO boardDTO = new BoardDTO(
-//                    boardEntity.getBoard_id(),
-//                    boardEntity.getB_text(),
-//                    boardEntity.getB_title(),
-//                    boardEntity.getB_date()
-//            );
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean deleteBoard(String board_id) {
-//        Optional<BoardEntity> boardOptional = boardRepository.findById(board_id);
-//        if (boardOptional.isPresent()) {
-//            boardRepository.deleteById(board_id);
-//            boardRepository.flush();
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+
+    @Override
+    public void addAdminComment(int boardId, String adminComment) {
+        Optional<BoardEntity> boardEntityOptional = boardRepository.findById(boardId);
+        if (boardEntityOptional.isPresent()) {
+            BoardEntity boardEntity = boardEntityOptional.get();
+            boardEntity.setAdminComment(adminComment);
+            boardRepository.save(boardEntity);
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean updateProduct(BoardDTO boardDTO) {
+        BoardEntity boardEntity = boardRepository.findByBoardTitle(boardDTO.getBoardTitle())
+                .orElseThrow(() -> new IllegalArgumentException("해당 글이 존재하지 않습니다. 글제목 = " + boardDTO.getBoardTitle()));
+
+        if(boardEntity != null){
+            boardEntity.setBoardText(boardDTO.getBoardText());
+            boardEntity.setBoardTitle(boardDTO.getBoardTitle());
+            boardEntity.setMember(boardDTO.getMember());
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteProduct(BoardDTO boardDTO) {
+        BoardEntity boardEntity = boardRepository.findByBoardTitle(boardDTO.getBoardTitle())
+                .orElseThrow(() -> new IllegalArgumentException("해당 글이 존재하지 않습니다. 글제목 = " + boardDTO.getBoardTitle()));
+
+        if(boardEntity != null){
+            boardRepository.delete(boardEntity);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

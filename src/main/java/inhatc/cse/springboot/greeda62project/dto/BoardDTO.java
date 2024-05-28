@@ -14,33 +14,35 @@ import java.time.LocalDate;
 public class BoardDTO {
 
     private int board_id;
-    private String b_text;
-    private String b_title;
-    private LocalDate b_date;
-    private MemberEntity memberEntity;
+    private String boardText;
+    private String boardTitle;
+    private LocalDate boardDate;
+    private MemberEntity member;
     private String maskedMemberId;
+    private String adminComment;
 
-    public BoardDTO(int board_id, String b_text, String b_title, LocalDate b_date, MemberEntity memberEntity) {
+    public BoardDTO(int board_id, String boardText, String boardTitle, LocalDate boardDate, MemberEntity member) {
         this.board_id = board_id;
-        this.b_text = b_text;
-        this.b_title = b_title;
-        this.b_date = b_date;
-        this.memberEntity = memberEntity;
+        this.boardText = boardText;
+        this.boardTitle = boardTitle;
+        this.boardDate = boardDate;
+        this.member = member;
     }
 
     public static BoardDTO toBoardDTO(BoardEntity boardEntity) {
         BoardDTO dto = new BoardDTO();
         dto.setBoard_id(boardEntity.getBoard_id());
-        dto.setB_text(boardEntity.getB_text());
-        dto.setB_title(boardEntity.getB_title());
-        dto.setB_date(boardEntity.getB_date());
-        dto.setMemberEntity(boardEntity.getMember());
+        dto.setBoardText(boardEntity.getBoardText());
+        dto.setBoardTitle(boardEntity.getBoardTitle());
+        dto.setBoardDate(boardEntity.getBoardDate());
+        dto.setMember(boardEntity.getMember());
+        dto.setAdminComment(boardEntity.getAdminComment());
         return dto;
     }
 
     public void setMaskedMemberId() {
-        if (this.memberEntity != null && this.memberEntity.getId() != null) {
-            String id = this.memberEntity.getId();
+        if (this.member != null && this.member.getId() != null) {
+            String id = this.member.getId();
             if (id.length() > 4) {
                 this.maskedMemberId = id.substring(0, 4) + "*".repeat(id.length() - 4);
             } else {

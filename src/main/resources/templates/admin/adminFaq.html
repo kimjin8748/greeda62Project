@@ -30,7 +30,6 @@
                 <li class="nav-item"><a class="nav-link" href="/admin/boardCheck">게시판관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/memberCTR">회원관리</a></li>
             </ul>
-
             &nbsp;
         </div>
     </div>
@@ -39,7 +38,7 @@
 <section class="notice">
     <div class="page-title">
         <div class="container">
-            <h3>회원 관리</h3>
+            <h3>게시판 관리</h3>
         </div>
     </div>
 
@@ -47,10 +46,10 @@
     <div id="board-search">
         <div class="container">
             <div class="search-window">
-                <form action="/searchMember">
+                <form action="">
                     <div class="search-wrap">
-                        <label for="search" class="blind">회원 검색</label>
-                        <input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="">
+                        <label for="search" class="blind">내용 검색</label>
+                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
                         <button type="submit" class="btn btn-dark">검색</button>
                     </div>
                 </form>
@@ -64,27 +63,27 @@
             <table class="board-table">
                 <thead>
                 <tr>
-                    <th scope="col" class="th-num">번호</th>
-                    <th scope="col" class="th-num">아이디</th>
-                    <th scope="col" class="th-title">주소</th>
-                    <th scope="col" class="th-date">이름</th>
-                    <th scope="col" class="th-date">이메일</th>
+                    <th scope="col" class="th-num">회원ID</th>
+                    <th scope="col" class="th-title">제목</th>
+                    <th scope="col" class="th-date">등록일</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="member, stat : ${members}">
-                    <td th:text="${stat.count}"></td>
-                    <td th:text="${member.id}"></td>
-                    <td th:text="${member.address}"></td>
-                    <td th:text="${member.name}"></td>
-                    <td th:text="${member.email}"></td>
+                <tr th:each="board : ${boards}">
+                    <td th:text="${board.memberEntity.id}"></td>
+                    <th>
+                        <a th:href="@{/admin/edit/{title}(title=${board.boardTitle})}" th:text="${board.boardTitle}"></a>
+                        <p>테스트</p>
+                    </th>
+                    <td th:text="${board.boardDate}"></td>
                 </tr>
                 </tbody>
-            </table>
+            </table><br>
         </div>
     </div>
 
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>

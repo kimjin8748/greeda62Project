@@ -60,8 +60,35 @@
         </div>
     </div>
 </nav>
+
+<section class="table" th:each="board : ${boards}">
+    <!-- board list area -->
+    <form class="container" action="/faq/update" id="boardForm" method="post">
+        <div class="mb-3">
+            <label class="form-Label">작성자</label>
+            <input type="text" class="form-control" name="member" th:value="${board.member.id}">
+            <input type="hidden" name="member" th:value="${board.member.id}">
+        </div>
+        <div class="mb-3">
+            <label class="form-Label">제목</label>
+            <input type="text" class="form-control" name="boardTitle" th:value="${board.boardTitle}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">내용</label>
+            <textarea class="form-control" rows="3" name="boardText" th:text="${board.boardText}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" name="action" value="update" onclick="submitForm3('update')">글 수정하기</button>
+        <button type="submit" class="btn btn-primary" name="action" value="delete" onclick="submitForm3('delete')">글 삭제하기</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/faq'">목록보기</button>
+        <br>
+        <div class="mb-3">
+            <label class="form-label">관리자 답글</label>
+            <textarea class="form-control" rows="3" name="adminComment" th:text="${board.adminComment}" readonly></textarea>
+        </div>
+    </form>
+
+</section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
-
-
+<script src="/js/scripts.js"></script>
 </body>
 </html>

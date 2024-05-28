@@ -7,9 +7,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface BoardService {
+    BoardDTO findByBoardTitle(String boardTitle);
+
     BoardDTO saveBoard(int board_id, String b_text, String b_title, LocalDate b_date, String memberId);
 
     List<BoardDTO> findAllBoard();
-//    boolean updateBoard(String board_id, String b_text, String b_title, String b_date);
-//    boolean deleteBoard(String board_id);
+
+    void addAdminComment(int boardId, String adminComment);
+
+    boolean updateProduct(BoardDTO boardDTO);
+
+    boolean deleteProduct(BoardDTO boardDTO);
 }

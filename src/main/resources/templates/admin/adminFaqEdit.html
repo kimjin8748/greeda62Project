@@ -30,61 +30,38 @@
                 <li class="nav-item"><a class="nav-link" href="/admin/boardCheck">게시판관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/memberCTR">회원관리</a></li>
             </ul>
-
             &nbsp;
         </div>
     </div>
 </nav>
 
-<section class="notice">
-    <div class="page-title">
-        <div class="container">
-            <h3>회원 관리</h3>
-        </div>
-    </div>
-
-    <!-- board seach area -->
-    <div id="board-search">
-        <div class="container">
-            <div class="search-window">
-                <form action="/searchMember">
-                    <div class="search-wrap">
-                        <label for="search" class="blind">회원 검색</label>
-                        <input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="">
-                        <button type="submit" class="btn btn-dark">검색</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+<section class="table" th:each="board : ${boards}">
     <!-- board list area -->
-    <div id="board-list">
-        <div class="container">
-            <table class="board-table">
-                <thead>
-                <tr>
-                    <th scope="col" class="th-num">번호</th>
-                    <th scope="col" class="th-num">아이디</th>
-                    <th scope="col" class="th-title">주소</th>
-                    <th scope="col" class="th-date">이름</th>
-                    <th scope="col" class="th-date">이메일</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="member, stat : ${members}">
-                    <td th:text="${stat.count}"></td>
-                    <td th:text="${member.id}"></td>
-                    <td th:text="${member.address}"></td>
-                    <td th:text="${member.name}"></td>
-                    <td th:text="${member.email}"></td>
-                </tr>
-                </tbody>
-            </table>
+    <form class="container" action="/admin/addComment" method="post">
+        <div class="mb-3">
+            <label class="form-Label">작성자</label>
+            <input type="text" class="form-control" name="boardTitle" th:value="${board.memberEntity.id}" readonly>
         </div>
-    </div>
+        <div class="mb-3">
+            <label class="form-Label">제목</label>
+            <input type="text" class="form-control" name="boardTitle" th:value="${board.boardTitle}" readonly>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">내용</label>
+            <textarea class="form-control" rows="3" name="boardText" th:text="${board.boardText}" readonly></textarea>
+        </div>
+        <br>
+        <div class="mb-3">
+            <label class="form-label">관리자 답글</label>
+            <textarea class="form-control" rows="3" name="adminComment" th:text="${board.adminComment}"></textarea>
+        </div>
+        <input type="hidden" name="boardId" th:value="${board.board_id}" />
+        <button type="submit" class="btn btn-primary">답글달기</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/adminFaq'">목록보기</button>
+    </form>
 
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>
