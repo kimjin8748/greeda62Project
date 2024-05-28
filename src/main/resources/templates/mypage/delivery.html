@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<title>주문 내역</title>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -39,7 +39,7 @@
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="/membership">멤버쉽</a></li>
                         <li><a class="dropdown-item" href="/delivery">배송조회</a></li>
-                        <li><a class="dropdown-item" href="#!">반품/교환/취소</a></li>
+                        <li><a class="dropdown-item" href="/return_change_cen">반품/교환/취소</a></li>
                     </ul>
                 </li>
             </ul>
@@ -58,5 +58,97 @@
         </div>
     </div>
 </nav>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .delivery-container {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+        /*배송조회 위치 센터*/
+        text-align: center;
+        color: #333;
+    }
+    table {
+        /*표 센터로*/
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    table, th, td {
+        /*표를 선으로 갈라주는거*/
+        border: 1px solid #ccc;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #f8f8f8;
+    }
+
+
+</style>
+
+<div class="delivery-container">
+    <h1>배송조회</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>주문 번호</th>
+            <th>상품 번호</th>
+            <th>상품명</th>
+            <th>수량</th>
+            <th>가격</th>
+            <th>주문 날짜</th>
+            <th>상태</th>
+
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr>
+            <td>240509-SUC-001</td>
+            <td>SUC-001</td>
+            <td>다육이1</td>
+            <td>1</td>
+            <td>5,000</td>
+            <td>2024-05-09</td>
+            <td>배송 완료</td>
+        </tr>
+        <tr>
+            <td>240514-POT-001</td>
+            <td>POT-001</td>
+            <td>화분1</td>
+            <td>1</td>
+            <td>6,000</td>
+            <td>2024-05-14</td>
+            <td>배송중</td>
+        </tr>
+        <tr>
+            <td>240521-SET-001</td>
+            <td>SET-001</td>
+            <td>SET1</td>
+            <td>1</td>
+            <td>8,000</td>
+            <td>2024-05-21</td>
+            <td>배송 준비중</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>
+
+
