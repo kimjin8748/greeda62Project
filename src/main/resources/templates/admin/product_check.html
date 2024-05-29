@@ -51,6 +51,9 @@
     <div th:if="${deleteError}">
         <h3 align="center" th:text="${deleteError}" th:class="deleteError-msg"></h3>
     </div>
+    <div th:if="${insertSuccess}">
+        <h3 align="center" th:text="${insertSuccess}" th:class="insertSuccess-msg"></h3>
+    </div>
     <!-- board seach area -->
     <div id="board-search">
         <div class="container">

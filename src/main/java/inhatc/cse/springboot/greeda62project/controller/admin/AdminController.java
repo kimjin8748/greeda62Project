@@ -74,6 +74,7 @@ public class AdminController {
         return "admin/memberCTR";
     }
 
+    //상품 조회 컨트롤러 로직
     @GetMapping("/admin/productCheck")
     public String listProducts(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
@@ -95,8 +96,9 @@ public class AdminController {
         return "admin/product_insert";
     }
 
+    //상품 등록 컨트롤러 로직
     @PostMapping("/admin/productInsert")
-    public String productInsert(@ModelAttribute ProductDTO productDTO, Model model) {
+    public String productInsert(@ModelAttribute ProductDTO productDTO, Model model, RedirectAttributes redirectAttributes) {
         // 필드 검증
         if (productDTO.getSerialNumber() == null || productDTO.getProductType() == null ||
                 productDTO.getProductName() == null || productDTO.getProductSize() == null ||
@@ -131,6 +133,7 @@ public class AdminController {
             }
             // 상품 저장
             productService.saveProduct(productDTO);
+            redirectAttributes.addFlashAttribute("insertSuccess", "상품 등록이 성공적으로 완료되었습니다.");
             return "redirect:/admin/productCheck";
         }
     }

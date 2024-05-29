@@ -70,7 +70,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="board : ${boards}">
-                    <td th:text="${board.memberEntity.id}"></td>
+                    <td th:text="${board.member.id}"></td>
                     <th>
                         <a th:href="@{/admin/edit/{title}(title=${board.boardTitle})}" th:text="${board.boardTitle}"></a>
                         <p>테스트</p>

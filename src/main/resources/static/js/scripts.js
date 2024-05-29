@@ -36,6 +36,7 @@ function calculateTotal() {
     });
     document.getElementById('total-price').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
     document.getElementById('total-price1').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
+    return totalPrice;
 }
 
 function submitForm2(actionType) {
@@ -70,4 +71,54 @@ function submitForm3(actionType) {
         document.getElementById('actionField').value = 'update';
         document.getElementById('productForm').submit();
     }
+}
+
+function requestPay() {
+
+    const productName = document.getElementById("productName").value;
+    const totalPrice = calculateTotal();
+    const buyerName = document.getElementById("buyerName").value;
+
+    IMP.init("imp30825140"); // 가맹점 식별코드
+    IMP.request_pay(
+        {
+            pg: "html5_inicis.INIpayTest", // 테스트 시 html5_inicis.INIpayTest 사용
+            pay_method: "card",
+            merchant_uid: "order_no_" + new Date().getTime(), // 상점에서 생성한 고유 주문번호
+            name: productName,
+            amount: totalPrice,
+            buyer_email: "test@portone.io",
+            buyer_name: buyerName,
+            buyer_tel: "010-1234-5678", // 필수 파라미터 입니다.
+            buyer_addr: "서울특별시 강남구 삼성동",
+            buyer_postcode: "123-456",
+            //m_redirect_url: "https://www.your-redirect-url.com", // 모바일에서 결제 완료 후 리디렉션 될 URL
+            escrow: true, // 에스크로 결제인 경우 설정
+            vbank_due: new Date().getTime() + 30, // 가상계좌 입금 기한 (YYYYMMDD)
+            bypass: {
+                // PC 경우
+                acceptmethod: "noeasypay", // 간편결제 버튼을 통합결제창에서 제외(PC)
+                // acceptmethod: "cardpoint", // 카드포인트 사용시 설정(PC)
+                // 모바일 경우
+                P_RESERVED: "noeasypay=Y", // 간편결제 버튼을 통합결제창에서 제외(모바일)
+                // P_RESERVED: "cp_yn=Y", // 카드포인트 사용시 설정(모바일)
+                // P_RESERVED: "twotrs_bank=Y&iosapp=Y&app_scheme=your_app_scheme://", // iOS에서 계좌이체시 결제가 이뤄지던 앱으로 돌아가기
+            },
+            period: {
+                from: "20240101", // YYYYMMDD
+                to: "20241231", // YYYYMMDD
+            },
+        },
+        function (rsp) {
+            if (rsp.success) {
+                // 결제 성공 시 로직
+                alert('결제가 완료되었습니다. 결제 ID: ' + rsp.imp_uid);
+                console.log(rsp);
+            } else {
+                // 결제 실패 시 로직
+                alert('결제에 실패하였습니다. 에러내용: ' + rsp.error_msg);
+                console.log(rsp);
+            }
+        }
+    );
 }
