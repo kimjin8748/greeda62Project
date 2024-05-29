@@ -78,6 +78,9 @@ function requestPay() {
     const productName = document.getElementById("productName").value;
     const totalPrice = calculateTotal();
     const buyerName = document.getElementById("buyerName").value;
+    const buyerAddr = document.getElementById("buyerAddr").value;
+    const buyerEmail = document.getElementById("buyerEmail").value;
+    const buyerTel = document.getElementById("buyerTel").value;
 
     IMP.init("imp30825140"); // 가맹점 식별코드
     IMP.request_pay(
@@ -87,11 +90,11 @@ function requestPay() {
             merchant_uid: "order_no_" + new Date().getTime(), // 상점에서 생성한 고유 주문번호
             name: productName,
             amount: totalPrice,
-            buyer_email: "test@portone.io",
+            buyer_email: buyerEmail,
             buyer_name: buyerName,
-            buyer_tel: "010-1234-5678", // 필수 파라미터 입니다.
-            buyer_addr: "서울특별시 강남구 삼성동",
-            buyer_postcode: "123-456",
+            buyer_tel: buyerTel, // 필수 파라미터 입니다.
+            buyer_addr: buyerAddr,
+            //buyer_postcode: "123-456",
             //m_redirect_url: "https://www.your-redirect-url.com", // 모바일에서 결제 완료 후 리디렉션 될 URL
             escrow: true, // 에스크로 결제인 경우 설정
             vbank_due: new Date().getTime() + 30, // 가상계좌 입금 기한 (YYYYMMDD)

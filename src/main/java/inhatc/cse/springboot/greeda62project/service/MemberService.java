@@ -24,5 +24,6 @@ public interface MemberService {
     boolean deleteMember(String id);
 
     MemberDTO findUser(String id);
+
     List<MemberEntity> findByMember(String keyword);
 }

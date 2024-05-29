@@ -36,8 +36,11 @@ public class CartController {
             return "redirect:/member";
         }
 
+        MemberDTO memberDTO = memberService.findUser(id);
         List<CartItemEntity> cartItems = cartService.getCartItemsByUserId(id);
         model.addAttribute("cartItems", cartItems);
+        model.addAttribute("member", memberDTO);
+        System.out.println(memberDTO);
         return "cart/cart";
     }
 

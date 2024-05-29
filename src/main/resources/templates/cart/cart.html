@@ -82,7 +82,8 @@
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('POT')}">화분</h6>
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('SUC')}">다육이</h6>
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('SET')}">세트</h6>
-                                            <h6 class="text-black mb-0" id="productName" th:text="${item.productEntity.productName}"></h6>
+                                            <h6 class="text-black mb-0" th:text="${item.productEntity.productName}"></h6>
+                                            <input type="hidden" id="productName" th:value="${item.productEntity.productName}">
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2 d-flex">
                                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
@@ -108,7 +109,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="hidden" id="buyerName" th:value="${session.id}">
+                                    <input type="hidden" id="buyerName" th:value="${member.name}">
+                                    <input type="hidden" id="buyerAddr" th:value="${member.address}">
+                                    <input type="hidden" id="buyerEmail" th:value="${member.email}">
                                     <hr class="my-4">
 
                                     <div class="pt-5">
@@ -127,23 +130,22 @@
                                         <h5 id="total-price">0원</h5>
                                     </div>
 
-                                    <h5 class="text-uppercase mb-3">Shipping</h5>
+                                    <h5 class="text-uppercase mb-3">멤버쉽</h5>
 
                                     <div class="mb-4 pb-2">
                                         <select data-mdb-select-init>
-                                            <option value="1">Standard-Delivery- €5.00</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                            <option value="4">Four</option>
+                                            <option value="1">씨앗 등급: 배송비 3,000원</option>
+                                            <option value="2">새싹 등급: 배송비 2,000원</option>
+                                            <option value="3">꽃 등급: 배송비 1,000원</option>
                                         </select>
                                     </div>
 
-                                    <h5 class="text-uppercase mb-3">Give code</h5>
+                                    <h5 class="text-uppercase mb-3">전화번호</h5>
 
                                     <div class="mb-5">
                                         <div data-mdb-input-init class="form-outline">
-                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                                            <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                            <input type="text" id="buyerTel" class="form-control form-control-lg" />
+                                            <label class="form-label" for="buyerTel">* 주문 결제시 사용될 전화번호 입력</label>
                                         </div>
                                     </div>
 
