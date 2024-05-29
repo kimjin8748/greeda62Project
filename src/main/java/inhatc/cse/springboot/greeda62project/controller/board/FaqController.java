@@ -28,7 +28,11 @@ public class FaqController {
     }
 
     @GetMapping("/faq/new")
-    public String faqNew() {
+    public String faqNew(HttpSession session) {
+        String memberId  = (String) session.getAttribute("id");
+        if (memberId  == null) {
+            return "redirect:/member";
+        }
         return "/board/faqNew";
     }
 
