@@ -77,6 +77,7 @@
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <img th:src="@{/images/{img}.jpg(img=${item.productEntity.serialNumber})}" class="img-fluid rounded-3" alt="...">
+                                            <input type="hidden" id="productSerialNumber" th:value="${item.productEntity.serialNumber}">
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('POT')}">화분</h6>

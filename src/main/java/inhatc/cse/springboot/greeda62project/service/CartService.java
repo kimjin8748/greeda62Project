@@ -16,5 +16,4 @@ public interface CartService {
 
     boolean removeCartItem(String memberId, String productId);
 
-//    CartEntity findById(int id);
 }
