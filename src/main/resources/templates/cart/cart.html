@@ -85,6 +85,8 @@
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('SET')}">세트</h6>
                                             <h6 class="text-black mb-0" th:text="${item.productEntity.productName}"></h6>
                                             <input type="hidden" id="productName" th:value="${item.productEntity.productName}">
+                                            <input type="hidden" id="productSize" th:value="${item.productEntity.productSize}">
+                                            <input type="hidden" id="productDescription" th:value="${item.productEntity.productDescription}">
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2 d-flex">
                                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"

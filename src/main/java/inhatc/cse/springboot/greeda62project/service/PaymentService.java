@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface PaymentService {
 
-    PaymentEntity savePayment(PaymentEntity payment);
+    void savePayment(PaymentDTO paymentDTO);
 }

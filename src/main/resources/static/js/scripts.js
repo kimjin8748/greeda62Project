@@ -79,6 +79,8 @@ function submitForm3(actionType) {
 
 function requestPay() {
     const productName = document.getElementById("productName").value;
+    const productSize = document.getElementById("productSize").value;
+    const productDescription = document.getElementById("productDescription").value;
     const totalPrice = calculateTotal();
     console.log("Total Price in requestPay:", totalPrice); // 로그로 확인
     const buyerName = document.getElementById("buyerName").value;
@@ -115,28 +117,40 @@ function requestPay() {
             if (rsp.success) {
                 alert('결제가 완료되었습니다. 결제 ID: ' + rsp.imp_uid);
 
+                const paymentData = {
+                    paymentId: rsp.merchant_uid,
+                    amount: totalPrice,
+                    paymentDate: new Date().toISOString(), // 현재 시간을 ISO 형식으로 설정
+                    products: [
+                        {
+                            productSerialNumber: productId,
+                            productName: productName,
+                            productPrice: totalPrice,
+                            productSize: productSize,
+                            productDescription: productDescription,
+                        }
+                    ],
+                    buyerName: buyerName,
+                    buyerEmail: buyerEmail,
+                    buyerTel: buyerTel,
+                    buyerAddr: buyerAddr
+                };
+
                 // 서버에 결제 정보 전송
-                fetch('/api/payments/complete', {
+                fetch('http://localhost:8090/api/payments/complete', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        paymentId: rsp.merchant_uid,
-                        amount: totalPrice,
-                        paymentDate: new Date().toISOString(),
-                        productId: productId,
-                        productName: productName,
-                        productPrice: totalPrice,
-                        buyerName: buyerName,
-                        buyerEmail: buyerEmail,
-                        buyerTel: buyerTel,
-                        buyerAddr: buyerAddr,
-                    }),
+                    body: JSON.stringify(paymentData),
                 })
                     .then(response => response.json())
-                    .then(paymentData => {
-                        console.log('결제 정보 전송 성공:', paymentData);
+                    .then(Data => {
+                        if (Data.error) {
+                            alert(Data.error); // 서버에서 반환한 에러 메시지를 사용자에게 알림
+                        } else {
+                            console.log('결제 정보 전송 성공:', Data);
+                        }
                     })
                     .catch((error) => {
                         console.error('Error:', error);
