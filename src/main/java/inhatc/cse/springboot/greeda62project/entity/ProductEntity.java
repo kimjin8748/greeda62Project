@@ -21,4 +21,16 @@ public abstract class ProductEntity {
     private String productSize;
     private int productPrice;
     private String productDescription;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private OrderItemEntity orderItem;
+
+    public ProductEntity(String serialNumber, String productName, String productSize, int productPrice, String productDescription) {
+        this.serialNumber = serialNumber;
+        this.productName = productName;
+        this.productSize = productSize;
+        this.productPrice = productPrice;
+        this.productDescription = productDescription;
+    }
 }
