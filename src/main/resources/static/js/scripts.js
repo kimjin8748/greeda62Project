@@ -79,8 +79,7 @@ function submitForm3(actionType) {
 
 function requestPay() {
     const productName = document.getElementById("productName").value;
-    const productSize = document.getElementById("productSize").value;
-    const productDescription = document.getElementById("productDescription").value;
+    const memberId = document.getElementById("memberId").value;
     const totalPrice = calculateTotal();
     console.log("Total Price in requestPay:", totalPrice); // 로그로 확인
     const buyerName = document.getElementById("buyerName").value;
@@ -88,8 +87,29 @@ function requestPay() {
     const buyerEmail = document.getElementById("buyerEmail").value;
     const buyerTel = document.getElementById("buyerTel").value;
 
-    const productId = document.getElementById("productSerialNumber").value;
 
+    const cartItems = document.querySelectorAll(".row.mb-4");
+    const products = [];
+
+    cartItems.forEach(item => {
+        // 체크박스가 선택되었는지 확인
+        const isChecked = item.querySelector(".product-checkbox").checked;
+        if (isChecked) { // 체크박스가 선택된 상품만 처리
+            const productId = item.querySelector("#serialNumber").value;
+            const productName = item.querySelector("#productName").value;
+            const productPrice = parseFloat(item.querySelector("#productPrice").value);
+            const productSize = item.querySelector("#productSize").value;
+            const productDescription = item.querySelector("#productDescription").value;
+
+            products.push({
+                serialNumber: productId,
+                productName: productName,
+                productPrice: productPrice,
+                productSize: productSize,
+                productDescription: productDescription,
+            });
+        }
+    });
     IMP.init("imp30825140"); // 가맹점 식별코드
     IMP.request_pay(
         {
@@ -121,19 +141,8 @@ function requestPay() {
                     paymentId: rsp.merchant_uid,
                     amount: totalPrice,
                     paymentDate: new Date().toISOString(), // 현재 시간을 ISO 형식으로 설정
-                    products: [
-                        {
-                            productSerialNumber: productId,
-                            productName: productName,
-                            productPrice: totalPrice,
-                            productSize: productSize,
-                            productDescription: productDescription,
-                        }
-                    ],
-                    buyerName: buyerName,
-                    buyerEmail: buyerEmail,
-                    buyerTel: buyerTel,
-                    buyerAddr: buyerAddr
+                    memberId: memberId,
+                    products: products,
                 };
 
                 // 서버에 결제 정보 전송

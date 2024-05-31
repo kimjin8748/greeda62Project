@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <img th:src="@{/images/{img}.jpg(img=${item.productEntity.serialNumber})}" class="img-fluid rounded-3" alt="...">
-                                            <input type="hidden" id="productSerialNumber" th:value="${item.productEntity.serialNumber}">
+                                            <input type="hidden" id="serialNumber" th:value="${item.productEntity.serialNumber}">
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <h6 class="text-muted" th:if="${item.productEntity.serialNumber?.startsWith('POT')}">화분</h6>
@@ -103,7 +103,7 @@
                                             </button>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h6 class="mb-0" th:text="${item.productEntity.productPrice} + '원'"></h6>
+                                            <h6 class="mb-0" id="productPrice" th:text="${item.productEntity.productPrice} + '원'"></h6>
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <div class="cart-item" th:data-member-id="${session.id}" th:data-product-id="${item.productEntity.serialNumber}">
@@ -112,6 +112,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" id="memberId" th:value="${member.id}">
                                     <input type="hidden" id="buyerName" th:value="${member.name}">
                                     <input type="hidden" id="buyerAddr" th:value="${member.address}">
                                     <input type="hidden" id="buyerEmail" th:value="${member.email}">
