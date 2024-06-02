@@ -3,6 +3,7 @@ package inhatc.cse.springboot.greeda62project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,9 +23,8 @@ public abstract class ProductEntity {
     private int productPrice;
     private String productDescription;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private OrderItemEntity orderItem;
+    @OneToMany(mappedBy = "product")
+    private List<OrderItemEntity> orderItems;
 
     public ProductEntity(String serialNumber, String productName, String productSize, int productPrice, String productDescription) {
         this.serialNumber = serialNumber;

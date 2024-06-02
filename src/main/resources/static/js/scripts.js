@@ -159,10 +159,16 @@ function requestPay() {
                             alert(Data.error); // 서버에서 반환한 에러 메시지를 사용자에게 알림
                         } else {
                             console.log('결제 정보 전송 성공:', Data);
+                            products.forEach(product => {
+                                const productElement = document.querySelector(`div[data-product-id="${product.serialNumber}"]`);
+                                if (productElement) {
+                                    productElement.closest('.row').remove();
+                                }
+                            });
                         }
                     })
                     .catch((error) => {
-                        console.error('Error:', error);
+                        console.error('결제 정보를 전송하는 중 오류가 발생했습니다: ', error.message);
                     });
 
                 console.log(rsp.data);

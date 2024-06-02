@@ -6,10 +6,7 @@ import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.CartEntity;
 import inhatc.cse.springboot.greeda62project.entity.CartItemEntity;
 import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
-import inhatc.cse.springboot.greeda62project.repository.CartItemRepository;
-import inhatc.cse.springboot.greeda62project.repository.CartRepository;
-import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
-import inhatc.cse.springboot.greeda62project.repository.ProductRepository;
+import inhatc.cse.springboot.greeda62project.repository.*;
 import inhatc.cse.springboot.greeda62project.service.CartService;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
@@ -30,12 +27,18 @@ public class CartServiceImpl implements CartService {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Override
     public void addCart(MemberDTO memberDTO, ProductDTO productDTO, int amount) {
         // 상품 ID를 사용하여 상품 엔티티를 찾습니다.
         ProductEntity productEntity = productRepository.findById(productDTO.getSerialNumber())
                 .orElseThrow(() -> new IllegalArgumentException("상품 ID [" + productDTO.getSerialNumber() + "]에 해당하는 상품을 찾을 수 없습니다."));
+
+        // 해당 상품이 다른 사용자에게 이미 구매되었는지 확인합니다.
+        if (orderItemRepository.existsByProduct(productEntity)) {
+            throw new IllegalStateException("해당 상품은 이미 다른 사용자에 의해 구매되었습니다.");
+        }
 
         // 회원 ID를 사용하여 카트 엔티티를 찾습니다. (CartRepository에 적절한 메서드가 구현되어 있다고 가정)
         CartEntity cartEntity = cartRepository.findByMemberEntity_Id(memberDTO.getId())
@@ -56,7 +59,17 @@ public class CartServiceImpl implements CartService {
 
         // 장바구니 아이템을 저장합니다.
         cartItemRepository.save(cartItemEntity);
+
+        // 카트의 총 상품 개수를 업데이트합니다.
+        int totalItemCount = cartEntity.getCartItems().stream()
+                .mapToInt(CartItemEntity::getCount)
+                .sum();
+        cartEntity.setCount(totalItemCount);
+
+        // 카트를 저장합니다.
+        cartRepository.save(cartEntity);
     }
+
 
     @Override
     public List<CartItemEntity> getCartItemsByUserId(String memberId) {

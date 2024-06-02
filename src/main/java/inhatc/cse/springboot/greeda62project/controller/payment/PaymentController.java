@@ -1,7 +1,6 @@
 package inhatc.cse.springboot.greeda62project.controller.payment;
 
 import inhatc.cse.springboot.greeda62project.dto.PaymentDTO;
-import inhatc.cse.springboot.greeda62project.entity.PaymentEntity;
 import inhatc.cse.springboot.greeda62project.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

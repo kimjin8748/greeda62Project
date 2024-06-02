@@ -2,6 +2,7 @@ package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.*;
 import inhatc.cse.springboot.greeda62project.entity.*;
+import inhatc.cse.springboot.greeda62project.repository.OrderItemRepository;
 import inhatc.cse.springboot.greeda62project.repository.ProductRepository;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.transaction.Transactional;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Override
     public Page<ProductDTO> findAllProducts(Pageable pageable) {
@@ -166,6 +168,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductEntity> searchByProduct(String keyword) {
         return productRepository.findBySerialNumber("%" + keyword + "%");
+    }
+
+    @Override
+    public boolean isProductPurchased(String  productId) {
+        // orderItemRepository를 통해 해당 사용자가 특정 상품을 구매했는지 확인
+        return orderItemRepository.existsByProductSerialNumber(productId);
     }
 
     // 카테고리 값을 상품 타입으로 변환하는 메서드

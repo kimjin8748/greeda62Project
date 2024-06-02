@@ -32,4 +32,6 @@ public interface ProductService {
     boolean deleteProduct(ProductDTO productDTO);
 
     List<ProductEntity> searchByProduct(String keyword);
+
+    boolean isProductPurchased(String  productId);
 }

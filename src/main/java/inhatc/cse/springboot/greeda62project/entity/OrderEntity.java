@@ -38,13 +38,4 @@ public class OrderEntity {
         this.orderDate = LocalDateTime.now();
     }
 
-    public void addOrderItem(OrderItemEntity orderItem) {
-        this.orderItems.add(orderItem);
-        orderItem.setOrder(this);
-    }
-
-    public void removeOrderItem(OrderItemEntity orderItem) {
-        this.orderItems.remove(orderItem);
-        orderItem.setOrder(null);
-    }
 }

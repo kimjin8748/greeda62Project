@@ -2,7 +2,9 @@ package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
+import inhatc.cse.springboot.greeda62project.entity.CartEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
+import inhatc.cse.springboot.greeda62project.repository.CartRepository;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import jakarta.transaction.Transactional;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final CartRepository cartRepository;
 
     //회원가입을 위한 로직
     @Override
@@ -31,6 +34,11 @@ public class MemberServiceImpl implements MemberService {
                 .build();
 
         memberEntity = memberRepository.save(memberEntity); // memberRepository를 사용
+
+        // 장바구니 엔티티 생성 및 저장
+        CartEntity cartEntity = new CartEntity();
+        cartEntity.setMemberEntity(memberEntity);
+        cartRepository.save(cartEntity);
 
         MemberDTO memberDTO = new MemberDTO(memberEntity.getId(), memberEntity.getPassword(), memberEntity.getName(),
                 memberEntity.getEmail(), memberEntity.getAddress());

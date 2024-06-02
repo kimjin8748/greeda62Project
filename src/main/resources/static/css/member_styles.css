@@ -235,6 +235,10 @@ form.wrapper-box button:active {
   color: red;
 }
 
+.purchase-msg {
+  color: red;
+}
+
 .forgotsuccess-msg {
   color: #7ac142;
 }

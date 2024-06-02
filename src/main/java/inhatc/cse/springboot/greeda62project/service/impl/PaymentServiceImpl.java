@@ -22,6 +22,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final MemberRepository memberRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Override
     public void savePayment(PaymentDTO paymentDTO) {
@@ -35,7 +36,9 @@ public class PaymentServiceImpl implements PaymentService {
 
         String memberId = paymentDTO.getMemberId(); // PaymentDTO에 memberId를 추가했다고 가정합니다.
         MemberEntity member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid memberId: " + memberId));
+                .orElseThrow(() -> new IllegalArgumentException("허용하지 않은 회원 입니다: " + memberId));
+
+        CartEntity cartEntity = member.getCartEntity();
 
         // OrderEntity 생성 및 저장
         OrderEntity orderEntity = OrderEntity.builder()
@@ -48,17 +51,19 @@ public class PaymentServiceImpl implements PaymentService {
         List<ProductDTO> products = paymentDTO.getProducts(); // 결제된 상품 목록을 가져옴
         System.out.println(products);
         for (ProductDTO product : products) {
-            if (product.getSerialNumber() == null) {
-                throw new IllegalArgumentException("Product serial number must not be null");
-            }
+
+            ProductEntity productEntity = productRepository.findById(product.getSerialNumber())
+                    .orElseThrow(() -> new EntityNotFoundException("상품을 찾을 수 없습니다. 상품번호: " + product.getSerialNumber()));
 
             OrderItemEntity orderItemEntity = OrderItemEntity.builder()
                     .order(savedOrder)
                     .product(productRepository.findById(product.getSerialNumber())
-                            .orElseThrow(() -> new EntityNotFoundException("Product with serial number " + product.getSerialNumber() + " not found")))
+                            .orElseThrow(() -> new EntityNotFoundException("상품을 찾을 수 없습니다. 상품번호: " + product.getSerialNumber() )))
                     .quantity(1) // 필요에 따라 수량 설정
                     .build();
             orderItemRepository.save(orderItemEntity);
+
+            cartItemRepository.deleteByCartEntityAndProductEntity(cartEntity, productEntity);
         }
     }
 }

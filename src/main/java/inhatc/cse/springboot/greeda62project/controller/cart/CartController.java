@@ -44,17 +44,6 @@ public class CartController {
         return "cart/cart";
     }
 
-    private List<CartItemDTO> getCartItemsFromSession(HttpSession session) {
-        @SuppressWarnings("unchecked")
-        List<CartItemDTO> cartItems = (List<CartItemDTO>) session.getAttribute("cartItems");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems);
-        }
-        return cartItems;
-    }
-
-
     // 장바구니에 물건 넣기 컨트롤러
     @PostMapping("/cart/{id}/{productId}")
     public String addCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId, int amount, HttpSession session) {
@@ -65,7 +54,12 @@ public class CartController {
         MemberDTO memberDTO = memberService.findUser(id);
         ProductDTO productDTO = productService.productView(productId);
 
-        cartService.addCart(memberDTO, productDTO, amount);
+        try {
+            cartService.addCart(memberDTO, productDTO, amount);
+        } catch (IllegalStateException e) {
+            // 이미 구매된 상품일 경우 적절한 처리 (예: 에러 메시지 표시)
+            return "redirect:/cart?error=alreadyPurchased";
+        }
 
         return "redirect:/cart";
     }
