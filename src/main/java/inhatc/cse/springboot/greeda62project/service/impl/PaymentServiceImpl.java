@@ -1,15 +1,18 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
+import inhatc.cse.springboot.greeda62project.dto.OrderInfoDTO;
 import inhatc.cse.springboot.greeda62project.dto.PaymentDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.*;
 import inhatc.cse.springboot.greeda62project.repository.*;
 import inhatc.cse.springboot.greeda62project.service.PaymentService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -66,4 +69,27 @@ public class PaymentServiceImpl implements PaymentService {
             cartItemRepository.deleteByCartEntityAndProductEntity(cartEntity, productEntity);
         }
     }
+
+    @Override
+    public List<OrderInfoDTO> getOrdersByCurrentLoggedInUser(HttpSession session) {
+        String memberId = (String) session.getAttribute("id");
+        List<OrderEntity> orders = orderRepository.findByMemberId(memberId);
+
+        List<OrderInfoDTO> orderInfoDTOs = new ArrayList<>();
+        for (OrderEntity order : orders) {
+            for (OrderItemEntity orderItem : order.getOrderItems()) {
+                OrderInfoDTO dto = new OrderInfoDTO();
+                dto.setPaymentId(order.getPayment().getPaymentId());
+                dto.setSerialNumber(orderItem.getProduct().getSerialNumber());
+                dto.setProductName(orderItem.getProduct().getProductName());
+                dto.setQuantity(orderItem.getQuantity());
+                dto.setAmount(order.getPayment().getAmount());
+                dto.setPaymentDate(order.getPayment().getPaymentDate());
+                orderInfoDTOs.add(dto);
+            }
+        }
+        return orderInfoDTOs;
+    }
+
+
 }

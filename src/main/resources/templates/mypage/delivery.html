@@ -116,32 +116,14 @@
 
         </thead>
         <tbody>
-        <tr>
-            <td>240509-SUC-001</td>
-            <td>SUC-001</td>
-            <td>다육이1</td>
-            <td>1</td>
-            <td>5,000</td>
-            <td>2024-05-09</td>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.getPaymentId()}">주문번호</td>
+            <td th:text="${order.serialNumber}">상품번호</td>
+            <td th:text="${order.productName}">상품명</td>
+            <td th:text="${order.quantity}">수량</td>
+            <td th:text="${order.amount}">가격</td>
+            <td th:text="${order.paymentDate != null ? #temporals.format(order.paymentDate, 'yyyy-MM-dd') : ''}">주문날짜</td>
             <td>배송 완료</td>
-        </tr>
-        <tr>
-            <td>240514-POT-001</td>
-            <td>POT-001</td>
-            <td>화분1</td>
-            <td>1</td>
-            <td>6,000</td>
-            <td>2024-05-14</td>
-            <td>배송중</td>
-        </tr>
-        <tr>
-            <td>240521-SET-001</td>
-            <td>SET-001</td>
-            <td>SET1</td>
-            <td>1</td>
-            <td>8,000</td>
-            <td>2024-05-21</td>
-            <td>배송 준비중</td>
         </tr>
         </tbody>
     </table>
