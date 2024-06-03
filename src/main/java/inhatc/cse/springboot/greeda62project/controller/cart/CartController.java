@@ -40,7 +40,6 @@ public class CartController {
         List<CartItemEntity> cartItems = cartService.getCartItemsByUserId(id);
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("member", memberDTO);
-        System.out.println(memberDTO);
         return "cart/cart";
     }
 
