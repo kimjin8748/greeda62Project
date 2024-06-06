@@ -24,7 +24,8 @@ function toggleSelectAll(source) {
 }
 
 function calculateTotal() {
-    let totalPrice = 0; // 총 가격 초기화
+    let totalProductPrice = 0; // 총 가격 초기화
+    let totalPrice = 0;
     document.querySelectorAll('.product-checkbox').forEach((checkbox) => {
         if (checkbox.checked) { // 체크박스가 체크되어 있는 경우
             const row = checkbox.closest('.row'); // 해당 체크박스가 속한 row 요소 찾기
@@ -34,11 +35,14 @@ function calculateTotal() {
 
             console.log(`Checkbox checked: ${checkbox.checked}`);
             console.log(`Price: ${price}, Quantity: ${quantity}`);
-            totalPrice += price * quantity; // 총 가격 업데이트
+            totalProductPrice += price * quantity; // 총 가격 업데이트
         }
     });
-    console.log(`Total Price: ${totalPrice}`);
-    document.getElementById('total-price').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
+    const shippingFee = parseInt(document.getElementById("shippingFee").value);
+    console.log(shippingFee)
+    totalPrice = totalProductPrice + shippingFee;
+    console.log(`Total Price: ${totalProductPrice}`);
+    document.getElementById('total-price').innerText = totalProductPrice + '원'; // 총 가격 표시 업데이트
     document.getElementById('total-price1').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
     return totalPrice;
 }

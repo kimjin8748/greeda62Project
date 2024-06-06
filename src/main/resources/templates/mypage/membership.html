@@ -65,12 +65,12 @@
     <h1>내 맴버쉽 정보</h1>
     <div class="membership-details">
         <div class="membership-level">
-            <h2>멤버쉽 등급</h2>
-            <p class="level">새싹 등급</p>
+            <h2>멤버쉽 등급</h2><hr>
+            <p class="level" th:text="${currentUserMembershipLevel.levelName}"></p>
         </div>
         <div class="membership-points">
-            <h2>혜택</h2>
-            <p class="points">배송비 3,000원 적용</p>
+            <h2>혜택</h2><hr>
+            <p class="points" th:text="'배송비 ' + ${currentUserShippingFee.fee} + '원 적용'"></p>
         </div>
     </div>
 </div>
@@ -79,16 +79,22 @@
     <h1>맴버쉽 등급 정보</h1>
     <div class="membership-details">
         <div class="membership-level">
-            <h2>멤버쉽 등급</h2>
-            <p class="level">씨앗 등급</p>
-            <p class="level">새싹 등급</p>
-            <p class="level">꽃 등급</p>
+            <h2>멤버쉽 등급</h2><hr>
+            <div th:each="level : ${membershipLevels}">
+                <p class="level" th:text="${level.levelName}"></p>
+            </div>
         </div>
         <div class="membership-points">
-            <h2>혜택</h2>
-            <p class="points">배송비 3,000원 적용</p>
-            <p class="points">배송비 2,000원 적용</p>
-            <p class="points">배송비 1,000원 적용</p>
+            <h2>혜택</h2><hr>
+            <div th:each="level : ${membershipLevels}">
+                <p class="points" th:text="${membershipBenefits[level.levelName]}"></p>
+            </div>
+        </div>
+        <div class="membership-points">
+            <h2>등급 조건</h2><hr>
+            <div th:each="level : ${membershipLevels}">
+                <p class="points" th:text="${level.description}"></p>
+            </div>
         </div>
     </div>
 </div>

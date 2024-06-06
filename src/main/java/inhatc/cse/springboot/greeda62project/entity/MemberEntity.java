@@ -27,4 +27,8 @@ public class MemberEntity {
 
     @OneToOne(mappedBy = "memberEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private CartEntity cartEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "membership_level_id")
+    private MembershipLevelEntity membershipLevelEntity;
 }

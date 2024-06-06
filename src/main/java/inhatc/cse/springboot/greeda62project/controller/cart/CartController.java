@@ -4,8 +4,11 @@ import inhatc.cse.springboot.greeda62project.dto.CartItemDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.CartItemEntity;
+import inhatc.cse.springboot.greeda62project.entity.MembershipLevelEntity;
+import inhatc.cse.springboot.greeda62project.entity.ShippingFeeEntity;
 import inhatc.cse.springboot.greeda62project.service.CartService;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
+import inhatc.cse.springboot.greeda62project.service.MembershipService;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +30,7 @@ public class CartController {
     private final MemberService memberService;
     private final ProductService productService;
     private final CartService cartService;
+    private final MembershipService membershipService;
 
     //장바구니 이동 컨트롤러
     @GetMapping("/cart")
@@ -36,10 +40,27 @@ public class CartController {
             return "redirect:/member";
         }
 
+        // 현재 사용자의 멤버쉽 정보 가져오기
+        MembershipLevelEntity currentUserMembershipLevel = null;
+        ShippingFeeEntity currentUserShippingFee = null;
+
+        try {
+            currentUserMembershipLevel = membershipService.getUserMembershipLevel(id);
+            if (currentUserMembershipLevel != null) {
+                currentUserShippingFee = membershipService.getShippingFeeByMembershipLevel(currentUserMembershipLevel.getId());
+            }
+        } catch (IllegalStateException e) {
+            // 예외 처리: 사용자에게 멤버십 레벨이 없는 경우
+            model.addAttribute("error", "현재 사용자는 멤버십 레벨이 없습니다.");
+        }
+
         MemberDTO memberDTO = memberService.findUser(id);
         List<CartItemEntity> cartItems = cartService.getCartItemsByUserId(id);
+
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("member", memberDTO);
+        model.addAttribute("currentUserMembershipLevel", currentUserMembershipLevel);
+        model.addAttribute("currentUserShippingFee", currentUserShippingFee);
         return "cart/cart";
     }
 
