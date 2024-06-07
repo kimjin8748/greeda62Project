@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class OrderInfoDTO {
 
     private String paymentId;
+    private String impUid;
     private String serialNumber;
     private String productName;
     private int quantity;

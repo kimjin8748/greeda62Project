@@ -47,6 +47,22 @@ function calculateTotal() {
     return totalPrice;
 }
 
+function calculateTotal1() {
+    let totalProductPrice = 0; // 총 가격 초기화
+    let totalPrice = 0;
+    let quantity = 1;
+    document.querySelectorAll('.product-checkbox').forEach((checkbox) => {
+        if (checkbox.checked) { // 체크박스가 체크되어 있는 경우
+            const row = checkbox.closest('.row'); // 해당 체크박스가 속한 row 요소 찾기
+            const price = parseInt(checkbox.dataset.price) || 0; // 상품 가격 가져오기, NaN 방지
+
+            totalProductPrice += price * quantity; // 총 가격 업데이트
+        }
+    });
+    document.getElementById('total-price').innerText = totalProductPrice + '원'; // 총 가격 표시 업데이트
+    document.getElementById('total-price1').innerText = totalProductPrice + '원'; // 총 가격 표시 업데이트
+}
+
 function submitForm2(actionType) {
     // 회원 탈퇴인 경우
     if (actionType === 'delete') {
@@ -143,6 +159,7 @@ function requestPay() {
 
                 const paymentData = {
                     paymentId: rsp.merchant_uid,
+                    impUid: rsp.imp_uid,
                     amount: totalPrice,
                     paymentDate: new Date().toISOString(), // 현재 시간을 ISO 형식으로 설정
                     memberId: memberId,
@@ -183,3 +200,39 @@ function requestPay() {
         }
     );
 }
+
+function cancelPayment() {
+    const impUid = document.getElementById("impUid").value; // 결제 ID를 가져옴
+    const cancelReason = document.getElementById("cancelReason").value; // 취소 사유를 가져옴
+    console.log(impUid + ", " + cancelReason);
+    if (!impUid || !cancelReason) {
+        alert("결제 ID와 취소 사유를 입력해주세요.");
+        return;
+    }
+
+    const cancelData = {
+        impUid: impUid,
+        reason: cancelReason,
+    };
+
+    fetch('http://localhost:8090/api/payments/cancel', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cancelData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error); // 서버에서 반환한 에러 메시지를 사용자에게 알림
+            } else {
+                alert('결제가 취소되었습니다.');
+                console.log('결제 취소 성공:', data);
+            }
+        })
+        .catch((error) => {
+            console.error('결제 취소 요청 중 오류가 발생했습니다: ', error.message);
+        });
+}
+

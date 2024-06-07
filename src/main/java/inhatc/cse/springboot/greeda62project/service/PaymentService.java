@@ -16,4 +16,7 @@ public interface PaymentService {
     void savePayment(PaymentDTO paymentDTO);
 
     List<OrderInfoDTO> getOrdersByCurrentLoggedInUser(HttpSession session);
+
+    boolean cancelPayment(String impUid, String reason);
+
 }

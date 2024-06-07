@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>그린다62</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link href="/css/cart_styles.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/member_styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="border: 1px solid #000">
+    <div class="container px-4 px-lg-5">
+        <a href="/" ><img src="/images/로고사진.png"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/allproduct">모든상품</a></li>
+                <li class="nav-item"><a class="nav-link" href="/pot">화분</a></li>
+                <li class="nav-item"><a class="nav-link" href="/succulent">다육이</a></li>
+                <li class="nav-item"><a class="nav-link" href="/set">다육이&화분Set</a></li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/faq">고객문의</a></li>
+                <li class="nav-item"><a class="nav-link" th:if="${session.id == null}" href="/member">로그인</a></li>
+                <li class="nav-item"><a class="nav-link" th:if="${session.id != null}" href="/logout">로그아웃</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link dropdown-toggle" id="navbarDropdown" href="/modify" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/modify">회원정보</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="/membership">멤버쉽</a></li>
+                        <li><a class="dropdown-item" href="/delivery">배송조회</a></li>
+                        <li><a class="dropdown-item" href="/return_change_cen">반품/교환/취소</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi-cart-fill me-1"></i>
+                    장바구니
+                </button>
+            </form>
+            &nbsp;
+            <form action="/search" class="search-container">
+                <input type="text" id="search-field" class="search-input" name="keyword" placeholder="검색...">
+                <button class="search-button">검색</button>
+                <div class="icon-close" onclick="clearSearchField()">✖</div>
+            </form>
+        </div>
+    </div>
+</nav>
+<section class="h-100 h-custom" style="background-color: #d2c9ff;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-8">
+                                <div class="p-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0 text-black">결제 취소</h1>
+                                    </div>
+                                    <h6 class="mb-0 text-muted">
+                                        <input type="checkbox" class="product-checkbox" id="select-all-checkbox" onchange="toggleSelectAll(this)">
+                                        전체선택
+                                    </h6>
+
+                                    <div th:each="order, iterStat : ${orders}" class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <hr class="my-4">
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <input type="checkbox" class="product-checkbox" th:data-price="${order.amount}" th:id="'checkbox' + ${iterStat.count}" onchange="calculateTotal1()">
+                                        </div>
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <h6 class="text-black mb-0" th:text="${order.paymentId}"></h6>
+                                            <input type="hidden" id="impUid" th:value="${order.impUid}">
+                                        </div>
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <h6 class="text-muted" th:if="${order.serialNumber?.startsWith('POT')}">화분</h6>
+                                            <h6 class="text-muted" th:if="${order.serialNumber?.startsWith('SUC')}">다육이</h6>
+                                            <h6 class="text-muted" th:if="${order.serialNumber?.startsWith('SET')}">세트</h6>
+                                            <h6 class="text-black mb-0" th:text="${order.productName}"></h6>
+                                            <input type="hidden" id="productName" th:value="${order.productName}">
+                                        </div>
+
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <h6 class="mb-0" id="productPrice" th:text="${order.amount} + '원'"></h6>
+                                        </div>
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img th:src="@{/images/{img}.jpg(img=${order.serialNumber})}" class="img-fluid rounded-3" alt="...">
+                                            <input type="hidden" id="serialNumber" th:value="${order.serialNumber}">
+                                        </div>
+
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <div class="pt-5">
+                                        <h6 class="mb-0"><a href="/return_change_cen" class="text-body"><i
+                                                class="fas fa-long-arrow-alt-left me-2"></i>뒤로가기</a></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 bg-grey">
+                                <div class="p-5">
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">환불 예상 금액</h3>
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <h5 class="text-uppercase">총 결제한 금액</h5>
+                                        <h5 id="total-price">0원</h5>
+                                    </div>
+
+                                    <h5 class="text-uppercase mb-3">주문 취소 사유</h5>
+
+                                    <div class="mb-5">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <input type="text" id="cancelReason" class="form-control form-control-lg" />
+                                            <label class="form-label" for="cancelReason">* 취소하려는 사유를 입력해주세요</label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">총 환불 금액</h5>
+                                        <h5 id="total-price1">0원</h5>
+                                    </div>
+
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-dark btn-block btn-lg"
+                                             data-mdb-ripple-color="dark" onclick="cancelPayment()">취소하기</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<!-- 포트원 결제 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js" defer></script>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+</body>
+</html>

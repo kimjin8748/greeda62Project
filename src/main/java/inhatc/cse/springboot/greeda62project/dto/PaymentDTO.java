@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 public class PaymentDTO {
     private String paymentId;
+    private String impUid;
     private int amount;
     private LocalDateTime paymentDate;
     private List<ProductDTO> products; // ProductDTO는 ProductEntity의 DTO 클래스입니다.

@@ -21,6 +21,7 @@ public class PaymentEntity {
 
     private String paymentId; // 결제 고유 ID
     private int amount; // 결제 금액
+    private String impUid;
     private LocalDateTime paymentDate; // 결제 일시
 
     @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL, orphanRemoval = true)
