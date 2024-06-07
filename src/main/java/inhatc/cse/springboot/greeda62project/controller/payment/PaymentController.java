@@ -28,15 +28,16 @@ public class PaymentController {
     }
 
     @PostMapping("/cancel")
-    public ResponseEntity<Map<String, String>> cancelPayment(@RequestBody Map<String, String> cancelRequest) {
-        String impUid = cancelRequest.get("impUid");
-        String reason = cancelRequest.get("reason");
-        System.out.println(impUid + ", " + reason);
+    public ResponseEntity<Map<String, String>> cancelPayment(@RequestBody Map<String, Object> cancelRequest) {
+        String impUid = (String) cancelRequest.get("impUid");
+        String reason = (String) cancelRequest.get("reason");
+        Integer cancelRequestAmount = (Integer) cancelRequest.get("cancel_request_amount");
+        System.out.println(impUid + ", " + reason + ", " + cancelRequestAmount);
 
         Map<String, String> response = new HashMap<>();
 
         try {
-            boolean isCancelled = paymentService.cancelPayment(impUid, reason);
+            boolean isCancelled = paymentService.cancelPayment(impUid, reason, cancelRequestAmount);
 
             if (isCancelled) {
                 response.put("message", "결제가 취소되었습니다.");

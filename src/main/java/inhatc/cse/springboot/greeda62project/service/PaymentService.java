@@ -17,6 +17,6 @@ public interface PaymentService {
 
     List<OrderInfoDTO> getOrdersByCurrentLoggedInUser(HttpSession session);
 
-    boolean cancelPayment(String impUid, String reason);
+    boolean cancelPayment(String impUid, String reason, Integer cancelRequestAmount);
 
 }

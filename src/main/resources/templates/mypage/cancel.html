@@ -89,6 +89,7 @@
 
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <h6 class="mb-0" id="productPrice" th:text="${order.amount} + '원'"></h6>
+                                            <input type="hidden" id="cancelAmount" th:value="${order.amount}">
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <img th:src="@{/images/{img}.jpg(img=${order.serialNumber})}" class="img-fluid rounded-3" alt="...">

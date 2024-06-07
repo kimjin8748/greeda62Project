@@ -132,7 +132,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public boolean cancelPayment(String impUid, String reason) {
+    public boolean cancelPayment(String impUid, String reason, Integer cancelRequestAmount) {
         // PortOne API를 통해 결제 취소 요청
         String accessToken = getAccessToken();
         System.out.println(accessToken);
@@ -146,6 +146,7 @@ public class PaymentServiceImpl implements PaymentService {
         Map<String, Object> body = new HashMap<>();
         body.put("imp_uid", impUid);
         body.put("reason", reason);
+        body.put("amount", cancelRequestAmount);
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
 
