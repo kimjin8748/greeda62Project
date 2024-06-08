@@ -48,6 +48,8 @@ public class PaymentController {
             }
         } catch (Exception e) {
             response.put("message", "결제 취소 처리 중 문제가 발생했습니다.");
+            System.err.println("결제 취소 처리 중 오류 발생: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.internalServerError().body(response);
         }
     }

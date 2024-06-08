@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -33,17 +36,19 @@ public class PaymentServiceImpl implements PaymentService {
     private final MemberRepository memberRepository;
     private final CartItemRepository cartItemRepository;
 
-    @Value("${portone.api.key}")
-    private String apiKey;
+    private final String apiKey = "8356314041132171";
 
-    @Value("${portone.api.secret}")
-    private String apiSecret;
+    private final String apiSecret = "wRcW7E2biD7gduV3HpE0neKc6YjidLVexO38McgxdUYOHrFMND6EgN4R94VkYN8ET71zZYReUVIgN3jz";
 
     private final RestTemplate restTemplate = new RestTemplate();
 
     public String getAccessToken() {
         // PortOne API를 통해 액세스 토큰 발급
         String url = "https://api.iamport.kr/users/getToken";
+
+        if (apiKey == null || apiKey.isEmpty() || apiSecret == null || apiSecret.isEmpty()) {
+            throw new IllegalArgumentException("API Key와 Secret이 설정되지 않았습니다.");
+        }
 
         System.out.println(apiKey + " ," + apiSecret);
         HttpHeaders headers = new HttpHeaders();
@@ -55,14 +60,27 @@ public class PaymentServiceImpl implements PaymentService {
 
         HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, headers);
 
-        ResponseEntity<TokenResponse> response = restTemplate.postForEntity(url, entity, TokenResponse.class);
+        try {
+            ResponseEntity<TokenResponse> response = restTemplate.postForEntity(url, entity, TokenResponse.class);
 
-        if (response.getStatusCode() == HttpStatus.OK) {
-            TokenResponse tokenResponse = response.getBody();
-            return tokenResponse.getResponse().getAccess_token();
-        } else {
-            throw new RuntimeException("Failed to get access token from PortOne");
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                TokenResponse tokenResponse = response.getBody();
+                if (tokenResponse.getResponse() != null && tokenResponse.getResponse().getAccess_token() != null) {
+                    return tokenResponse.getResponse().getAccess_token();
+                } else {
+                    throw new RuntimeException("응답 본문이 null입니다.");
+                }
+            } else {
+                throw new RuntimeException("Failed to get access token from PortOne: " + response.getStatusCode() + " " + response.getBody());
+            }
+        } catch (HttpClientErrorException e) {
+            throw new RuntimeException("HTTP 클라이언트 오류 발생: " + e.getStatusCode() + " " + e.getResponseBodyAsString(), e);
+        } catch (HttpServerErrorException e) {
+            throw new RuntimeException("HTTP 서버 오류 발생: " + e.getStatusCode() + " " + e.getResponseBodyAsString(), e);
+        } catch (RestClientException e) {
+            throw new RuntimeException("기타 네트워크 오류 발생: " + e.getMessage(), e);
         }
+
     }
 
     @Override

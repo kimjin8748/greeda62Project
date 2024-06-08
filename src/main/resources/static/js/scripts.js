@@ -204,7 +204,7 @@ function requestPay() {
 function cancelPayment() {
     const impUid = document.getElementById("impUid").value; // 결제 ID를 가져옴
     const cancelReason = document.getElementById("cancelReason").value; // 취소 사유를 가져옴
-    const cancelAmount = parseFloat(document.getElementById("cancelAmount").value); // 취소 금액을 가져옴
+    const cancelAmount = parseInt(document.getElementById("cancelAmount").value); // 취소 금액을 가져옴
     console.log(impUid + ", " + cancelReason);
     if (!impUid || !cancelReason) {
         alert("결제 ID와 취소 사유를 입력해주세요.");
