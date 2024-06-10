@@ -41,30 +41,29 @@
                 <h3>상품수정 및 삭제</h3>
                 <br>
                 <tr>
-                    <td style="width: 150px; background-color: pink;">상품번호</td>
+                    <td style="width: 150px; background-color: #d2c9ff;">상품번호</td>
                     <td><input type="text" name="serialNumber" class="form-control" style="width: 200px;" required="required" th:value="${product.serialNumber}" readonly> </td>
                 </tr>
                 <tr>
-                    <td style="width: 150px; background-color: pink;">상품명</td>
+                    <td style="width: 150px; background-color: #d2c9ff;">상품명</td>
                     <td><input type="text" name="productName" class="form-control" style="width: 200px;" required="required" th:value="${product.productName}"> </td>
                 </tr>
-<!--                <tr>-->
-<!--                    <td style="width: 150px; background-color: pink;">상품이미지</td>-->
-<!--                    <td><input type="file" name="productPhoto" class="form-control" style="width: 300px;" required="required"> </td>-->
-<!--                </tr>-->
                 <tr>
-                    <td style="width: 150px; background-color: pink;">상품설명</td>
+                    <td style="width: 150px; background-color: #d2c9ff;">상품설명</td>
                     <td><input type="text" name="productDescription" class="form-control" style="width: 200px;" required="required" th:value="${product.productDescription}"> </td>
                 </tr>
                 <tr>
-                    <td style="width: 150px; background-color: pink;">상품사이즈</td>
+                    <td style="width: 150px; background-color: #d2c9ff;">상품사이즈</td>
                     <td><input type="text" name="productSize" class="form-control" style="width: 200px;" required="required" th:value="${product.productSize}"> </td>
                 </tr>
                 <tr>
-                    <td style="width: 150px; background-color: pink;">상품가격</td>
+                    <td style="width: 150px; background-color: #d2c9ff;">상품가격</td>
                     <td><input type="text" name="productPrice" class="form-control" style="width: 200px;" required="required" th:value="${product.productPrice}"> </td>
                 </tr>
-
+                <tr>
+                    <td style="width: 150px; background-color: #d2c9ff;">상품이미지</td>
+                    <td class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/{serialNumber}.jpg(serialNumber=${product.serialNumber})}" alt="..." /></td>
+                </tr>
                 <tr>
                     <td colspan="2" align="center">
                         <button type="submit" class="btn btn-info" name="action" value="update" onclick="submitForm2('update')" style="width: 100px;">상품수정</button>
