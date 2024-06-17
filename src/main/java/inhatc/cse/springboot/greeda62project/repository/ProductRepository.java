@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductRepository extends JpaRepository <ProductEntity, String> {
+public interface ProductRepository extends JpaRepository <ProductEntity, String> { //상품 정보 처리 Repository
     Page<ProductEntity> findAll(Pageable pageable);
     @Query("SELECT p FROM ProductEntity p WHERE TYPE(p) = :type")
     Page<ProductEntity> findByType(@Param("type") Class<?> type, Pageable pageable);
