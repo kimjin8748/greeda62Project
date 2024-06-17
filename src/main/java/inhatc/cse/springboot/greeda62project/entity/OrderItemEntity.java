@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "order_item")
-public class OrderItemEntity {
+public class OrderItemEntity { //주문한 상품 정보 Entity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

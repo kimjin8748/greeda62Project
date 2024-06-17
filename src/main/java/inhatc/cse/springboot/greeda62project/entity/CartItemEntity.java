@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "cart_item")
-public class CartItemEntity {
+public class CartItemEntity { //장바구니에 담겨있는 상품 정보 Entity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

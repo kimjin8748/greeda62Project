@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
-public class PaymentDTO {
+public class PaymentDTO { //결제 처리 위한 DTO
     private String paymentId;
     private String impUid;
     private int amount;

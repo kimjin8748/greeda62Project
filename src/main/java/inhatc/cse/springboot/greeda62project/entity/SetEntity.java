@@ -9,9 +9,9 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@DiscriminatorValue("SET")
+@DiscriminatorValue("SET")//Single_Table 전략으로 'SET'으로 나눠진 상품이 SetEntity
 @Table(name = "product")
-public class SetEntity extends ProductEntity {
+public class SetEntity extends ProductEntity { //Set 상품 정보 Entity
     public SetEntity(String serialNumber, String productType, String productName, String productSize, int productPrice, String productDescription) {
         super(serialNumber, productName, productSize, productPrice, productDescription);
     }

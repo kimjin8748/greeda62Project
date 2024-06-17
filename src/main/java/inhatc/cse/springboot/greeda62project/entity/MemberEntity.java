@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "member")
-public class MemberEntity {
+public class MemberEntity { //회원정보 Entity
 
     @Id
     private String id;

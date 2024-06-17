@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "payment")
-public class PaymentEntity {
+public class PaymentEntity { //결제 정보 Entity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

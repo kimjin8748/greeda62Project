@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @ToString
 @Builder
-public class ProductDTO {
+public class ProductDTO { //모든 상품 처리 위한 DTO
 
 
     private String serialNumber;
@@ -18,7 +18,7 @@ public class ProductDTO {
     private String productSize;
     private int productPrice;
     private String productDescription;
-    private MultipartFile productPhoto;
+    private MultipartFile productPhoto; // 파일 업로드 처리 위한 필드
     private String photoFileName;
 
     public ProductDTO(String serialNumber, String productName, String productSize, int productPrice, String productDescription) {

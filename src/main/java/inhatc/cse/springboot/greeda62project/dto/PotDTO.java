@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class PotDTO {
+public class PotDTO { //화분 상품 처리하는 DTO
 
     private String serialNumber;
     private String productName;

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 @Builder
-public class OrderInfoDTO {
+public class OrderInfoDTO { //주문정보 처리하는 DTO
 
     private String paymentId;
     private String impUid;

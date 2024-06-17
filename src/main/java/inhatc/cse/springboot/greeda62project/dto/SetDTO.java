@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class SetDTO {
+public class SetDTO { //Set 상품 처리 위한 DTO
 
     private String serialNumber;
     private String productName;

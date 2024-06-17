@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShippingFeeEntity {
+public class ShippingFeeEntity { //멤버쉽 별 배송비 정보 Entity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

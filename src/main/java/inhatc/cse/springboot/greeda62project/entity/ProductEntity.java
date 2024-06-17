@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "product_type")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)//Single_Table 전략 사용
+@DiscriminatorColumn(name = "product_type")//product_type 별로 테이블을 분류
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class ProductEntity {
+public abstract class ProductEntity { //모든 상품 정보 Entity
 
     @Id
     private String serialNumber;

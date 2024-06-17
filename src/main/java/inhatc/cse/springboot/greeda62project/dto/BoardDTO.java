@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 @Builder
-public class BoardDTO {
+public class BoardDTO { //게시판 로직 처리 위한 DTO
 
     private int board_id;
     private String boardText;

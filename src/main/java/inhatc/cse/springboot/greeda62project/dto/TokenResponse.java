@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class TokenResponse {
+public class TokenResponse { //결제취소시 필요한 DTO(구현x)
     private int code;
     private String message;
     private Response response;

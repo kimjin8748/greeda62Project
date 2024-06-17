@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class MemberDTO {
+public class MemberDTO { //회원 로직 처리 위한 DTO
 
 
     private String id;

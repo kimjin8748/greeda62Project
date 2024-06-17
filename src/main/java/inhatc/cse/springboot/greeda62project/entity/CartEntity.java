@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "cart")
-public class CartEntity {
+public class CartEntity { //회원별 장바구니 정보 Entity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

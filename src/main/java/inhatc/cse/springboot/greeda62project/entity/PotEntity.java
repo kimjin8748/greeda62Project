@@ -11,9 +11,9 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@DiscriminatorValue("POT")
+@DiscriminatorValue("POT")//Single_Table 전략으로 'POT'으로 나눠진 상품이 PotEntity
 @Table(name = "product")
-public class PotEntity extends ProductEntity {
+public class PotEntity extends ProductEntity { //화분 상품 정보 Entity
     public PotEntity(String serialNumber, String productType, String productName, String productSize, int productPrice, String productDescription) {
         super(serialNumber, productName, productSize, productPrice, productDescription);
     }

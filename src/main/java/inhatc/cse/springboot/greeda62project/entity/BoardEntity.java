@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Table(name = "board")
-public class BoardEntity {
+public class BoardEntity { //게시판 정보 Entity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

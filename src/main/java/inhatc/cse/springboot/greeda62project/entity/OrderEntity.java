@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "orders")
-public class OrderEntity {
+public class OrderEntity { //주문 정보 Entity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
