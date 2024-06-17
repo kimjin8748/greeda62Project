@@ -35,6 +35,7 @@ public class HomeController {
 
     private final ProductService productService;
 
+    //홈 화면 이동 로직
     @GetMapping("/")
     public String main(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                        @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
@@ -58,6 +59,7 @@ public class HomeController {
         return "main";
     }
 
+    //상품 검색 페이지 이동 로직
     @GetMapping("/search")
     public String searchProducts(@RequestParam(required = false) String keyword, Model model) {
         List<ProductEntity> products;

@@ -13,10 +13,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
-public class PaymentController {
+public class PaymentController { //결제API을 위한 컨트롤러
 
     private final PaymentService paymentService;
 
+    //결제 진행시 API 로직
     @PostMapping("/complete")
     public ResponseEntity<?> createPayment(@RequestBody PaymentDTO paymentDTO) {
         try {
@@ -27,6 +28,7 @@ public class PaymentController {
         }
     }
 
+    //결제 취소시 API 로직(구현x)
     @PostMapping("/cancel")
     public ResponseEntity<Map<String, String>> cancelPayment(@RequestBody Map<String, Object> cancelRequest) {
         String impUid = (String) cancelRequest.get("impUid");

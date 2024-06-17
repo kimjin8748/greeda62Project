@@ -20,6 +20,7 @@ public class FaqController {
 
     private final BoardService boardService;
 
+    //고객문의 페이지 이동 로직
     @GetMapping("/faq")
     public String faq(Model model) {
         List<BoardDTO> boardList = boardService.findAllBoard();
@@ -27,6 +28,7 @@ public class FaqController {
         return "/board/faq";
     }
 
+    //게시판의 글쓰기 페이지 이동 로직
     @GetMapping("/faq/new")
     public String faqNew(HttpSession session) {
         String memberId  = (String) session.getAttribute("id");
@@ -36,6 +38,7 @@ public class FaqController {
         return "/board/faqNew";
     }
 
+    //글 작성 로직
     @PostMapping("/faq/new")
     public String createBoard(@ModelAttribute BoardDTO boardDTO, HttpSession session) {
 
@@ -50,6 +53,7 @@ public class FaqController {
         return "redirect:/faq";
     }
 
+    //해당 글로 이동하는 로직
     @GetMapping("/faq/edit/{title}")
     public String faqEdit(@PathVariable("title") String boardTitle, Model model) {
         BoardDTO boardDTO = boardService.findByBoardTitle(boardTitle);
@@ -57,6 +61,7 @@ public class FaqController {
         return "board/faqEdit";
     }
 
+    //글내용 수정, 삭제 로직
     @PostMapping("/faq/update")
     public String updateProduct(@RequestParam("action") String action, BoardDTO boardDTO, RedirectAttributes redirectAttributes, HttpSession session) {
         String id = (String) session.getAttribute("id");

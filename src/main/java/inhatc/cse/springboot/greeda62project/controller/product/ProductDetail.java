@@ -19,6 +19,7 @@ public class ProductDetail {
 
     private final ProductService productService;
 
+    //상품 상세 페이지 이동 로직
     @GetMapping("/productdetail")
     public String showProductDetail(@RequestParam("id") String serialNumber, Model model, HttpSession session) {
         ProductDTO productDTO = productService.findById(serialNumber);

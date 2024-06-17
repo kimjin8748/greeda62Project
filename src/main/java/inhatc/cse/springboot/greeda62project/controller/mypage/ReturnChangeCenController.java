@@ -16,6 +16,7 @@ public class ReturnChangeCenController {
 
     private final PaymentService paymentService;
 
+    //반품/교환/취소 페이지 이동 로직
     @GetMapping("/return_change_cen")
     public String returnChange(HttpSession session) {
         String id = (String) session.getAttribute("id");

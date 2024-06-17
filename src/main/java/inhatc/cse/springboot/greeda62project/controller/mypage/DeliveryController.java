@@ -16,6 +16,7 @@ public class DeliveryController {
 
     private final PaymentService paymentService;
 
+    //배송조회 페이지 이동 로직
     @GetMapping("/delivery")
     public String delivery(Model model, HttpSession session) {
         String id = (String) session.getAttribute("id");

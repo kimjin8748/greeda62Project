@@ -99,35 +99,16 @@
                 <h2 class="fw-bolder mb-4">추천 상품</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
-                        <div th:each="product : ${products}" class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" th:src="@{/images/{serialNumber}.jpg(serialNumber=${product.serialNumber})}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div th:each="product : ${products}" class="col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
-                            <img class="card-img-top" th:src="@{/images/{serialNumber}.jpg(serialNumber=${product.serialNumber})}" alt="..." />
+                            <img class="card-img-top" src="/images/SUC-148.jpg" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Special Item</h5>
+                                    <h5 class="fw-bolder">벨타나</h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>
@@ -137,47 +118,27 @@
                                         <div class="bi-star-fill"></div>
                                     </div>
                                     <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
+                                    <span class="text-muted text-decoration-line-through">8,000원</span>
+                                    5,000원
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="col mb-5">
-                        <div  th:each="product : ${products}" class="card h-100">
+                        <div class="card h-100">
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
-                            <img class="card-img-top" th:src="@{/images/{serialNumber}.jpg(serialNumber=${product.serialNumber})}" alt="..." />
+                            <img class="card-img-top" src="/images/SUC-149.jpg" alt="..." />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div th:each="product : ${products}" class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" th:src="@{/images/{serialNumber}.jpg(serialNumber=${product.serialNumber})}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Popular Item</h5>
+                                    <h5 class="fw-bolder">산호수</h5>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="bi-star-fill"></div>
@@ -187,12 +148,73 @@
                                         <div class="bi-star-fill"></div>
                                     </div>
                                     <!-- Product price-->
-                                    $40.00
+                                    <span class="text-muted text-decoration-line-through">8,000원</span>
+                                    3,000원
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                            <!-- Product image-->
+                            <img class="card-img-top" src="/images/SUC-143.jpg" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">염좌</h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Product price-->
+                                    <span class="text-muted text-decoration-line-through">10,000원</span>
+                                    7,000원
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                            <!-- Product image-->
+                            <img class="card-img-top" src="/images/SUC-142.jpg" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">흑장미</h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Product price-->
+                                    <span class="text-muted text-decoration-line-through">5,000원</span>
+                                    2,000원
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">장바구니 담기</a></div>
                             </div>
                         </div>
                     </div>
@@ -208,49 +230,5 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- Core theme JS-->
         <script src="/js/scripts.js"></script>
-    <script>
-        // $(document).ready(function() {
-        //     $('form').on('submit', function(e) {
-        //         e.preventDefault(); // 기본 폼 제출 방지
-        //
-        //         var form = $(this);
-        //         var url = form.attr('action');
-        //         var method = form.attr('method') || 'POST'; // form 태그에 method 속성이 명시되지 않은 경우 'POST' 기본값 사용
-        //
-        //         $.ajax({
-        //             type: method,
-        //             url: url,
-        //             data: form.serialize(), // 폼 데이터 직렬화
-        //             dataType: 'json', // 서버로부터 JSON 응답 예상
-        //             success: function(response) {
-        //                 console.log("성공 응답: ", response); // 콘솔에 성공 응답 로깅
-        //                 // 성공적인 응답 처리
-        //                 if (response.redirect) {
-        //                     // 리다이렉션 URL이 있으면 해당 위치로 이동
-        //                     window.location.href = response.redirect;
-        //                 }
-        //             },
-        //             error: function(xhr, status, error) {
-        //                 console.log("에러 응답: ", xhr, status, error); // 콘솔에 에러 응답 로깅
-        //                 // 에러 응답 처리
-        //                 alert('오류가 발생했습니다. 다시 시도해 주세요.');
-        //             }
-        //         });
-        //     });
-        //
-        //     // 페이지 로드 시 쿼리 스트링 체크하여 에러 메시지 처리
-        //     var queryParams = new URLSearchParams(window.location.search);
-        //     if (queryParams.has('error')) {
-        //         var error = queryParams.get('error');
-        //         if (error === 'alreadyPurchased') {
-        //             alert('이미 구매한 상품이어서 구매가 불가능합니다.');
-        //         } else {
-        //             // 다른 에러 메시지 처리
-        //             alert('오류가 발생했습니다. 다시 시도해 주세요.');
-        //         }
-        //     }
-        // });
-
-    </script>
     </body>
 </html>
