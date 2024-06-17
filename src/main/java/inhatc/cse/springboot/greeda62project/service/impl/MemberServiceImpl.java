@@ -1,6 +1,5 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
-import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.entity.CartEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
@@ -15,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/*회원정보 처리 Service 메소드 구현*/
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final CartRepository cartRepository;
 
-    //회원가입을 위한 로직
+    /*회원가입 수행항 정보 DB에 저장하는 Service 로직*/
     @Override
     public MemberDTO saveMember(String id, String password, String name, String email, String address) {
         MemberEntity memberEntity = MemberEntity.builder()
@@ -46,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
         return memberDTO;
     }
 
-    //로그인을 위한 로직
+    /*회원정보 DB에서 확인후 로그인 수행 Service 로직*/
     @Override
     public MemberDTO login(MemberDTO memberDTO) {
         Optional <MemberEntity> byMemberid = memberRepository.findById(memberDTO.getId());
@@ -63,13 +63,13 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    //아이디 중복 체크 로직
+    /*아이디 중복 체크 Service 로직*/
     @Override
     public boolean checkIdDuplicated(String id) {
         return memberRepository.existsById(id);
     }
 
-    //아이디 찾기를 위한 로직
+    /*본인의 회원정보를 DB에서 확인후 아이디 찾는 Service 로직*/
     @Override
     public MemberDTO forgot(MemberDTO memberDTO) {
         Optional <MemberEntity> byMembername = memberRepository.findByName(memberDTO.getName());
@@ -86,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    //회원정보 수정 페이지로 이동을 위한 로직
+    /*회원정보를 DB에서 가져오는 Service 로직*/
     @Override
     public MemberDTO findMemberById(String id) {
         Optional<MemberEntity> memberEntityOptional = memberRepository.findById(id);
@@ -98,7 +98,7 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    //관리자가 DB의 회원정보를 모두 볼 수 있게 하는 로직
+    /*모든 회원정보를 DB에서 가져오는 Service 로직*/
     @Override
     public List<MemberDTO> findAllMembers() {
         List<MemberEntity> members = memberRepository.findAll();
@@ -106,7 +106,7 @@ public class MemberServiceImpl implements MemberService {
         return memberDTOS;
     }
 
-    //DB의 회원정보를 수정하는 로직
+    /*회원정보 수정 Service 로직*/
     @Override
     public boolean updateMember(String id, String password, String name, String email, String address) {
         // 해당 ID의 MemberEntity를 찾음
@@ -125,7 +125,7 @@ public class MemberServiceImpl implements MemberService {
         return false;
     }
 
-    //DB의 회원을 삭제하는 로직
+    /*회원정보 삭제 Service 로직*/
     @Override
     @Transactional
     public boolean deleteMember(String id) {
@@ -139,18 +139,7 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    //회원 한명을 찾는 로직
-    @Override
-    public MemberDTO findUser(String id) {
-        Optional<MemberEntity> memberById = memberRepository.findById(id);
-        if(memberById.isPresent()){
-            MemberEntity memberEntity = memberById.get();
-            return MemberDTO.toMemberDTO(memberEntity);
-        } else {
-            return null;
-        }
-    }
-
+    /*회원정보 keyword로 DB에서 검색하는 Service 로직*/
     @Override
     public List<MemberEntity> findByMember(String keyword) {
         return memberRepository.findByMemberId("%" + keyword + "%");

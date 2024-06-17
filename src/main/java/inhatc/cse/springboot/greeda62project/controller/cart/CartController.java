@@ -54,7 +54,7 @@ public class CartController {
             model.addAttribute("error", "현재 사용자는 멤버십 레벨이 없습니다.");
         }
 
-        MemberDTO memberDTO = memberService.findUser(id);
+        MemberDTO memberDTO = memberService.findMemberById(id);
         List<CartItemEntity> cartItems = cartService.getCartItemsByUserId(id);
 
         model.addAttribute("cartItems", cartItems);
@@ -71,7 +71,7 @@ public class CartController {
         if (memberId == null) {
             return "redirect:/member";
         }
-        MemberDTO memberDTO = memberService.findUser(id);
+        MemberDTO memberDTO = memberService.findMemberById(id);
         ProductDTO productDTO = productService.productView(productId);
 
         try {

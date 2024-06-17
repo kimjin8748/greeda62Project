@@ -11,7 +11,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -24,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*결제 정보 처리 Service 메소드 구현*/
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -42,6 +42,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    /*결제 취소 기능 엑세스 토큰 발급 로직(구현x)*/
     public String getAccessToken() {
         // PortOne API를 통해 액세스 토큰 발급
         String url = "https://api.iamport.kr/users/getToken";
@@ -83,6 +84,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     }
 
+    /*결제 정보 DB에 저장하는 Service 로직*/
     @Override
     public void savePayment(PaymentDTO paymentDTO) {
         // 결제 정보를 사용하여 PaymentEntity 생성 및 저장
@@ -127,6 +129,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
+    /*회원별 주문 정보 DB에서 가져오는 Service 로직*/
     @Override
     public List<OrderInfoDTO> getOrdersByCurrentLoggedInUser(HttpSession session) {
         String memberId = (String) session.getAttribute("id");
@@ -149,6 +152,7 @@ public class PaymentServiceImpl implements PaymentService {
         return orderInfoDTOs;
     }
 
+    /*결제 취소 처리 Service 로직(구현x)*/
     @Override
     public boolean cancelPayment(String impUid, String reason, Integer cancelRequestAmount) {
         // PortOne API를 통해 결제 취소 요청

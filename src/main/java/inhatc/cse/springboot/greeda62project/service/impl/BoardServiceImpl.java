@@ -1,11 +1,8 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
-import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
-import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
-import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.repository.BoardRepository;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.BoardService;
@@ -18,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/*게시판 정보 처리 위한 Service 메소드 구현*/
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
@@ -25,9 +23,10 @@ public class BoardServiceImpl implements BoardService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
 
+    //게시판의 특정 글을 찾는 Service 로직
     @Override
     public BoardDTO findByBoardTitle(String boardTitle) {
-        Optional<BoardEntity> boardEntity = boardRepository.findByBoardTitle(boardTitle);
+        Optional<BoardEntity> boardEntity = boardRepository.findByBoardTitle(boardTitle);//타이틀로 글정보 찾기
         if (boardEntity.isPresent()) {
             BoardEntity entity = boardEntity.get();
             return BoardDTO.toBoardDTO(entity);
@@ -36,6 +35,7 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
+    //작성한 글 DB에 저장하는 Service 로직
     @Override
     public BoardDTO saveBoard(int board_id, String boardText, String boardTitle, LocalDate boardDate, String memberId) {
         MemberEntity member = memberRepository.findById(memberId)
@@ -61,6 +61,7 @@ public class BoardServiceImpl implements BoardService {
         return boardDTO;
     }
 
+    //전체 글목록 DB에서 불러오는 Service 로직
     @Override
     public List<BoardDTO> findAllBoard() {
         List<BoardEntity> boardEntities = boardRepository.findAll();
@@ -69,6 +70,7 @@ public class BoardServiceImpl implements BoardService {
         return boardDTOs;
     }
 
+    //관리자가 답글 단 내용 DB에 저장하는 Service 로직
     @Override
     public void addAdminComment(int boardId, String adminComment) {
         Optional<BoardEntity> boardEntityOptional = boardRepository.findById(boardId);
@@ -79,6 +81,7 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
+    //글 내용 수정하는 Service 로직
     @Override
     @Transactional
     public boolean updateProduct(BoardDTO boardDTO) {
@@ -96,6 +99,7 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
+    //글 삭제하는 Service 로직
     @Override
     @Transactional
     public boolean deleteProduct(BoardDTO boardDTO) {

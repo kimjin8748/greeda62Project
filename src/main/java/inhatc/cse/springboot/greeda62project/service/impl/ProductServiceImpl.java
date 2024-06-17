@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/*상품 정보 처리 Service 메소드 구현*/
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -24,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final OrderItemRepository orderItemRepository;
 
+    /*모든 상품 정보 DB에서 가져오는 Service 로직*/
     @Override
     public Page<ProductDTO> findAllProducts(Pageable pageable) {
         Page<ProductEntity> productEntities = productRepository.findAll(pageable);
@@ -34,6 +36,7 @@ public class ProductServiceImpl implements ProductService {
         return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
     }
 
+    /*상품 정보 DB에서 가져오는 Service 로직*/
     @Override
     public ProductDTO findById(String serialNumber) {
         Optional<ProductEntity> entityOptional = productRepository.findById(serialNumber);
@@ -45,16 +48,19 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /*페이징 처리 로직*/
     public Page<ProductEntity> findProductByCategoryPaginated(Class<?> categoryClass, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return productRepository.findByType(categoryClass, pageable);
     }
 
+    /*상품 검색 처리 Service 로직*/
     @Override
     public List<ProductEntity> searchByKeyword(String keyword) {
         return productRepository.findByKeyword("%" + keyword + "%");
     }
 
+    /**/
     @Override
     public ProductDTO productView(String productId) {
 

@@ -56,7 +56,7 @@ public class AdminController {
             return "redirect:/"; // 세션에 id가 없으면 홈으로 리디렉션, "isAdmin" 세션 속성을 false로 설정
         }
 
-        MemberDTO memberDTO = memberService.findUser(id);
+        MemberDTO memberDTO = memberService.findMemberById(id);
 
         if (memberDTO == null || !memberDTO.getId().equals("admin")) {
             session.setAttribute("isAdmin", false);
@@ -220,7 +220,7 @@ public class AdminController {
         model.addAttribute("boards", boardList);
         return "admin/adminFaq";
     }
-    
+
     //게시판 글로 이동 로직
     @GetMapping("/admin/edit/{title}")
     public String faqEdit(@PathVariable("title") String boardTitle, Model model) {

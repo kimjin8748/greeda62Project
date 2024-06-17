@@ -1,6 +1,5 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
-import inhatc.cse.springboot.greeda62project.dto.CartItemDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.CartEntity;
@@ -8,17 +7,14 @@ import inhatc.cse.springboot.greeda62project.entity.CartItemEntity;
 import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.repository.*;
 import inhatc.cse.springboot.greeda62project.service.CartService;
-import inhatc.cse.springboot.greeda62project.service.MemberService;
-import inhatc.cse.springboot.greeda62project.service.ProductService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/*장바구니 상품 정보 처리 Service 메소드 구현*/
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -29,6 +25,7 @@ public class CartServiceImpl implements CartService {
     private final CartItemRepository cartItemRepository;
     private final OrderItemRepository orderItemRepository;
 
+    /*장바구니에 상품 추가하는 Service 로직*/
     @Override
     public void addCart(MemberDTO memberDTO, ProductDTO productDTO, int amount) {
         // 상품 ID를 사용하여 상품 엔티티를 찾습니다.
@@ -70,7 +67,7 @@ public class CartServiceImpl implements CartService {
         cartRepository.save(cartEntity);
     }
 
-
+    /*장바구니에 담겨 있는 상품 DB에서 불러오는 Service 로직*/
     @Override
     public List<CartItemEntity> getCartItemsByUserId(String memberId) {
         Optional<CartEntity> cartEntityOptional = cartRepository.findByMemberEntity_Id(memberId);
@@ -83,6 +80,7 @@ public class CartServiceImpl implements CartService {
         }
     }
 
+    /*결제 완료시 장바구니에서 상품 삭제하는 Service 로직*/
     @Transactional
     @Override
     public boolean removeCartItem(String memberId, String productId) {
