@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByKeyword("%" + keyword + "%");
     }
 
-    /**/
+    /*장바구니에 상품을 넣기 위해 상품 검색 Service 로직 */
     @Override
     public ProductDTO productView(String productId) {
 
@@ -74,11 +74,13 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /*상품 등록시 상품 번호 중복 확인 Service 로직*/
     @Override
     public boolean checkIdDuplicated(String serialNumber) {
         return productRepository.existsById(serialNumber);
     }
 
+    /*상품 등록 Service 로직*/
     @Override
     public ProductDTO saveProduct(ProductDTO productDTO) {
         ProductEntity productEntity = null;
@@ -130,7 +132,7 @@ public class ProductServiceImpl implements ProductService {
         );
     }
 
-    //상품 업데이트 메소드
+    /*상품 수정 Service 로직*/
     @Override
     @Transactional
     public boolean updateProduct(ProductDTO productDTO) {
@@ -155,7 +157,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    //상품 삭제 메소드
+    /*상품 삭제 Service 로직*/
     @Override
     public boolean deleteProduct(ProductDTO productDTO) {
         try {
@@ -171,18 +173,20 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /*상품 검색 Service 로직*/
     @Override
     public List<ProductEntity> searchByProduct(String keyword) {
         return productRepository.findBySerialNumber("%" + keyword + "%");
     }
 
+    /*주문한 상품인지 확인하는 Service 로직*/
     @Override
     public boolean isProductPurchased(String  productId) {
         // orderItemRepository를 통해 해당 사용자가 특정 상품을 구매했는지 확인
         return orderItemRepository.existsByProductSerialNumber(productId);
     }
 
-    // 카테고리 값을 상품 타입으로 변환하는 메서드
+    /*카테고리 값을 상품 타입으로 변환하는 로직*/
     private String convertCategoryToProductType(String category) {
         if (category == null) {
             throw new IllegalArgumentException("Category is null");
