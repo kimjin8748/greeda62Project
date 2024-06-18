@@ -17,13 +17,13 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    //로그인 페이지 이동 로직
+    /*로그인 페이지 이동 로직*/
     @GetMapping("/member")
     public String memberSignup() {
         return "member/member";
     }
 
-    //회원가입 로직
+    /*회원가입 로직*/
     @PostMapping("/member")
     public String createMember(MemberDTO memberDTO, Model model){
         String id = memberDTO.getId();
@@ -47,7 +47,7 @@ public class MemberController {
     }
 
 
-    //로그인 로직
+    /*로그인 로직*/
     @PostMapping("/login")
     public String login(@RequestParam("id") String id, @RequestParam("password") String password, HttpSession session, Model model){
         MemberDTO memberDTO = new MemberDTO();
@@ -65,14 +65,14 @@ public class MemberController {
 
     }
 
-    //로그아웃 로직
+    /*로그아웃 로직*/
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // 세션 무효화
         return "redirect:/"; // 로그인 페이지나 메인 페이지로 리다이렉트
     }
 
-    //아이디 중복 체크 로직
+    /*아이디 중복 체크 로직*/
     @PostMapping("/check-id")
     @ResponseBody // 비동기 요청에 대한 응답을 JSON 등의 형태로 반환하기 위해 사용
     public Map<String, Boolean> checkId(@RequestParam("id") String id) {

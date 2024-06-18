@@ -1,16 +1,12 @@
 package inhatc.cse.springboot.greeda62project.controller.product;
 
-import inhatc.cse.springboot.greeda62project.dto.PotDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
-import inhatc.cse.springboot.greeda62project.dto.SetDTO;
-import inhatc.cse.springboot.greeda62project.dto.SucculentDTO;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -19,7 +15,7 @@ public class ProductDetail {
 
     private final ProductService productService;
 
-    //상품 상세 페이지 이동 로직
+    /*상품 상세 페이지 이동 로직*/
     @GetMapping("/productdetail")
     public String showProductDetail(@RequestParam("id") String serialNumber, Model model, HttpSession session) {
         ProductDTO productDTO = productService.findById(serialNumber);

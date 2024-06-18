@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/*결제API을 위한 컨트롤러*/
 @RestController
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
-public class PaymentController { //결제API을 위한 컨트롤러
+public class PaymentController {
 
     private final PaymentService paymentService;
 
-    //결제 진행시 API 로직
+    /*결제 진행시 API 로직*/
     @PostMapping("/complete")
     public ResponseEntity<?> createPayment(@RequestBody PaymentDTO paymentDTO) {
         try {

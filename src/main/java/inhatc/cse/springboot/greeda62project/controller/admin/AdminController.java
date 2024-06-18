@@ -10,10 +10,8 @@ import inhatc.cse.springboot.greeda62project.service.MemberService;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +44,7 @@ public class AdminController {
         return env.getProperty("upload.path");
     }
 
-    //관리자 페이지 이동 로직
+    /*관리자 페이지 이동 로직*/
     @GetMapping("/admin")
     public String admin(HttpSession session, Model model, RedirectAttributes redirectAttributes) {
         String id = (String) session.getAttribute("id");
@@ -68,7 +66,7 @@ public class AdminController {
     }
 
 
-    //관리자페이지 회원관리 메뉴 이동 로직
+    /*관리자페이지 회원관리 메뉴 이동 로직*/
     @GetMapping("/admin/memberCTR")
     public String memberControl(Model model){
         List<MemberDTO> members = memberService.findAllMembers();
@@ -76,7 +74,7 @@ public class AdminController {
         return "admin/memberCTR";
     }
 
-    //상품 조회 메뉴 이동 로직
+    /*상품 조회 메뉴 이동 로직*/
     @GetMapping("/admin/productCheck")
     public String listProducts(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
@@ -93,13 +91,13 @@ public class AdminController {
         return "admin/product_check"; // 상품 목록을 보여주는 View 이름
     }
 
-    //상품 등록 메뉴 이동 로직
+    /*상품 등록 메뉴 이동 로직*/
     @GetMapping("/admin/productInsert")
     public String productInsert(){
         return "admin/product_insert";
     }
 
-    //상품 등록 로직
+    /*상품 등록 로직*/
     @PostMapping("/admin/productInsert")
     public String productInsert(@ModelAttribute ProductDTO productDTO, Model model, RedirectAttributes redirectAttributes) {
         // 필드 검증
@@ -141,7 +139,7 @@ public class AdminController {
         }
     }
 
-    //상품별 상품 수정, 삭제 페이지 이동 로직
+    /*상품별 상품 수정, 삭제 페이지 이동 로직*/
     @GetMapping("/admin/productUpdate/{id}")
     public String productUpdateForm(@PathVariable("id") String serialNumber, Model model){
         ProductDTO productDTO = productService.findById(serialNumber);
@@ -149,7 +147,7 @@ public class AdminController {
         return "admin/product_update";
     }
 
-    //상품 수정, 삭제 로직
+    /*상품 수정, 삭제 로직*/
     @PostMapping("/admin/productUpdate")
     public String updateProduct(@RequestParam("action") String action, ProductDTO productDTO, RedirectAttributes redirectAttributes) {
 
@@ -171,7 +169,7 @@ public class AdminController {
         return "redirect:/admin/productCheck";
     }
 
-    //상품 검색 페이지 이동 로직
+    /*상품 검색 페이지 이동 로직*/
     @GetMapping("/searchProduct")
     public String searchProducts(@RequestParam(required = false) String keyword, Model model) {
         List<ProductEntity> products;
@@ -192,7 +190,7 @@ public class AdminController {
         return "admin/searchProduct"; // 검색 결과를 보여줄 페이지의 이름
     }
 
-    //회원 검색 페이지 이동 로직
+    /*회원 검색 페이지 이동 로직*/
     @GetMapping("/searchMember")
     public String searchMembers(@RequestParam(required = false) String keyword, Model model) {
         List<MemberEntity> members;
@@ -213,7 +211,7 @@ public class AdminController {
         return "admin/searchMember"; // 검색 결과를 보여줄 페이지의 이름
     }
 
-    //게시판 관리 메뉴 이동 로직
+    /*게시판 관리 메뉴 이동 로직*/
     @GetMapping("/admin/boardCheck")
     public String faq(Model model) {
         List<BoardDTO> boardList = boardService.findAllBoard();
@@ -221,7 +219,7 @@ public class AdminController {
         return "admin/adminFaq";
     }
 
-    //게시판 글로 이동 로직
+    /*게시판 글로 이동 로직*/
     @GetMapping("/admin/edit/{title}")
     public String faqEdit(@PathVariable("title") String boardTitle, Model model) {
         BoardDTO boardDTO = boardService.findByBoardTitle(boardTitle);
@@ -229,7 +227,7 @@ public class AdminController {
         return "admin/adminFaqEdit";
     }
 
-    //게시판 답글 달기 로직
+    /*게시판 답글 달기 로직*/
     @PostMapping("/admin/addComment")
     public String addAdminComment(@RequestParam int boardId, @RequestParam String adminComment) {
         boardService.addAdminComment(boardId, adminComment);

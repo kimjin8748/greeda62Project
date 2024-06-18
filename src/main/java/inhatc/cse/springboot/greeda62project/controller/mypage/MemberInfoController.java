@@ -18,7 +18,7 @@ public class MemberInfoController {
 
     private final MemberService memberService;
 
-    //회원정보 페이지 이동 로직
+    /*회원정보 페이지 이동 로직*/
     @GetMapping("/modify")
     public String editMemberForm(HttpSession session, Model model) {
         String id = (String) session.getAttribute("id");

@@ -16,13 +16,13 @@ public class ForgotController {
 
     private final MemberService memberService;
 
-    //아이디 찾기 메뉴 이동 로직
+    /*아이디 찾기 메뉴 이동 로직*/
     @GetMapping("/forgot")
     public String find() {
         return "member/forgot";
     }
 
-    //아이디 찾기 로직
+    /*아이디 찾기 로직*/
     @PostMapping("/forgot")
     public String forgot(@RequestParam("name") String name, @RequestParam("email") String email, HttpSession session, Model model){
         MemberDTO memberDTO = new MemberDTO();

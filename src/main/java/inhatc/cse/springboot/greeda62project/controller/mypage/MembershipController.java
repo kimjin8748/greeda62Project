@@ -19,7 +19,7 @@ public class MembershipController {
 
     private final MembershipService membershipService;
 
-    //멤버쉽 페이지 이동 로직
+    /*멤버쉽 페이지 이동 로직*/
     @GetMapping("/membership")
     public String memberShip(HttpSession session, Model model){
         String id = (String) session.getAttribute("id");

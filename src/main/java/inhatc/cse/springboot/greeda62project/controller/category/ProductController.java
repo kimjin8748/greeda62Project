@@ -22,7 +22,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    //모든상품 페이지 이동 로직
+    /*모든상품 페이지 이동 로직*/
     @GetMapping("/allproduct")
     public String allProductForm(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                                  @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
@@ -39,7 +39,7 @@ public class ProductController {
         return "/category/allproduct";
     }
 
-    //화분 페이지 이동 로직
+    /*화분 페이지 이동 로직*/
     @GetMapping("/pot")
     public String potForm(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                           @RequestParam(value = "pageSize", defaultValue = "4") int pageSize,
@@ -56,7 +56,7 @@ public class ProductController {
         return "/category/pot";
     }
 
-    //다육이&화분Set 페이지 이동 로직
+    /*다육이&화분Set 페이지 이동 로직*/
     @GetMapping("/set")
     public String setForm(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                           @RequestParam(value = "pageSize", defaultValue = "4") int pageSize,
@@ -73,7 +73,7 @@ public class ProductController {
         return "/category/set";
     }
 
-    //다육이 페이지 이동 로직
+    /*다육이 페이지 이동 로직*/
     @GetMapping("/succulent")
     public String succulentForm(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                                 @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,

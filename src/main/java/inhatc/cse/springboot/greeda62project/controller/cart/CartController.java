@@ -1,6 +1,5 @@
 package inhatc.cse.springboot.greeda62project.controller.cart;
 
-import inhatc.cse.springboot.greeda62project.dto.CartItemDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.CartItemEntity;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,7 +30,7 @@ public class CartController {
     private final CartService cartService;
     private final MembershipService membershipService;
 
-    //장바구니 이동 로직
+    /*장바구니 이동 로직*/
     @GetMapping("/cart")
     public String showCart(HttpSession session, Model model) {
         String id = (String) session.getAttribute("id");
@@ -64,7 +62,7 @@ public class CartController {
         return "cart/cart";
     }
 
-    // 장바구니에 상품 추가 로직
+    /*장바구니에 상품 추가 로직*/
     @PostMapping("/cart/{id}/{productId}")
     public String addCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId, int amount, HttpSession session) {
         String memberId = (String) session.getAttribute("id");
@@ -84,7 +82,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    //장바구니에서 상품 삭제 로직
+    /*장바구니에서 상품 삭제 로직*/
     @DeleteMapping("/cart/{id}/{productId}")
     public ResponseEntity<?> removeCartItem(@PathVariable("id") String id, @PathVariable("productId") String productId) {
         System.out.println("Controller: removeCartItem called with id=" + id + " and productId=" + productId);
