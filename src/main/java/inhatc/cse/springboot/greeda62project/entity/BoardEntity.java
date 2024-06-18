@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
+/*게시판 정보 Entity*/
 @Entity
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Table(name = "board")
-public class BoardEntity { //게시판 정보 Entity
+public class BoardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

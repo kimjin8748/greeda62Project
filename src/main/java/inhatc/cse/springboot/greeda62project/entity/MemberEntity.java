@@ -6,6 +6,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*회원정보 Entity*/
 @Entity
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "member")
-public class MemberEntity { //회원정보 Entity
+public class MemberEntity {
 
     @Id
     private String id;

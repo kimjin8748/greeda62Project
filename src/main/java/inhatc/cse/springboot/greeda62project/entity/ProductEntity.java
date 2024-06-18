@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
+/*모든 상품 정보 Entity*/
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)//Single_Table 전략 사용
 @DiscriminatorColumn(name = "product_type")//product_type 별로 테이블을 분류
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class ProductEntity { //모든 상품 정보 Entity
+public abstract class ProductEntity {
 
     @Id
     private String serialNumber;

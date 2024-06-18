@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/*회원별 장바구니 정보 Entity*/
 @Entity
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "cart")
-public class CartEntity { //회원별 장바구니 정보 Entity
+public class CartEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

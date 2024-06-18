@@ -3,13 +3,14 @@ package inhatc.cse.springboot.greeda62project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+/*멤버쉽 별 배송비 정보 Entity*/
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ShippingFeeEntity { //멤버쉽 별 배송비 정보 Entity
+public class ShippingFeeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

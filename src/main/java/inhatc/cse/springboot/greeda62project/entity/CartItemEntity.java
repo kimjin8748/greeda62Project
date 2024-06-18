@@ -3,6 +3,7 @@ package inhatc.cse.springboot.greeda62project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+/*장바구니에 담겨있는 상품 정보 Entity*/
 @Entity
 @Getter
 @Setter
@@ -10,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "cart_item")
-public class CartItemEntity { //장바구니에 담겨있는 상품 정보 Entity
+public class CartItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

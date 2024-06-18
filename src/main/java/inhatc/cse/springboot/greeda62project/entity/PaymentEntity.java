@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/*결제 정보 Entity*/
 @Entity
 @Getter
 @Setter
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "payment")
-public class PaymentEntity { //결제 정보 Entity
+public class PaymentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

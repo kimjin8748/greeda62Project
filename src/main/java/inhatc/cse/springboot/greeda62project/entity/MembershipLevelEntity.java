@@ -3,13 +3,14 @@ package inhatc.cse.springboot.greeda62project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+/*멤버쉽 정보 Entity*/
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MembershipLevelEntity { //멤버쉽 정보 Entity
+public class MembershipLevelEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
