@@ -1,15 +1,15 @@
 package inhatc.cse.springboot.greeda62project.dto;
 
 import inhatc.cse.springboot.greeda62project.entity.PotEntity;
-import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import lombok.*;
 
+/*화분 상품 처리하는 DTO*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class PotDTO { //화분 상품 처리하는 DTO
+public class PotDTO {
 
     private String serialNumber;
     private String productName;

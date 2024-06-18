@@ -6,12 +6,13 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+/*게시판 로직 처리 위한 DTO*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class BoardDTO { //게시판 로직 처리 위한 DTO
+public class BoardDTO {
 
     private int board_id;
     private String boardText;

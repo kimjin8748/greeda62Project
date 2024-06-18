@@ -2,12 +2,13 @@ package inhatc.cse.springboot.greeda62project.dto;
 
 import lombok.*;
 
+/*결제취소시 필요한 DTO(구현x)*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class TokenResponse { //결제취소시 필요한 DTO(구현x)
+public class TokenResponse {
     private int code;
     private String message;
     private Response response;

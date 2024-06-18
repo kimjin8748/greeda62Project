@@ -4,12 +4,13 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+/*주문정보 처리하는 DTO*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class OrderInfoDTO { //주문정보 처리하는 DTO
+public class OrderInfoDTO {
 
     private String paymentId;
     private String impUid;

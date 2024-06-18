@@ -5,12 +5,13 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/*결제 처리 위한 DTO*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class PaymentDTO { //결제 처리 위한 DTO
+public class PaymentDTO {
     private String paymentId;
     private String impUid;
     private int amount;

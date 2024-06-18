@@ -4,12 +4,13 @@ import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 
 import lombok.*;
 
+/*회원 로직 처리 위한 DTO*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class MemberDTO { //회원 로직 처리 위한 DTO
+public class MemberDTO {
 
 
     private String id;
