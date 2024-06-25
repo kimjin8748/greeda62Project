@@ -1,11 +1,4 @@
-/*!
-* Start Bootstrap - Shop Homepage v5.0.6 (https://startbootstrap.com/template/shop-homepage)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
-*/
-// This file is intentionally blank
-// Use this file to add JavaScript to your project
-
+/*검색 기능 로직*/
 function clearSearchField() {
     document.getElementById('search-field').value = '';
     document.getElementById('search-field').focus(); // 입력 필드에 다시 초점을 맞춥니다.
@@ -15,6 +8,7 @@ app.controller('MemberController', ['$scope', function ($scope) {
     $scope.showSignIn = !signUpFailed;
 }]);
 
+/*장바구니 전체선택 체크박스로 상품 전체 선택 로직*/
 function toggleSelectAll(source) {
     const checkboxes = document.querySelectorAll('.product-checkbox');
     checkboxes.forEach((checkbox) => {
@@ -23,6 +17,7 @@ function toggleSelectAll(source) {
     calculateTotal(); // 전체 가격 다시 계산
 }
 
+/*장바구니 상품가격 계산 로직*/
 function calculateTotal() {
     let totalProductPrice = 0; // 총 가격 초기화
     let totalPrice = 0;
@@ -47,6 +42,7 @@ function calculateTotal() {
     return totalPrice;
 }
 
+/*결제취소 페이지에서 취소금액 계산 로직*/
 function calculateTotal1() {
     let totalProductPrice = 0; // 총 가격 초기화
     let totalPrice = 0;
@@ -63,6 +59,7 @@ function calculateTotal1() {
     document.getElementById('total-price1').innerText = totalProductPrice + '원'; // 총 가격 표시 업데이트
 }
 
+/*delete인지 update인지 확인하는 로직*/
 function submitForm2(actionType) {
     // 회원 탈퇴인 경우
     if (actionType === 'delete') {
@@ -80,6 +77,7 @@ function submitForm2(actionType) {
     }
 }
 
+/*delete인지 update인지 확인하는 로직*/
 function submitForm3(actionType) {
     // 회원 탈퇴인 경우
     if (actionType === 'delete') {
@@ -97,6 +95,7 @@ function submitForm3(actionType) {
     }
 }
 
+/*포트원 결제API로 결제진행 로직*/
 function requestPay() {
     const productName = document.getElementById("productName").value;
     const memberId = document.getElementById("memberId").value;
@@ -201,6 +200,7 @@ function requestPay() {
     );
 }
 
+/*포트원 결제API 결제 취소 기능 로직(구현X)*/
 function cancelPayment() {
     const impUid = document.getElementById("impUid").value; // 결제 ID를 가져옴
     const cancelReason = document.getElementById("cancelReason").value; // 취소 사유를 가져옴

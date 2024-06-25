@@ -1,3 +1,4 @@
+/*ID 중복 체크*/
 function checkId() {
     var userId = document.getElementById("id").value; // 사용자가 입력한 ID 가져오기
     fetch("/check-id", {
@@ -20,7 +21,7 @@ function checkId() {
         });
 }
 
-//jQuery 사용하여 실시간 비밀번호 확인
+/*jQuery 사용하여 실시간 비밀번호 확인 로직*/
 function pwCheck(){
     if($('#pw1').val() === $('#pw2').val()){
         $('#pwConfirm').text('비밀번호 일치').css('color', 'green')
@@ -29,7 +30,7 @@ function pwCheck(){
     }
 }
 
-//탈퇴를 확인하는 메시지창을 띄우는 로직 추가
+/*탈퇴를 확인하는 alert창을 띄우는 로직*/
 function submitForm(actionType) {
     // 회원 탈퇴인 경우
     if (actionType === 'delete') {
