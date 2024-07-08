@@ -85,7 +85,7 @@
                                 <input type="hidden" name="productName" th:value="${product.productName}" />
                                 <input type="hidden" name="productPrice" th:value="${product.productPrice}" />
                                 <input type="hidden" class="form-control text-center me-3" id="inputQuantity" name="amount" value="1" style="max-width: 3rem" />
-                                <button class="btn btn-outline-dark mt-auto" type="submit">
+                                <button class="btn btn-outline-dark mt-auto" type="submit"  th:if="${session.id != null}">
                                     장바구니 담기
                                 </button>
                             </div>
