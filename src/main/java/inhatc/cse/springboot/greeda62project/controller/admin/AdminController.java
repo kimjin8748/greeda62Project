@@ -3,6 +3,7 @@ package inhatc.cse.springboot.greeda62project.controller.admin;
 import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
+import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.service.BoardService;
@@ -209,6 +210,27 @@ public class AdminController {
         model.addAttribute("keyword", keyword);
 
         return "admin/searchMember"; // 검색 결과를 보여줄 페이지의 이름
+    }
+
+    /*문의글 검색 페이지 이동 로직*/
+    @GetMapping("/searchBoard")
+    public String searchBoards(@RequestParam(required = false) String keyword, Model model) {
+        List<BoardEntity> boards;
+        if (keyword != null && !keyword.isEmpty()) {
+            boards = boardService.searchByBoard(keyword);
+        } else {
+            // keyword가 없는 경우의 처리 로직
+            boards = new ArrayList<>();
+        }
+
+        // ProductEntity 리스트를 ProductDTO 리스트로 변환
+        List<BoardDTO> boardDTOSs = boards.stream().map(BoardDTO::toBoardDTO).collect(Collectors.toList());
+
+        model.addAttribute("boards", boardDTOSs);
+        model.addAttribute("isEmpty", boards.isEmpty());
+        model.addAttribute("keyword", keyword);
+
+        return "admin/searchBoard"; // 검색 결과를 보여줄 페이지의 이름
     }
 
     /*게시판 관리 메뉴 이동 로직*/

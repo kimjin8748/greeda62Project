@@ -16,8 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- Responsive navbar-->
-<!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border: 1px solid #000">
     <div class="container px-4 px-lg-5">
         <a href="/admin" ><img src="/images/로고사진.png"></a>
@@ -30,11 +28,9 @@
                 <li class="nav-item"><a class="nav-link" href="/admin/boardCheck">게시판관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/memberCTR">회원관리</a></li>
             </ul>
-            &nbsp;
         </div>
     </div>
 </nav>
-
 <section class="notice">
     <div class="page-title">
         <div class="container">
@@ -52,7 +48,7 @@
                 <form action="/searchBoard">
                     <div class="search-wrap">
                         <label for="search" class="blind">문의글 검색</label>
-                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." th:value="${keyword}">
                         <button type="submit" class="btn btn-dark">검색</button>
                     </div>
                 </form>
@@ -82,11 +78,20 @@
                 </tr>
                 </tbody>
             </table><br>
+            <div th:if="${isEmpty}">
+                <h3>문의글이 없습니다...</h3>
+            </div>
         </div>
     </div>
 
 </section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Project &copy; greenda62 shopping mall 2024</p></div>
+</footer>
+<!-- Bootstrap core JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
 <script src="/js/scripts.js"></script>
 </body>
 </html>

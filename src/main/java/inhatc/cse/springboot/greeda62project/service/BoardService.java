@@ -1,6 +1,7 @@
 package inhatc.cse.springboot.greeda62project.service;
 
 import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
+import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
 
 import java.time.LocalDate;
@@ -26,4 +27,7 @@ public interface BoardService {
 
     /*글 삭제하는 Service 로직*/
     boolean deleteProduct(BoardDTO boardDTO);
+
+    /*문의글 검색 Service 로직*/
+    List<BoardEntity> searchByBoard(String keyword);
 }
