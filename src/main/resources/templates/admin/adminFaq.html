@@ -42,6 +42,9 @@
         </div>
     </div>
 
+    <div th:if="${commentSuccess}">
+        <h3 align="center" th:text="${commentSuccess}" th:class="commentSuccess-msg"></h3>
+    </div>
     <!-- board seach area -->
     <div id="board-search">
         <div class="container">

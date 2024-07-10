@@ -229,8 +229,9 @@ public class AdminController {
 
     /*게시판 답글 달기 로직*/
     @PostMapping("/admin/addComment")
-    public String addAdminComment(@RequestParam int boardId, @RequestParam String adminComment) {
+    public String addAdminComment(@RequestParam int boardId, @RequestParam String adminComment, RedirectAttributes redirectAttributes) {
         boardService.addAdminComment(boardId, adminComment);
+        redirectAttributes.addFlashAttribute("commentSuccess", "답글이 성공적으로 작성되었습니다.");
         return "redirect:/admin/boardCheck";
     }
 

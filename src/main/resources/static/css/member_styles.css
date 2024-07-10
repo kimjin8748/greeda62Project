@@ -215,43 +215,20 @@ form.wrapper-box button:active {
   transform: translateY(10px);
 }
 
-.signuperror-msg {
+.signuperror-msg,
+.loginerror-msg,
+.updateError-msg,
+.deleteError-msg,
+.authError-msg,
+.purchase-msg{
   color: red;
 }
 
-.loginerror-msg {
-  color: red;
-}
-
-.updateError-msg {
-  color: red;
-}
-
-.deleteError-msg {
-  color: red;
-}
-
-.authError-msg {
-  color: red;
-}
-
-.purchase-msg {
-  color: red;
-}
-
-.forgotsuccess-msg {
-  color: #7ac142;
-}
-
-.deleteSuccess-msg {
-  color: #7ac142;
-}
-
-.updateSuccess-msg {
-  color: #7ac142;
-}
-
-.insertSuccess-msg {
+.forgotsuccess-msg,
+.deleteSuccess-msg,
+.updateSuccess-msg,
+.insertSuccess-msg,
+.commentSuccess-msg {
   color: #7ac142;
 }
 
