@@ -19,7 +19,7 @@ public class ProductDetail {
     @GetMapping("/productdetail")
     public String showProductDetail(@RequestParam("id") String serialNumber, Model model, HttpSession session) {
         ProductDTO productDTO = productService.findById(serialNumber);
-            // productDTO가 null인 경우 로그 출력
+
         model.addAttribute("products", productDTO);
         System.out.println(productDTO);
 

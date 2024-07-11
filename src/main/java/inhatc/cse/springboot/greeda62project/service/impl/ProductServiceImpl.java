@@ -182,7 +182,7 @@ public class ProductServiceImpl implements ProductService {
     /*주문한 상품인지 확인하는 Service 로직*/
     @Override
     public boolean isProductPurchased(String  productId) {
-        // orderItemRepository를 통해 해당 사용자가 특정 상품을 구매했는지 확인
+        // orderItemRepository를 통해 구매된 상품인지 확인
         return orderItemRepository.existsByProductSerialNumber(productId);
     }
 
