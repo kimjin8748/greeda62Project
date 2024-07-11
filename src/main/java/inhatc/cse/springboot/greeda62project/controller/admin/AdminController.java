@@ -202,7 +202,6 @@ public class AdminController {
             members = new ArrayList<>();
         }
 
-        // ProductEntity 리스트를 ProductDTO 리스트로 변환
         List<MemberDTO> memberDTOs = members.stream().map(MemberDTO::toMemberDTO).collect(Collectors.toList());
 
         model.addAttribute("members", memberDTOs);
@@ -223,7 +222,6 @@ public class AdminController {
             boards = new ArrayList<>();
         }
 
-        // ProductEntity 리스트를 ProductDTO 리스트로 변환
         List<BoardDTO> boardDTOSs = boards.stream().map(BoardDTO::toBoardDTO).collect(Collectors.toList());
 
         model.addAttribute("boards", boardDTOSs);
