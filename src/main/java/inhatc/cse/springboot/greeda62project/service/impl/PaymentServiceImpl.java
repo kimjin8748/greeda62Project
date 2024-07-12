@@ -100,7 +100,7 @@ public class PaymentServiceImpl implements PaymentService {
         MemberEntity member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("허용하지 않은 회원 입니다: " + memberId));
 
-        CartEntity cartEntity = member.getCartEntity();
+        CartEntity cartEntity = member.getCartEntity();//해당 회원의 장바구니를 찾기
 
         // OrderEntity 생성 및 저장
         OrderEntity orderEntity = OrderEntity.builder()
@@ -119,13 +119,12 @@ public class PaymentServiceImpl implements PaymentService {
 
             OrderItemEntity orderItemEntity = OrderItemEntity.builder()
                     .order(savedOrder)
-                    .product(productRepository.findById(product.getSerialNumber())
-                            .orElseThrow(() -> new EntityNotFoundException("상품을 찾을 수 없습니다. 상품번호: " + product.getSerialNumber() )))
+                    .product(productEntity)
                     .quantity(1) // 필요에 따라 수량 설정
                     .build();
             orderItemRepository.save(orderItemEntity);
 
-            cartItemRepository.deleteByCartEntityAndProductEntity(cartEntity, productEntity);
+            cartItemRepository.deleteByCartEntityAndProductEntity(cartEntity, productEntity);//장바구니에서 상품 삭제
         }
     }
 
