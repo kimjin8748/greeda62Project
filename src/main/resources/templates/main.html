@@ -13,6 +13,12 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/css/styles.css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/js/sweetalert2/sweetalert2.min.css">
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/js/scripts.js"></script>
+        <script src="/js/sweetalert2/sweetalert2.all.min.js"></script>
     </head>
     <body>
         <!-- Navigation-->
@@ -131,20 +137,15 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Project &copy; greenda62 shopping mall 2024</p></div>
         </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="/js/scripts.js"></script>
         <script th:inline="javascript">
             window.addEventListener('load', function () {
                 /*<![CDATA[*/
-                var adminAccessDenied = [[${adminAccessDenied}]];
+                let adminAccessDenied = [[${adminAccessDenied}]];
                 if (adminAccessDenied) {
-                    alert('관리자만 접근 가능합니다.');
+                    alert('error', '확인', "관리자만 접근 가능합니다.");
                 }
                 /*]]>*/
             });
         </script>
-
     </body>
 </html>
