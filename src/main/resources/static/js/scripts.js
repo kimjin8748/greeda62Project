@@ -154,7 +154,7 @@ function requestPay() {
         },
         function (rsp) {
             if (rsp.success) {
-                alert('결제가 완료되었습니다. 결제 ID: ' + rsp.imp_uid);
+                alert('success', '완료', '결제가 완료되었습니다.');
 
                 const paymentData = {
                     paymentId: rsp.merchant_uid,
