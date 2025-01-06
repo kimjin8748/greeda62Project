@@ -20,7 +20,7 @@ public interface ProductService {
     Page<ProductEntity> findProductByCategoryPaginated(Class<?> categoryClass, int pageNo, int pageSize);
 
     /*상품 검색 처리 Service 로직*/
-    List<ProductEntity> searchByKeyword(String keyword);
+    Page<ProductDTO> searchByKeyword(String keyword, Pageable pageable);
 
     /*장바구니에 상품을 넣기 위해 상품 검색 Service 로직 */
     ProductDTO productView(String productId);

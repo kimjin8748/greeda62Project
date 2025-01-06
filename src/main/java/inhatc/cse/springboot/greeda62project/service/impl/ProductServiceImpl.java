@@ -56,8 +56,13 @@ public class ProductServiceImpl implements ProductService {
 
     /*상품 검색 처리 Service 로직*/
     @Override
-    public List<ProductEntity> searchByKeyword(String keyword) {
-        return productRepository.findByKeyword("%" + keyword + "%");
+    public Page<ProductDTO> searchByKeyword(String keyword, Pageable pageable) {
+        Page<ProductEntity> productEntities = productRepository.findByKeyword("%" + keyword + "%", pageable);
+        List<ProductDTO> productDTOs = productEntities.stream()
+                .map(ProductDTO::toProductDTO)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
     }
 
     /*장바구니에 상품을 넣기 위해 상품 검색 Service 로직 */
