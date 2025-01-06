@@ -10,10 +10,23 @@ app.controller('MemberController', ['$scope', function ($scope) {
 
 /*장바구니 전체선택 체크박스로 상품 전체 선택 로직*/
 function toggleSelectAll(source) {
-    const checkboxes = document.querySelectorAll('.product-checkbox');
+    const checkboxes = document.querySelectorAll('.product-checkbox-item');
     checkboxes.forEach((checkbox) => {
         checkbox.checked = source.checked; // 모든 체크박스의 상태를 전체 선택 체크박스와 동일하게 설정
     });
+    calculateTotal(); // 전체 가격 다시 계산
+}
+
+/*아이템 하나 선택시 전체 선택 체크/해제*/
+function toggleSelectItem() {
+    const allCheckboxes = document.querySelector('.product-checkbox');
+    const checkboxes = document.querySelectorAll('.product-checkbox-item');
+    const checked = document.querySelectorAll('.product-checkbox-item:checked');
+    if(checkboxes.length === checked.length) {
+        allCheckboxes.checked = true;
+    } else {
+        allCheckboxes.checked = false;
+    }
     calculateTotal(); // 전체 가격 다시 계산
 }
 
@@ -21,22 +34,18 @@ function toggleSelectAll(source) {
 function calculateTotal() {
     let totalProductPrice = 0; // 총 가격 초기화
     let totalPrice = 0;
-    document.querySelectorAll('.product-checkbox').forEach((checkbox) => {
+    document.querySelectorAll('.product-checkbox-item').forEach((checkbox) => {
         if (checkbox.checked) { // 체크박스가 체크되어 있는 경우
             const row = checkbox.closest('.row'); // 해당 체크박스가 속한 row 요소 찾기
             const quantityInput = row.querySelector('.product-quantity'); // 해당 row에서 수량 입력 필드 찾기
             const price = parseInt(checkbox.dataset.price) || 0; // 상품 가격 가져오기, NaN 방지
             const quantity = parseInt(quantityInput.value) || 0; // 상품 수량 가져오기, NaN 방지
 
-            console.log(`Checkbox checked: ${checkbox.checked}`);
-            console.log(`Price: ${price}, Quantity: ${quantity}`);
             totalProductPrice += price * quantity; // 총 가격 업데이트
         }
     });
     const shippingFee = parseInt(document.getElementById("shippingFee").value);
-    console.log(shippingFee)
     totalPrice = totalProductPrice + shippingFee;
-    console.log(`Total Price: ${totalProductPrice}`);
     document.getElementById('total-price').innerText = totalProductPrice + '원'; // 총 가격 표시 업데이트
     document.getElementById('total-price1').innerText = totalPrice + '원'; // 총 가격 표시 업데이트
     return totalPrice;
