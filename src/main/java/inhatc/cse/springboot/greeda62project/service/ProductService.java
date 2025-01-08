@@ -11,16 +11,13 @@ import java.util.List;
 public interface ProductService {
 
     /*모든 상품 정보 DB에서 가져오는 Service 로직*/
-    Page<ProductDTO> findAllProducts(Pageable pageable);
+    Page<ProductDTO> findAllProducts(String keyword, Pageable pageable);
 
     /*상품 정보 DB에서 가져오는 Service 로직*/
     ProductDTO findById(String serialNumber);
 
     /*페이징 처리 로직*/
     Page<ProductEntity> findProductByCategoryPaginated(Class<?> categoryClass, int pageNo, int pageSize);
-
-    /*상품 검색 처리 Service 로직*/
-    Page<ProductDTO> searchByKeyword(String keyword, Pageable pageable);
 
     /*장바구니에 상품을 넣기 위해 상품 검색 Service 로직 */
     ProductDTO productView(String productId);
@@ -36,9 +33,6 @@ public interface ProductService {
 
     /*상품 삭제 Service 로직*/
     boolean deleteProduct(ProductDTO productDTO);
-
-    /*상품 검색 Service 로직*/
-    List<ProductEntity> searchByProduct(String keyword);
 
     /*주문한 상품인지 확인하는 Service 로직*/
     boolean isProductPurchased(String  productId);

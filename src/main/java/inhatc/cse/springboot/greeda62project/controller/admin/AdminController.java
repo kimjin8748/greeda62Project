@@ -69,9 +69,21 @@ public class AdminController {
 
     /*관리자페이지 회원관리 메뉴 이동 로직*/
     @GetMapping("/admin/memberCTR")
-    public String memberControl(Model model){
-        List<MemberDTO> members = memberService.findAllMembers();
+    public String memberControl(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                @RequestParam(required = false) String keyword,
+                                Model model) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<MemberDTO> page = memberService.findByMember(keyword, pageable);
+        List<MemberDTO> members = page.getContent();
+
         model.addAttribute("members", members);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("isEmpty", members.isEmpty());
+        model.addAttribute("keyword", keyword);
+
         return "admin/memberCTR";
     }
 
@@ -79,15 +91,19 @@ public class AdminController {
     @GetMapping("/admin/productCheck")
     public String listProducts(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                                @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                               @RequestParam(required = false) String keyword,
                                Model model) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<ProductDTO> page = productService.findAllProducts(pageable);
+        Page<ProductDTO> page = productService.findAllProducts(keyword, pageable);
         List<ProductDTO> products = page.getContent();
 
+        model.addAttribute("products", products);
         model.addAttribute("currentPage", pageNo);
+        model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("products", products);
+        model.addAttribute("isEmpty", products.isEmpty());
+        model.addAttribute("keyword", keyword);
 
         return "admin/product_check"; // 상품 목록을 보여주는 View 이름
     }
@@ -170,72 +186,23 @@ public class AdminController {
         return "redirect:/admin/productCheck";
     }
 
-    /*상품 검색 페이지 이동 로직*/
-    @GetMapping("/searchProduct")
-    public String searchProducts(@RequestParam(required = false) String keyword, Model model) {
-        List<ProductEntity> products;
-        if (keyword != null && !keyword.isEmpty()) {
-            products = productService.searchByProduct(keyword);
-        } else {
-            // keyword가 없는 경우의 처리 로직
-            products = new ArrayList<>();
-        }
+    /*게시판 관리 메뉴 이동 로직*/
+    @GetMapping("/admin/boardCheck")
+    public String faq(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                      @RequestParam(required = false) String keyword,
+                      Model model) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<BoardDTO> page = boardService.searchByBoard(keyword, pageable);
+        List<BoardDTO> boards = page.getContent();
 
-        // ProductEntity 리스트를 ProductDTO 리스트로 변환
-        List<ProductDTO> productDTOSs = products.stream().map(ProductDTO::toProductDTO).collect(Collectors.toList());
-
-        model.addAttribute("products", productDTOSs);
-        model.addAttribute("isEmpty", products.isEmpty());
-        model.addAttribute("keyword", keyword);
-
-        return "admin/searchProduct"; // 검색 결과를 보여줄 페이지의 이름
-    }
-
-    /*회원 검색 페이지 이동 로직*/
-    @GetMapping("/searchMember")
-    public String searchMembers(@RequestParam(required = false) String keyword, Model model) {
-        List<MemberEntity> members;
-        if (keyword != null && !keyword.isEmpty()) {
-            members = memberService.findByMember(keyword);
-        } else {
-            // keyword가 없는 경우의 처리 로직
-            members = new ArrayList<>();
-        }
-
-        List<MemberDTO> memberDTOs = members.stream().map(MemberDTO::toMemberDTO).collect(Collectors.toList());
-
-        model.addAttribute("members", memberDTOs);
-        model.addAttribute("isEmpty", members.isEmpty());
-        model.addAttribute("keyword", keyword);
-
-        return "admin/searchMember"; // 검색 결과를 보여줄 페이지의 이름
-    }
-
-    /*문의글 검색 페이지 이동 로직*/
-    @GetMapping("/searchBoard")
-    public String searchBoards(@RequestParam(required = false) String keyword, Model model) {
-        List<BoardEntity> boards;
-        if (keyword != null && !keyword.isEmpty()) {
-            boards = boardService.searchByBoard(keyword);
-        } else {
-            // keyword가 없는 경우의 처리 로직
-            boards = new ArrayList<>();
-        }
-
-        List<BoardDTO> boardDTOSs = boards.stream().map(BoardDTO::toBoardDTO).collect(Collectors.toList());
-
-        model.addAttribute("boards", boardDTOSs);
+        model.addAttribute("boards", boards);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("pageSize", pageSize);
         model.addAttribute("isEmpty", boards.isEmpty());
         model.addAttribute("keyword", keyword);
 
-        return "admin/searchBoard"; // 검색 결과를 보여줄 페이지의 이름
-    }
-
-    /*게시판 관리 메뉴 이동 로직*/
-    @GetMapping("/admin/boardCheck")
-    public String faq(Model model) {
-        List<BoardDTO> boardList = boardService.findAllBoard();
-        model.addAttribute("boards", boardList);
         return "admin/adminFaq";
     }
 

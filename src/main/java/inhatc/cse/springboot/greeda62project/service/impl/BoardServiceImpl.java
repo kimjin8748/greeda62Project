@@ -1,13 +1,18 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
+import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
+import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.repository.BoardRepository;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.BoardService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -61,15 +66,6 @@ public class BoardServiceImpl implements BoardService {
         return boardDTO;
     }
 
-    /*전체 글목록 DB에서 불러오는 Service 로직*/
-    @Override
-    public List<BoardDTO> findAllBoard() {
-        List<BoardEntity> boardEntities = boardRepository.findAll();
-        List<BoardDTO> boardDTOs = boardEntities.stream().map(BoardDTO::toBoardDTO).collect(Collectors.toList());
-        boardDTOs.forEach(BoardDTO::setMaskedMemberId);
-        return boardDTOs;
-    }
-
     /*관리자가 답글 단 내용 DB에 저장하는 Service 로직*/
     @Override
     public void addAdminComment(int boardId, String adminComment) {
@@ -114,10 +110,22 @@ public class BoardServiceImpl implements BoardService {
         }
     }
 
-    /*문의글 검색하는 Service 로직*/
+    /*문의글 조회/검색하는 Service 로직*/
     @Override
-    public List<BoardEntity> searchByBoard(String keyword) {
-        return boardRepository.findByKeyword("%" + keyword + "%");
+    public Page<BoardDTO> searchByBoard(String keyword, Pageable pageable) {
+        Page<BoardEntity> boardEntities;
+        if (keyword == null || keyword.isEmpty()) {
+            boardEntities = boardRepository.findAll(pageable);//모든 게시판 글 목록 조회
+        } else {
+            boardEntities = boardRepository.findByKeyword(keyword, pageable);//검색된 게시판 글 목록 조회
+        }
+        List<BoardDTO> boardDTOs = boardEntities.stream()
+                .map(BoardDTO::toBoardDTO)
+                .collect(Collectors.toList());
+        boardDTOs.forEach(BoardDTO::setMaskedMemberId);
+
+        return new PageImpl<>(boardDTOs, pageable, boardEntities.getTotalElements());
+
     }
 
 }

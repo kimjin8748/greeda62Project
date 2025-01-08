@@ -27,6 +27,7 @@ public class HomeController {
     @GetMapping("/")
     public String main(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
                        @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
+                       @RequestParam(required = false) String keyword,
                        Model model, HttpSession session) {
 
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
@@ -36,42 +37,16 @@ public class HomeController {
         }
 
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<ProductDTO> page = productService.findAllProducts(pageable);
+        Page<ProductDTO> page = productService.findAllProducts(keyword, pageable);
         List<ProductDTO> products = page.getContent();
 
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("products", products);
-
-        return "main";
-    }
-
-    /*상품 검색 페이지 이동 로직*/
-    @GetMapping("/search")
-    public String searchProducts(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
-                                 @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
-                                 @RequestParam(required = false) String keyword, Model model) {
-
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<ProductDTO> page;
-        List<ProductDTO> products;
-        if (keyword != null && !keyword.isEmpty()) {
-            page = productService.searchByKeyword(keyword, pageable);
-            products = page.getContent();
-        } else {
-            // keyword가 없는 경우의 처리 로직
-            page = Page.empty(pageable);
-            products = new ArrayList<>();
-        }
-
         model.addAttribute("products", products);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("isEmpty", products.isEmpty());
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("isEmpty", products.isEmpty());
         model.addAttribute("keyword", keyword);
 
-        return "search/searchResult"; // 검색 결과를 보여줄 페이지의 이름
+        return "main";
     }
 }

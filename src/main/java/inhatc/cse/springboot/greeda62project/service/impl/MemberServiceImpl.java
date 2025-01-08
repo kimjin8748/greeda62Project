@@ -1,13 +1,18 @@
 package inhatc.cse.springboot.greeda62project.service.impl;
 
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
+import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.entity.CartEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
+import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.repository.CartRepository;
 import inhatc.cse.springboot.greeda62project.repository.MemberRepository;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -98,14 +103,6 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    /*모든 회원정보를 DB에서 가져오는 Service 로직*/
-    @Override
-    public List<MemberDTO> findAllMembers() {
-        List<MemberEntity> members = memberRepository.findAll();
-        List<MemberDTO> memberDTOS = members.stream().map(MemberDTO::toMemberDTO).collect(Collectors.toList());
-        return memberDTOS;
-    }
-
     /*회원정보 수정 Service 로직*/
     @Override
     public boolean updateMember(String id, String password, String name, String email, String address) {
@@ -141,8 +138,19 @@ public class MemberServiceImpl implements MemberService {
 
     /*회원정보 keyword로 DB에서 검색하는 Service 로직*/
     @Override
-    public List<MemberEntity> findByMember(String keyword) {
-        return memberRepository.findByMemberId("%" + keyword + "%");
+    public Page<MemberDTO> findByMember(String keyword, Pageable pageable) {
+        Page<MemberEntity> memberEntities;
+        if (keyword == null || keyword.isEmpty()) {
+            memberEntities = memberRepository.findAll(pageable);
+        } else {
+            memberEntities = memberRepository.findByMemberId("%" + keyword + "%", pageable);
+        }
+
+        List<MemberDTO> memberDTOs = memberEntities.stream()
+                .map(MemberDTO::toMemberDTO)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(memberDTOs, pageable, memberEntities.getTotalElements());
     }
 
 }

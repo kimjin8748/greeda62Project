@@ -58,7 +58,7 @@
     <div id="board-search">
         <div class="container">
             <div class="search-window">
-                <form action="/searchProduct">
+                <form action="/admin/productCheck">
                     <div class="search-wrap">
                         <label for="search" class="blind">상품 검색</label>
                         <input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="">
@@ -93,21 +93,24 @@
             </tr>
             </tbody>
         </table>
+        <div th:if="${isEmpty}">
+            <h3>검색한 상품이 없습니다...</h3>
+        </div>
         <br>
         <div class="row">
             <div class="col">
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation" th:classappend="${isEmpty} ? 'd-none' : ''">
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
-                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${currentPage - 1}, pageSize=${pageSize})}" aria-label="Previous">
+                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${currentPage - 1}, pageSize=${pageSize}, keyword=${keyword})}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" th:classappend="${pageNum == currentPage} ? 'active' : ''">
-                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${pageNum}, pageSize=${pageSize})}" th:text="${pageNum + 1}">1</a>
+                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${pageNum}, pageSize=${pageSize}, keyword=${keyword})}" th:text="${pageNum + 1}">1</a>
                         </li>
                         <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''">
-                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${currentPage + 1}, pageSize=${pageSize})}" aria-label="Next">
+                            <a class="page-link" th:href="@{/admin/productCheck(pageNo=${currentPage + 1}, pageSize=${pageSize}, keyword=${keyword})}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

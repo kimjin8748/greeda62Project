@@ -4,6 +4,9 @@ import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +22,21 @@ public class FaqController {
 
     /*고객문의 페이지 이동 로직*/
     @GetMapping("/faq")
-    public String faq(Model model) {
-        List<BoardDTO> boardList = boardService.findAllBoard();
-        model.addAttribute("boards", boardList);
+    public String faq(@RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
+                      @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                      @RequestParam(required = false) String keyword,
+                      Model model) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<BoardDTO> page = boardService.searchByBoard(keyword, pageable);
+        List<BoardDTO> boards = page.getContent();
+
+        model.addAttribute("boards", boards);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("isEmpty", boards.isEmpty());
+        model.addAttribute("keyword", keyword);
+
         return "/board/faq";
     }
 

@@ -3,6 +3,8 @@ package inhatc.cse.springboot.greeda62project.service;
 import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,9 +18,6 @@ public interface BoardService {
     /*작성한 글 DB에 저장하는 Service 로직*/
     BoardDTO saveBoard(int board_id, String b_text, String b_title, LocalDate b_date, String memberId);
 
-    /*전체 글목록 DB에서 불러오는 Service 로직*/
-    List<BoardDTO> findAllBoard();
-
     /*관리자가 답글 단 내용 DB에 저장하는 Service 로직*/
     void addAdminComment(int boardId, String adminComment);
 
@@ -29,5 +28,5 @@ public interface BoardService {
     boolean deleteProduct(BoardDTO boardDTO);
 
     /*문의글 검색 Service 로직*/
-    List<BoardEntity> searchByBoard(String keyword);
+    Page<BoardDTO> searchByBoard(String keyword, Pageable pageable);
 }

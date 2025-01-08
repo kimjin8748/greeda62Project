@@ -28,7 +28,7 @@ public class ProductController {
                                  @RequestParam(value = "pageSize", defaultValue = "8") int pageSize,
                                  Model model) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<ProductDTO> page = productService.findAllProducts(pageable);
+        Page<ProductDTO> page = productService.findAllProducts(null, pageable);
         List<ProductDTO> products = page.getContent();
 
         model.addAttribute("currentPage", pageNo);

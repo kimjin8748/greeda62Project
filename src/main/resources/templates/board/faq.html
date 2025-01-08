@@ -89,10 +89,10 @@
     <div id="board-search">
         <div class="container">
             <div class="search-window">
-                <form action="">
+                <form action="/faq">
                     <div class="search-wrap">
                         <label for="search" class="blind">내용 검색</label>
-                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+                        <input id="search" type="search" name="keyword" placeholder="검색어를 입력해주세요." value="">
                         <button type="submit" class="btn btn-dark">검색</button>
                     </div>
                 </form>
@@ -116,13 +116,37 @@
                     <td th:text="${board.maskedMemberId}"></td>
                     <th>
                         <a th:href="@{/faq/edit/{title}(title=${board.boardTitle})}" th:text="${board.boardTitle}"></a>
-                        <p>테스트</p>
                     </th>
                     <td th:text="${board.boardDate}"></td>
                 </tr>
                 </tbody>
-            </table><br>
-            <button type="submit" class="btn btn-dark"> <a style="text-decoration-line: none; color: white" href="/faq/new">글쓰기 </a> </button>
+            </table>
+            <div th:if="${isEmpty}">
+                <h3>검색한 문의글이 없습니다...</h3>
+            </div>
+            <button type="submit" class="btn btn-dark" id="faq-edit-btn"> <a style="text-decoration-line: none; color: white" href="/faq/new">글쓰기 </a> </button>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="Page navigation" th:classappend="${isEmpty} ? 'd-none' : ''">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{/faq(pageNo=${currentPage - 1}, pageSize=${pageSize}, keyword=${keyword})}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" th:classappend="${pageNum == currentPage} ? 'active' : ''">
+                                <a class="page-link" th:href="@{/faq(pageNo=${pageNum}, pageSize=${pageSize}, keyword=${keyword})}" th:text="${pageNum + 1}">1</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{/faq(pageNo=${currentPage + 1}, pageSize=${pageSize}, keyword=${keyword})}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 

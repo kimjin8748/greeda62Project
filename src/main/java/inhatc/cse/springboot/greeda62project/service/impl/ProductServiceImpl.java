@@ -27,8 +27,13 @@ public class ProductServiceImpl implements ProductService {
 
     /*모든 상품 정보 DB에서 가져오는 Service 로직*/
     @Override
-    public Page<ProductDTO> findAllProducts(Pageable pageable) {
-        Page<ProductEntity> productEntities = productRepository.findAll(pageable);
+    public Page<ProductDTO> findAllProducts(String keyword, Pageable pageable) {
+        Page<ProductEntity> productEntities;
+        if (keyword == null || keyword.isEmpty()) {
+            productEntities = productRepository.findAll(pageable);
+        } else {
+            productEntities = productRepository.findByKeyword(keyword, pageable);
+        }
         List<ProductDTO> productDTOs = productEntities.stream()
                 .map(ProductDTO::toProductDTO)
                 .collect(Collectors.toList());
@@ -52,17 +57,6 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductEntity> findProductByCategoryPaginated(Class<?> categoryClass, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return productRepository.findByType(categoryClass, pageable);
-    }
-
-    /*상품 검색 처리 Service 로직*/
-    @Override
-    public Page<ProductDTO> searchByKeyword(String keyword, Pageable pageable) {
-        Page<ProductEntity> productEntities = productRepository.findByKeyword("%" + keyword + "%", pageable);
-        List<ProductDTO> productDTOs = productEntities.stream()
-                .map(ProductDTO::toProductDTO)
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(productDTOs, pageable, productEntities.getTotalElements());
     }
 
     /*장바구니에 상품을 넣기 위해 상품 검색 Service 로직 */
@@ -176,12 +170,6 @@ public class ProductServiceImpl implements ProductService {
             // 예외가 발생하면 false를 반환합니다.
             return false;
         }
-    }
-
-    /*상품 검색 Service 로직*/
-    @Override
-    public List<ProductEntity> searchByProduct(String keyword) {
-        return productRepository.findBySerialNumber("%" + keyword + "%");
     }
 
     /*주문한 상품인지 확인하는 Service 로직*/

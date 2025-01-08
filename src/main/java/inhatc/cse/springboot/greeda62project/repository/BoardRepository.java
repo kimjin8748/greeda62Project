@@ -2,6 +2,8 @@ package inhatc.cse.springboot.greeda62project.repository;
 
 import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +16,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
     Optional<BoardEntity> findByBoardTitle(String boardTitle);
 
     @Query("SELECT b FROM BoardEntity b WHERE " +
-            "b.boardTitle LIKE %:keyword%")
-    List<BoardEntity> findByKeyword(@Param("keyword") String keyword);
+            "b.boardTitle LIKE %:keyword% ")
+    Page<BoardEntity> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
 }

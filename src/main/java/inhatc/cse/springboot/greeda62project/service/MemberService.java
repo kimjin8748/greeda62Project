@@ -2,6 +2,8 @@ package inhatc.cse.springboot.greeda62project.service;
 
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -23,9 +25,6 @@ public interface MemberService {
     /*회원정보를 DB에서 가져오는 Service 로직*/
     MemberDTO findMemberById(String id);
 
-    /*모든 회원정보를 DB에서 가져오는 Service 로직*/
-    List<MemberDTO> findAllMembers();
-
     /*회원정보 수정 Service 로직*/
     boolean updateMember(String id, String password, String name, String email, String address);
 
@@ -33,5 +32,5 @@ public interface MemberService {
     boolean deleteMember(String id);
 
     /*회원정보 keyword로 DB에서 검색하는 Service 로직*/
-    List<MemberEntity> findByMember(String keyword);
+    Page<MemberDTO> findByMember(String keyword, Pageable pageable);
 }
