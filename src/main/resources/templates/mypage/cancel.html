@@ -92,7 +92,7 @@
                                             <input type="hidden" id="cancelAmount" th:value="${order.amount}">
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img th:src="@{/images/{img}.jpg(img=${order.serialNumber})}" class="img-fluid rounded-3" alt="...">
+                                            <img th:src="@{'/uploads/' + ${order.photoFileName}}" class="img-fluid rounded-3" alt="...">
                                             <input type="hidden" id="serialNumber" th:value="${order.serialNumber}">
                                         </div>
 

@@ -78,7 +78,7 @@
                                             <input type="checkbox" class="product-checkbox-item" th:data-price="${item.productEntity.productPrice}" th:id="'checkbox' + ${iterStat.count}" onchange="toggleSelectItem()">
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">
-                                            <img th:src="@{/images/{img}.jpg(img=${item.productEntity.serialNumber})}" class="img-fluid rounded-3" alt="...">
+                                            <img th:src="@{'/uploads/' + ${item.productEntity.photoFileName}}" alt="Product Image" class="img-fluid rounded-3">
                                             <input type="hidden" id="serialNumber" th:value="${item.productEntity.serialNumber}">
                                         </div>
                                         <div class="col-md-2 col-lg-2 col-xl-2">

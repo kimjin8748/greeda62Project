@@ -21,7 +21,6 @@ public class ProductDetail {
         ProductDTO productDTO = productService.findById(serialNumber);
 
         model.addAttribute("products", productDTO);
-        System.out.println(productDTO);
 
         String productId = productDTO.getSerialNumber();
         boolean isPurchased = productService.isProductPurchased(productId);

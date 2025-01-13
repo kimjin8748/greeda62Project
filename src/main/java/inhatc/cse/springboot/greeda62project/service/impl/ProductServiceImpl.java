@@ -86,37 +86,42 @@ public class ProductServiceImpl implements ProductService {
 
         // 카테고리 값을 상품 타입으로 변환
         String productType = convertCategoryToProductType(productDTO.getProductType());
+        // 시리얼 넘버 생성
+        String SerialNumber = generateSerialNumber(productType);
 
-        if (productDTO.getSerialNumber() == null || productDTO.getSerialNumber().isEmpty()) {
-            throw new IllegalArgumentException("serialNumber cannot be null or empty.");
-        }
         // 상품 타입에 따라 다른 엔티티로 변환
         if ("POT".equals(productType)) {
             productEntity = new PotEntity(
-                    productDTO.getSerialNumber(),
+                    SerialNumber,
                     productDTO.getProductType(),
                     productDTO.getProductName(),
                     productDTO.getProductSize(),
                     productDTO.getProductPrice(),
-                    productDTO.getProductDescription()
+                    productDTO.getProductDescription(),
+                    productDTO.getImageUrl(),
+                    productDTO.getPhotoFileName()
             );
         } else if ("SUC".equals(productType)) {
             productEntity = new SucculentEntity(
-                    productDTO.getSerialNumber(),
+                    SerialNumber,
                     productDTO.getProductType(),
                     productDTO.getProductName(),
                     productDTO.getProductSize(),
                     productDTO.getProductPrice(),
-                    productDTO.getProductDescription()
+                    productDTO.getProductDescription(),
+                    productDTO.getImageUrl(),
+                    productDTO.getPhotoFileName()
             );
         } else if ("SET".equals(productType)) {
             productEntity = new SetEntity(
-                    productDTO.getSerialNumber(),
+                    SerialNumber,
                     productDTO.getProductType(),
                     productDTO.getProductName(),
                     productDTO.getProductSize(),
                     productDTO.getProductPrice(),
-                    productDTO.getProductDescription()
+                    productDTO.getProductDescription(),
+                    productDTO.getImageUrl(),
+                    productDTO.getPhotoFileName()
             );
         }
 
@@ -127,7 +132,9 @@ public class ProductServiceImpl implements ProductService {
                 productEntity.getProductName(),
                 productEntity.getProductSize(),
                 productEntity.getProductPrice(),
-                productEntity.getProductDescription()
+                productEntity.getProductDescription(),
+                productEntity.getImageUrl(),
+                productEntity.getPhotoFileName()
         );
     }
 
@@ -194,6 +201,31 @@ public class ProductServiceImpl implements ProductService {
             default:
                 throw new IllegalArgumentException("Invalid category: " + category);
         }
+    }
+
+    /*상품 시리얼넘버 생성 로직*/
+    private String generateSerialNumber(String productType) {
+        String latestId = null;
+        int nextSequence = 1;
+
+        switch (productType) { //타입별로 가장 높은 ID 가져오기
+            case "SUC":
+                latestId = productRepository.findLatestSUCId();
+            case "POT":
+                latestId = productRepository.findLatestPOTId();
+            case "SET":
+                latestId = productRepository.findLatestSETId();
+        }
+
+        if(latestId != null && latestId.startsWith(productType)) {
+            String[] parts = latestId.split("-");
+            if(parts.length > 1) nextSequence = Integer.parseInt(parts[1]) + 1; //가져온 ID 숫자 증가시키기
+            System.out.println(parts[1]);
+            System.out.println(nextSequence);
+
+        }
+
+        return ProductEntity.generateId(productType, nextSequence); //증가시킨 번호로 ID 생성
     }
 
 }

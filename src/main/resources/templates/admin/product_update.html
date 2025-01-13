@@ -62,7 +62,7 @@
                 </tr>
                 <tr>
                     <td style="width: 150px; background-color: #d2c9ff;">상품이미지</td>
-                    <td class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{/images/{serialNumber}.jpg(serialNumber=${product.serialNumber})}" alt="..." /></td>
+                    <td class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{'/uploads/' + ${product.photoFileName}}" alt="Product Image" /></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">

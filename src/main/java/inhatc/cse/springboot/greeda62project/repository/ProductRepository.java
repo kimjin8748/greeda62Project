@@ -19,10 +19,12 @@ public interface ProductRepository extends JpaRepository <ProductEntity, String>
             "p.productDescription LIKE %:keyword%")
     Page<ProductEntity> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
-    @Query("SELECT p FROM ProductEntity p WHERE " +
-            "p.serialNumber LIKE %:keyword% OR " +
-            "p.productName LIKE %:keyword% OR " +
-            "p.productDescription LIKE %:keyword% OR " +
-            "p.productSize LIKE %:keyword% ")
-    List<ProductEntity> findBySerialNumber(@Param("keyword") String keyword);
+    @Query("SELECT p.serialNumber FROM ProductEntity p WHERE p.serialNumber LIKE 'SUC-%' ORDER BY p.serialNumber DESC LIMIT 1")
+    String findLatestSUCId();
+
+    @Query("SELECT p.serialNumber FROM ProductEntity p WHERE p.serialNumber LIKE 'POT-%' ORDER BY p.serialNumber DESC LIMIT 1")
+    String findLatestPOTId();
+
+    @Query("SELECT p.serialNumber FROM ProductEntity p WHERE p.serialNumber LIKE 'SET-%' ORDER BY p.serialNumber DESC LIMIT 1")
+    String findLatestSETId();
 }

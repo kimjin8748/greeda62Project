@@ -22,15 +22,23 @@ public abstract class ProductEntity {
     private String productSize;
     private int productPrice;
     private String productDescription;
+    private String imageUrl;
+    private String photoFileName;
 
     @OneToMany(mappedBy = "product")
     private List<OrderItemEntity> orderItems;
 
-    public ProductEntity(String serialNumber, String productName, String productSize, int productPrice, String productDescription) {
+    public ProductEntity(String serialNumber, String productName, String productSize, int productPrice, String productDescription, String imageUrl, String photoFileName) {
         this.serialNumber = serialNumber;
         this.productName = productName;
         this.productSize = productSize;
         this.productPrice = productPrice;
         this.productDescription = productDescription;
+        this.imageUrl = imageUrl;
+        this.photoFileName = photoFileName;
+    }
+
+    public static String generateId(String prefix, int sequence) {
+        return String.format("%s-%03d", prefix, sequence); // "POT-001" 형식으로 생성
     }
 }

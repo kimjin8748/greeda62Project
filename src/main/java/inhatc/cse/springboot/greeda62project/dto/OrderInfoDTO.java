@@ -19,4 +19,5 @@ public class OrderInfoDTO {
     private int quantity;
     private int amount;
     private LocalDateTime paymentDate;
+    private String photoFileName;
 }

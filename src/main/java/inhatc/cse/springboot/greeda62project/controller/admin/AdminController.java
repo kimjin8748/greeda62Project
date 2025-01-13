@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -117,9 +118,9 @@ public class AdminController {
     /*상품 등록 로직*/
     @PostMapping("/admin/productInsert")
     public String productInsert(@ModelAttribute ProductDTO productDTO, Model model, RedirectAttributes redirectAttributes) {
+        productDTO.setSerialNumber("null");
         // 필드 검증
-        if (productDTO.getSerialNumber() == null || productDTO.getProductType() == null ||
-                productDTO.getProductName() == null || productDTO.getProductSize() == null ||
+        if (productDTO.getProductType() == null || productDTO.getProductName() == null || productDTO.getProductSize() == null ||
                 productDTO.getProductPrice() <= 0 || productDTO.getProductDescription() == null ||
                 productDTO.getProductPhoto().isEmpty()) {
             model.addAttribute("insertError", "모든 필드를 채워야 합니다.");
@@ -128,21 +129,33 @@ public class AdminController {
         }
 
         // 중복 확인
-        boolean isDuplicated = productService.checkIdDuplicated(productDTO.getSerialNumber());
+        /*boolean isDuplicated = productService.checkIdDuplicated(productDTO.getSerialNumber());
         if (isDuplicated) {
             model.addAttribute("numberError", "상품 번호가 이미 있습니다");
             model.addAttribute("numberFailed", true);
             return "admin/product_insert";
-        } else {
+        } else {*/
             // 파일 저장
             MultipartFile file = productDTO.getProductPhoto();
             if (!file.isEmpty()) {
                 try {
                     String uploadDir = getUploadDir();
-                    byte[] bytes = file.getBytes();
-                    Path path = Paths.get(uploadDir, file.getOriginalFilename());
-                    Files.write(path, bytes);
-                    productDTO.setPhotoFileName(file.getOriginalFilename());
+                    File dir = new File(uploadDir);
+                    if (!dir.exists()) {
+                        dir.mkdirs(); // 디렉토리 생성
+                    }
+                    // 파일 이름 및 경로 설정
+                    String originalFilename = file.getOriginalFilename();
+                    String uniqueFileName = System.currentTimeMillis() + "_" + originalFilename; // 고유 파일 이름 생성
+                    Path path = Paths.get(uploadDir, uniqueFileName);
+
+                    // 파일 저장
+                    file.transferTo(path.toFile()); // 파일 저장
+
+                    // 이미지 URL 설정
+                    String imageUrl = "/uploads/" + originalFilename; // 웹 서버에서 접근할 수 있는 경로
+                    productDTO.setImageUrl(imageUrl); // 이미지 URL 설정
+                    productDTO.setPhotoFileName(originalFilename); // 원래 파일 이름 설정
                 } catch (IOException e) {
                     e.printStackTrace();
                     model.addAttribute("fileUploadError", "파일 업로드 실패");
@@ -153,13 +166,14 @@ public class AdminController {
             productService.saveProduct(productDTO);
             redirectAttributes.addFlashAttribute("insertSuccess", "상품 등록이 성공적으로 완료되었습니다.");
             return "redirect:/admin/productCheck";
-        }
+        //}
     }
 
     /*상품별 상품 수정, 삭제 페이지 이동 로직*/
     @GetMapping("/admin/productUpdate/{id}")
     public String productUpdateForm(@PathVariable("id") String serialNumber, Model model){
         ProductDTO productDTO = productService.findById(serialNumber);
+        System.out.println("Photo File Name: " + productDTO.getPhotoFileName());
         model.addAttribute("product", productDTO);
         return "admin/product_update";
     }

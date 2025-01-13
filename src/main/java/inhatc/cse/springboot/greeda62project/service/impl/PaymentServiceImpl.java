@@ -145,6 +145,7 @@ public class PaymentServiceImpl implements PaymentService {
                 dto.setQuantity(orderItem.getQuantity());
                 dto.setAmount(order.getPayment().getAmount());
                 dto.setPaymentDate(order.getPayment().getPaymentDate());
+                dto.setPhotoFileName(orderItem.getProduct().getPhotoFileName());
                 orderInfoDTOs.add(dto);
             }
         }

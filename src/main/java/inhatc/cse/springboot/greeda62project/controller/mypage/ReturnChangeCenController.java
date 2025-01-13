@@ -1,7 +1,9 @@
 package inhatc.cse.springboot.greeda62project.controller.mypage;
 
 import inhatc.cse.springboot.greeda62project.dto.OrderInfoDTO;
+import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
 import inhatc.cse.springboot.greeda62project.service.PaymentService;
+import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
