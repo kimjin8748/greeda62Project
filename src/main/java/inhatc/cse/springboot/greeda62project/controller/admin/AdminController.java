@@ -128,45 +128,37 @@ public class AdminController {
             return "admin/product_insert";
         }
 
-        // 중복 확인
-        /*boolean isDuplicated = productService.checkIdDuplicated(productDTO.getSerialNumber());
-        if (isDuplicated) {
-            model.addAttribute("numberError", "상품 번호가 이미 있습니다");
-            model.addAttribute("numberFailed", true);
-            return "admin/product_insert";
-        } else {*/
-            // 파일 저장
-            MultipartFile file = productDTO.getProductPhoto();
-            if (!file.isEmpty()) {
-                try {
-                    String uploadDir = getUploadDir();
-                    File dir = new File(uploadDir);
-                    if (!dir.exists()) {
-                        dir.mkdirs(); // 디렉토리 생성
-                    }
-                    // 파일 이름 및 경로 설정
-                    String originalFilename = file.getOriginalFilename();
-                    String uniqueFileName = System.currentTimeMillis() + "_" + originalFilename; // 고유 파일 이름 생성
-                    Path path = Paths.get(uploadDir, uniqueFileName);
-
-                    // 파일 저장
-                    file.transferTo(path.toFile()); // 파일 저장
-
-                    // 이미지 URL 설정
-                    String imageUrl = "/uploads/" + originalFilename; // 웹 서버에서 접근할 수 있는 경로
-                    productDTO.setImageUrl(imageUrl); // 이미지 URL 설정
-                    productDTO.setPhotoFileName(originalFilename); // 원래 파일 이름 설정
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    model.addAttribute("fileUploadError", "파일 업로드 실패");
-                    return "admin/product_insert";
+        // 파일 저장
+        MultipartFile file = productDTO.getProductPhoto();
+        if (!file.isEmpty()) {
+            try {
+                String uploadDir = getUploadDir();
+                File dir = new File(uploadDir);
+                if (!dir.exists()) {
+                    dir.mkdirs(); // 디렉토리 생성
                 }
+                // 파일 이름 및 경로 설정
+                String originalFilename = file.getOriginalFilename();
+                Path path = Paths.get(uploadDir, originalFilename);
+
+                // 파일 저장
+                file.transferTo(path.toFile()); // 파일 저장
+
+                // 이미지 URL 설정
+                String imageUrl = "/uploads/" + originalFilename; // 웹 서버에서 접근할 수 있는 경로
+                productDTO.setImageUrl(imageUrl); // 이미지 URL 설정
+                productDTO.setPhotoFileName(originalFilename); // 원래 파일 이름 설정
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("fileUploadError", "파일 업로드 실패");
+                return "admin/product_insert";
             }
-            // 상품 저장
-            productService.saveProduct(productDTO);
-            redirectAttributes.addFlashAttribute("insertSuccess", "상품 등록이 성공적으로 완료되었습니다.");
-            return "redirect:/admin/productCheck";
-        //}
+        }
+        // 상품 저장
+        productService.saveProduct(productDTO);
+        redirectAttributes.addFlashAttribute("insertSuccess", "상품 등록이 성공적으로 완료되었습니다.");
+        return "redirect:/admin/productCheck";
+
     }
 
     /*상품별 상품 수정, 삭제 페이지 이동 로직*/

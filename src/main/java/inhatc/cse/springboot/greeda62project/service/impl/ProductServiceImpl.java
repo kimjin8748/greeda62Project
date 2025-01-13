@@ -211,10 +211,13 @@ public class ProductServiceImpl implements ProductService {
         switch (productType) { //타입별로 가장 높은 ID 가져오기
             case "SUC":
                 latestId = productRepository.findLatestSUCId();
+                break;
             case "POT":
                 latestId = productRepository.findLatestPOTId();
+                break;
             case "SET":
                 latestId = productRepository.findLatestSETId();
+                break;
         }
 
         if(latestId != null && latestId.startsWith(productType)) {
