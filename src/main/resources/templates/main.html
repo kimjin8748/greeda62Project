@@ -24,7 +24,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border: 1px solid #000">
             <div class="container px-4 px-lg-5">
-                <a href="/" ><img src="/images/로고사진.png"></a>
+                <a href="/" ><img src="/uploads/로고사진.png"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -65,7 +65,8 @@
             </div>
         </nav>
         <!-- Header-->
-        <header class="bg-dark py-5" style="background-image: url('/images/SUC-132.jpg'); background-size: cover; background-position: center; height: 600px;" th:classappend="${keyword} ? 'd-none' : ''">
+        <header class="bg-dark py-5" th:style="'background-image: url(/uploads/SUC-132.jpg); background-size: cover; background-position: center; height: 600px;'"
+                th:classappend="${keyword} != null and ${keyword} != '' ? 'd-none' : ''">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-white">
                     <h1>그린다육이에 오신것을 환영합니다!</h1>
