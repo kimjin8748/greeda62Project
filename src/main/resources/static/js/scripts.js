@@ -68,39 +68,34 @@ function calculateTotal1() {
     document.getElementById('total-price1').innerText = totalProductPrice + '원'; // 총 가격 표시 업데이트
 }
 
-/*delete인지 update인지 확인하는 로직*/
-function submitForm2(actionType) {
-    // 회원 탈퇴인 경우
+/*상품 수정, 삭제 확인 로직*/
+function productSubmitForm(actionType) {
     if (actionType === 'delete') {
         // confirm 창을 통해 사용자에게 삭제 의사를 확인
-        var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");
-        if (confirmDelete) {
-            // 사용자가 '확인'을 누른 경우 폼 제출
+        alert("question", "확인", "정말로 상품을 삭제하시겠습니까?", function (){
             document.getElementById('actionField').value = 'delete';
             document.getElementById('productForm').submit();
-        }
+        }, function (){});
     } else if (actionType === 'update') {
-        // 회원 정보 수정인 경우 바로 폼 제출
-        document.getElementById('actionField').value = 'update';
-        document.getElementById('productForm').submit();
+        alert("question", "확인", "정말로 상품을 수정하시겠습니까?", function (){
+            document.getElementById('actionField').value = 'update';
+            document.getElementById('productForm').submit();
+        }, function () {});
     }
 }
 
-/*delete인지 update인지 확인하는 로직*/
-function submitForm3(actionType) {
-    // 회원 탈퇴인 경우
+/*문의글 수정, 삭제 확인 로직*/
+function boardSubmitForm(actionType) {
     if (actionType === 'delete') {
-        // confirm 창을 통해 사용자에게 삭제 의사를 확인
-        var confirmDelete = confirm("정말로 게시글을 삭제하시겠습니까?");
-        if (confirmDelete) {
-            // 사용자가 '확인'을 누른 경우 폼 제출
+        alert("question", "확인", "정말로 게시글을 삭제하시겠습니까?", function (){
             document.getElementById('actionField').value = 'delete';
-            document.getElementById('productForm').submit();
-        }
+            document.getElementById('boardForm').submit();
+        }, function (){});
     } else if (actionType === 'update') {
-        // 회원 정보 수정인 경우 바로 폼 제출
-        document.getElementById('actionField').value = 'update';
-        document.getElementById('productForm').submit();
+        alert("question", "확인", "정말로 게시글을 수정하시겠습니까?", function (){
+            document.getElementById('actionField').value = 'update';
+            document.getElementById('boardForm').submit();
+        }, function (){});
     }
 }
 
@@ -271,7 +266,7 @@ function alert(icon, title, text, confirmCallback, cancelCallback) {
         customClass: {
             container: 'custom-alert-container' // 변경된 클래스
         }
-    }).then(function(result) {
+    }).then(function (result) {
         if (result.isConfirmed) { // 확인 시
             if (confirmCallback !== undefined) confirmCallback();
             return true;

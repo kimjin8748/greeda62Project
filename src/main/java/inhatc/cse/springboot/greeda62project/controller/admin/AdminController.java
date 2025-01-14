@@ -10,6 +10,7 @@ import inhatc.cse.springboot.greeda62project.service.BoardService;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -165,7 +166,6 @@ public class AdminController {
     @GetMapping("/admin/productUpdate/{id}")
     public String productUpdateForm(@PathVariable("id") String serialNumber, Model model){
         ProductDTO productDTO = productService.findById(serialNumber);
-        System.out.println("Photo File Name: " + productDTO.getPhotoFileName());
         model.addAttribute("product", productDTO);
         return "admin/product_update";
     }
@@ -173,7 +173,6 @@ public class AdminController {
     /*상품 수정, 삭제 로직*/
     @PostMapping("/admin/productUpdate")
     public String updateProduct(@RequestParam("action") String action, ProductDTO productDTO, RedirectAttributes redirectAttributes) {
-
         if("update".equals(action)) {
             boolean updateResult = productService.updateProduct(productDTO);
             if (updateResult) {

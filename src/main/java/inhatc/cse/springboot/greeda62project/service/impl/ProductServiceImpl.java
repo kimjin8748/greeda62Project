@@ -7,6 +7,7 @@ import inhatc.cse.springboot.greeda62project.repository.ProductRepository;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /*상품 정보 처리 Service 메소드 구현*/
@@ -165,6 +167,7 @@ public class ProductServiceImpl implements ProductService {
 
     /*상품 삭제 Service 로직*/
     @Override
+    @Transactional
     public boolean deleteProduct(ProductDTO productDTO) {
         try {
             ProductEntity productEntity = productRepository.findById(productDTO.getSerialNumber())
@@ -174,7 +177,7 @@ public class ProductServiceImpl implements ProductService {
 
             return true;
         } catch (Exception e) {
-            // 예외가 발생하면 false를 반환합니다.
+            System.out.println("상품 삭제중 오류 발생" + e);
             return false;
         }
     }

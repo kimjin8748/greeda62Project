@@ -14,6 +14,9 @@
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/member_styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <!--sweetalert2 css, js-->
+    <link rel="stylesheet" href="/js/sweetalert2/sweetalert2.min.css">
+    <script src="/js/sweetalert2/sweetalert2.all.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border: 1px solid #000">
@@ -37,12 +40,13 @@
 
     <div>
         <form action="/admin/productUpdate" id="productForm" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" id="actionField" value="update">
             <table class="table table-bordered" style="width: 600px;">
                 <h3>상품수정 및 삭제</h3>
                 <br>
                 <tr>
                     <td style="width: 150px; background-color: #d2c9ff;">상품번호</td>
-                    <td><input type="text" name="serialNumber" class="form-control" style="width: 200px;" required="required" th:value="${product.serialNumber}" readonly> </td>
+                    <td><input type="text" name="serialNumber" class="form-control" style="width: 200px; background-color: #f0f0f0;" required="required" th:value="${product.serialNumber}" readonly> </td>
                 </tr>
                 <tr>
                     <td style="width: 150px; background-color: #d2c9ff;">상품명</td>
@@ -66,8 +70,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="submit" class="btn btn-info" name="action" value="update" onclick="submitForm2('update')" style="width: 100px;">상품수정</button>
-                        <button type="submit" class="btn btn-info" name="action" value="delete" onclick="submitForm2('delete')" style="width: 100px;">상품삭제</button>
+                        <button type="button" class="btn btn-info" name="action" value="update" onclick="productSubmitForm('update')" style="width: 100px;">상품수정</button>
+                        <button type="button" class="btn btn-info" name="action" value="delete" onclick="productSubmitForm('delete')" style="width: 100px;">상품삭제</button>
                         <button type="button" class="btn btn-info" style="width: 100px;" onclick="location.href='/admin/productCheck'">돌아가기</button>
 
                     </td>

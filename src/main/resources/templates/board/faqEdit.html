@@ -14,6 +14,9 @@
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/member_styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <!--sweetalert2 css, js-->
+    <link rel="stylesheet" href="/js/sweetalert2/sweetalert2.min.css">
+    <script src="/js/sweetalert2/sweetalert2.all.min.js"></script>
 </head>
 <body>
 <!-- Responsive navbar-->
@@ -64,9 +67,10 @@
 <section class="table" th:each="board : ${boards}">
     <!-- board list area -->
     <form class="container" action="/faq/update" id="boardForm" method="post">
+        <input type="hidden" name="action" id="actionField" value="update">
         <div class="mb-3">
             <label class="form-Label">작성자</label>
-            <input type="text" class="form-control" name="member" th:value="${board.member.id}" readonly>
+            <input type="text" class="form-control" name="member" style="background-color: #f0f0f0;" th:value="${board.member.id}" readonly>
             <input type="hidden" name="member" th:value="${board.member.id}">
         </div>
         <div class="mb-3">
@@ -77,8 +81,8 @@
             <label class="form-label">내용</label>
             <textarea class="form-control" rows="3" name="boardText" th:text="${board.boardText}"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" name="action" value="update" onclick="submitForm3('update')">글 수정하기</button>
-        <button type="submit" class="btn btn-primary" name="action" value="delete" onclick="submitForm3('delete')">글 삭제하기</button>
+        <button type="button" class="btn btn-primary" name="action" value="update" onclick="boardSubmitForm('update')">글 수정하기</button>
+        <button type="button" class="btn btn-primary" name="action" value="delete" onclick="boardSubmitForm('delete')">글 삭제하기</button>
         <button type="button" class="btn btn-primary" onclick="window.location.href='/faq'">목록보기</button>
         <br>
         <div class="mb-3">
