@@ -4,7 +4,9 @@ import inhatc.cse.springboot.greeda62project.dto.*;
 import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /*상품 정보 처리 Service 메소드 선언*/
@@ -26,10 +28,10 @@ public interface ProductService {
     boolean checkIdDuplicated(String serialNumber);
 
     /*상품 등록 Service 로직*/
-    ProductDTO saveProduct(ProductDTO productDTO);
+    void saveProduct(ProductDTO productDTO, List<MultipartFile> productPhotos) throws IOException;
 
     /*상품 수정 Service 로직*/
-    boolean updateProduct(ProductDTO productDTO);
+    boolean updateProduct(ProductDTO productDTO, List<MultipartFile> productPhotos);
 
     /*상품 삭제 Service 로직*/
     boolean deleteProduct(ProductDTO productDTO);

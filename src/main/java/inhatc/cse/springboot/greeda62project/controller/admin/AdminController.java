@@ -3,17 +3,11 @@ package inhatc.cse.springboot.greeda62project.controller.admin;
 import inhatc.cse.springboot.greeda62project.dto.BoardDTO;
 import inhatc.cse.springboot.greeda62project.dto.MemberDTO;
 import inhatc.cse.springboot.greeda62project.dto.ProductDTO;
-import inhatc.cse.springboot.greeda62project.entity.BoardEntity;
-import inhatc.cse.springboot.greeda62project.entity.MemberEntity;
-import inhatc.cse.springboot.greeda62project.entity.ProductEntity;
 import inhatc.cse.springboot.greeda62project.service.BoardService;
 import inhatc.cse.springboot.greeda62project.service.MemberService;
 import inhatc.cse.springboot.greeda62project.service.ProductService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +24,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,13 +32,6 @@ public class AdminController {
     private final ProductService productService;
     private final MemberService memberService;
     private final BoardService boardService;
-
-    @Autowired
-    private Environment env;
-
-    private String getUploadDir() {
-        return env.getProperty("upload.path");
-    }
 
     /*관리자 페이지 이동 로직*/
     @GetMapping("/admin")
@@ -118,46 +104,28 @@ public class AdminController {
 
     /*상품 등록 로직*/
     @PostMapping("/admin/productInsert")
-    public String productInsert(@ModelAttribute ProductDTO productDTO, Model model, RedirectAttributes redirectAttributes) {
+    public String productInsert(@ModelAttribute ProductDTO productDTO,
+                                @RequestParam("productPhotos") List<MultipartFile> productPhotos,
+                                Model model, RedirectAttributes redirectAttributes) {
         productDTO.setSerialNumber("null");
         // 필드 검증
         if (productDTO.getProductType() == null || productDTO.getProductName() == null || productDTO.getProductSize() == null ||
                 productDTO.getProductPrice() <= 0 || productDTO.getProductDescription() == null ||
-                productDTO.getProductPhoto().isEmpty()) {
+                productPhotos.isEmpty()) {
             model.addAttribute("insertError", "모든 필드를 채워야 합니다.");
             model.addAttribute("insertFailed", true);
             return "admin/product_insert";
         }
 
-        // 파일 저장
-        MultipartFile file = productDTO.getProductPhoto();
-        if (!file.isEmpty()) {
-            try {
-                String uploadDir = getUploadDir();
-                File dir = new File(uploadDir);
-                if (!dir.exists()) {
-                    dir.mkdirs(); // 디렉토리 생성
-                }
-                // 파일 이름 및 경로 설정
-                String originalFilename = file.getOriginalFilename();
-                Path path = Paths.get(uploadDir, originalFilename);
-
-                // 파일 저장
-                file.transferTo(path.toFile()); // 파일 저장
-
-                // 이미지 URL 설정
-                String imageUrl = "/uploads/" + originalFilename; // 웹 서버에서 접근할 수 있는 경로
-                productDTO.setImageUrl(imageUrl); // 이미지 URL 설정
-                productDTO.setPhotoFileName(originalFilename); // 원래 파일 이름 설정
-            } catch (IOException e) {
-                e.printStackTrace();
-                model.addAttribute("fileUploadError", "파일 업로드 실패");
-                return "admin/product_insert";
-            }
+        // 파일 저장 및 상품 등록 서비스 호출
+        try {
+            productService.saveProduct(productDTO, productPhotos);
+            redirectAttributes.addFlashAttribute("insertSuccess", "상품 등록이 성공적으로 완료되었습니다.");
+        } catch (Exception e) {
+            model.addAttribute("fileUploadError", "파일 업로드 중 오류가 발생했습니다.");
+            return "admin/product_insert";
         }
-        // 상품 저장
-        productService.saveProduct(productDTO);
-        redirectAttributes.addFlashAttribute("insertSuccess", "상품 등록이 성공적으로 완료되었습니다.");
+
         return "redirect:/admin/productCheck";
 
     }
@@ -172,9 +140,12 @@ public class AdminController {
 
     /*상품 수정, 삭제 로직*/
     @PostMapping("/admin/productUpdate")
-    public String updateProduct(@RequestParam("action") String action, ProductDTO productDTO, RedirectAttributes redirectAttributes) {
+    public String updateProduct(@RequestParam("action") String action,
+                                ProductDTO productDTO,
+                                @RequestParam("productPhotos") List<MultipartFile> productPhotos,
+                                RedirectAttributes redirectAttributes) {
         if("update".equals(action)) {
-            boolean updateResult = productService.updateProduct(productDTO);
+            boolean updateResult = productService.updateProduct(productDTO, productPhotos);
             if (updateResult) {
                 redirectAttributes.addFlashAttribute("updateSuccess", "상품 정보가 성공적으로 수정되었습니다.");
             } else {

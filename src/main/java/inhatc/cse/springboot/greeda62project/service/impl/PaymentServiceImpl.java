@@ -35,6 +35,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final OrderItemRepository orderItemRepository;
     private final MemberRepository memberRepository;
     private final CartItemRepository cartItemRepository;
+    private final ProductImageRepository productImageRepository;
 
     private final String apiKey = "8356314041132171";
 
@@ -133,10 +134,11 @@ public class PaymentServiceImpl implements PaymentService {
     public List<OrderInfoDTO> getOrdersByCurrentLoggedInUser(HttpSession session) {
         String memberId = (String) session.getAttribute("id");
         List<OrderEntity> orders = orderRepository.findByMemberId(memberId);
-
         List<OrderInfoDTO> orderInfoDTOs = new ArrayList<>();
         for (OrderEntity order : orders) {
             for (OrderItemEntity orderItem : order.getOrderItems()) {
+                ProductImageEntity productImageEntity = productImageRepository.findByProduct_SerialNumberAndIsMain(orderItem.getProduct().getSerialNumber(), true);
+                System.out.println(productImageEntity.getPhotoFileName());
                 OrderInfoDTO dto = new OrderInfoDTO();
                 dto.setPaymentId(order.getPayment().getPaymentId());
                 dto.setSerialNumber(orderItem.getProduct().getSerialNumber());
@@ -145,7 +147,7 @@ public class PaymentServiceImpl implements PaymentService {
                 dto.setQuantity(orderItem.getQuantity());
                 dto.setAmount(order.getPayment().getAmount());
                 dto.setPaymentDate(order.getPayment().getPaymentDate());
-                dto.setPhotoFileName(orderItem.getProduct().getPhotoFileName());
+                dto.setPhotoFileName(productImageEntity.getPhotoFileName());
                 orderInfoDTOs.add(dto);
             }
         }

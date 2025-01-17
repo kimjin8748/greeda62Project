@@ -19,9 +19,8 @@ public class ProductDTO {
     private String productSize;
     private int productPrice;
     private String productDescription;
-    private MultipartFile productPhoto; // 파일 업로드 처리 위한 필드
-    private String photoFileName;
     private String imageUrl;
+    private String photoFileName;
 
     public ProductDTO(String serialNumber, String productName, String productSize, int productPrice, String productDescription, String imageUrl, String photoFileName) {
         this.serialNumber = serialNumber;
@@ -33,15 +32,15 @@ public class ProductDTO {
         this.photoFileName = photoFileName;
     }
 
-    public static ProductDTO toProductDTO(ProductEntity productEntity) {
+    public static ProductDTO toProductDTO(ProductEntity productEntity, String imageUrlm, String photoFileName) {
         ProductDTO dto = new ProductDTO();
         dto.setSerialNumber(productEntity.getSerialNumber());
         dto.setProductName(productEntity.getProductName());
         dto.setProductSize(productEntity.getProductSize());
         dto.setProductPrice(productEntity.getProductPrice());
         dto.setProductDescription(productEntity.getProductDescription());
-        dto.setImageUrl(productEntity.getImageUrl());
-        dto.setPhotoFileName(productEntity.getPhotoFileName());
+        dto.setImageUrl(imageUrlm);
+        dto.setPhotoFileName(photoFileName);
         return dto;
     }
 

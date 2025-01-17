@@ -3,6 +3,7 @@ package inhatc.cse.springboot.greeda62project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*모든 상품 정보 Entity*/
@@ -22,20 +23,19 @@ public abstract class ProductEntity {
     private String productSize;
     private int productPrice;
     private String productDescription;
-    private String imageUrl;
-    private String photoFileName;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImageEntity> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
     private List<OrderItemEntity> orderItems;
 
-    public ProductEntity(String serialNumber, String productName, String productSize, int productPrice, String productDescription, String imageUrl, String photoFileName) {
+    public ProductEntity(String serialNumber, String productName, String productSize, int productPrice, String productDescription) {
         this.serialNumber = serialNumber;
         this.productName = productName;
         this.productSize = productSize;
         this.productPrice = productPrice;
         this.productDescription = productDescription;
-        this.imageUrl = imageUrl;
-        this.photoFileName = photoFileName;
     }
 
     public static String generateId(String prefix, int sequence) {

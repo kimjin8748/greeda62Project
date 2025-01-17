@@ -65,8 +65,14 @@
                     <td><input type="text" name="productPrice" class="form-control" style="width: 200px;" required="required" th:value="${product.productPrice}"> </td>
                 </tr>
                 <tr>
-                    <td style="width: 150px; background-color: #d2c9ff;">상품이미지</td>
-                    <td class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{'/uploads/' + ${product.photoFileName}}" alt="Product Image" /></td>
+                    <td style="width: 150px; background-color: #d2c9ff;">상품이미지 <br>
+                        <span style="font-size: 12px;">* 기존 이미지를 삭제하고 새 이미지를 업로드 할 수 있습니다.</span>
+                    </td>
+                    <td class="col-md-6">
+                        <img class="card-img-top mb-5 mb-md-0" th:src="@{'/uploads/' + ${product.photoFileName}}" alt="Product Image" />
+                        <br><br>
+                        <input type="file" name="productPhotos" class="form-control" style="width: 300px;" multiple required="required">
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
